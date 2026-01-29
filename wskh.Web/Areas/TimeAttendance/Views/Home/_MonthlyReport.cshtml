@@ -1,0 +1,350 @@
+﻿@{
+    DateTime dtNow = DateTime.Now;
+    var persianDate = wskh.WebEssentials.DateAndTime.DateTimeHelper.TopersianDate(dtNow);
+    int currentYear = int.Parse(persianDate.Split('/')[0]);
+    int currentMonth = int.Parse(persianDate.Split('/')[1]);
+    int lastMonth = 1;
+    if (currentMonth == 1)
+    {
+        lastMonth = 12;
+        currentYear = currentYear - 1;
+    }
+    else
+    {
+        lastMonth = currentMonth - 1;
+    }
+
+
+    DateTime lastMonthStart = wskh.WebEssentials.DateAndTime.DateTimeHelper.ToGeoDate($"{currentYear}/{lastMonth}/01").GetValueOrDefault();
+    DateTime lastMonthend = lastMonthStart.AddMonths(1).AddDays(-1);
+
+    var _requestService = DependencyResolver.Current.GetService<wskh.Service.IRequestService>();
+    var list = new List<TimeAttendance.Core.Request>();
+
+    try
+    {
+        list = _requestService.GetList;
+        list = list.Where(x => x.State == wskh.Core.Enumerator.RequestState.Approved).ToList();
+        list = list.Where(x => x.StartDate.Date >= lastMonthStart.Date && x.EndDate.Date <= lastMonthend.Date).ToList();
+        list = list.OrderBy(x => x.UserRequesterId).ToList();
+    }
+    catch (Exception)
+    {
+
+    }
+
+    var dailyAbsenceList = new List<TimeAttendance.Core.Request>();
+    var hourlyAbsenceList = new List<TimeAttendance.Core.Request>();
+    var dailyMissionList = new List<TimeAttendance.Core.Request>();
+    var hourlyMissionList = new List<TimeAttendance.Core.Request>();
+
+    string mostDailyAnsence = null;
+    string leastDailyAnsence = null;
+
+    string mostHourlyAnsence = null;
+    string leastHourlyAnsence = null;
+
+    string mostDailyMission = null;
+    string leastDailyMission = null;
+
+    string mostHourlyMission = null;
+    string leastHourlyMission = null;
+
+    if (list != null && list.Count() > 0)
+    {
+        try
+        {
+            dailyAbsenceList = list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.DailyRest).ToList();
+            mostDailyAnsence = dailyAbsenceList.GroupBy(q => q.UserRequesterId)
+                                    .OrderByDescending(gp => gp.Count())
+                                    .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+            leastDailyAnsence = dailyAbsenceList.GroupBy(q => q.UserRequesterId)
+                                    .OrderBy(gp => gp.Count())
+                                   .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+        }
+        catch (Exception)
+        {
+        }
+
+        try
+        {
+            hourlyAbsenceList = list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.HourlyRest).ToList();
+            mostHourlyAnsence = hourlyAbsenceList.GroupBy(q => q.UserRequesterId)
+                                    .OrderByDescending(gp => gp.Count())
+                                    .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+            leastHourlyAnsence = hourlyAbsenceList.GroupBy(q => q.UserRequesterId)
+                                    .OrderBy(gp => gp.Count())
+                                    .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+        }
+        catch (Exception)
+        {
+        }
+
+        try
+        {
+            dailyMissionList = list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionDaily).ToList();
+            mostDailyMission = dailyMissionList.GroupBy(q => q.UserRequesterId)
+                                    .OrderByDescending(gp => gp.Count())
+                                    .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+            leastDailyMission = dailyMissionList.GroupBy(q => q.UserRequesterId)
+                                    .OrderBy(gp => gp.Count())
+                                    .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+        }
+        catch (Exception)
+        {
+        }
+
+        try
+        {
+            hourlyMissionList = list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionHourly).ToList();
+            mostHourlyMission = hourlyMissionList.GroupBy(q => q.UserRequesterId)
+                           .OrderByDescending(gp => gp.Count())
+                           .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+            leastHourlyMission = hourlyMissionList.GroupBy(q => q.UserRequesterId)
+                                    .OrderBy(gp => gp.Count())
+                                    .Take(1)
+                                    .Select(g => g.Key)
+                                    .FirstOrDefault();
+        }
+        catch (Exception)
+        {
+        }
+    }
+
+}
+
+
+
+
+
+<div class="col-sm-6">
+    <div class="card card-topline-red">
+        <div class="card-head">
+            <header> بیشترین ها در ماه گذشته </header>
+        </div>
+        <div class="card-body ">
+            <div class="table table-striped table-hover">
+                <div class="table-scrollable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4">
+                                    بیشترین تعداد
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="width:10%">
+                                    ردیف
+                                </th>
+                                <th style="width:40%">
+                                    عنوان
+                                </th>
+                                <th style="width:30%">
+                                    نام و نام خانوادگی
+                                </th>
+                                <th style="width:10%">
+                                    تعداد
+                                </th>
+                                <th style="width:10%">
+                                    روز
+                                </th>
+                                <th style="width:10%">
+                                    ساعت
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>مرخصی روزانه</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(mostDailyAnsence))
+                                </td>
+                                <td>
+                                    @(dailyAbsenceList.Where(x => x.UserRequesterId == mostDailyAnsence).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>مرخضی ساعتی</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(mostHourlyAnsence))
+                                </td>
+                                <td>
+                                    @(hourlyAbsenceList.Where(x => x.UserRequesterId == mostHourlyAnsence).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ماموریت روزانه</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(mostDailyMission))
+                                </td>
+                                <td>
+                                    @(dailyMissionList.Where(x => x.UserRequesterId == mostDailyMission).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ماموریت ساعتی</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(mostHourlyMission))
+                                </td>
+                                <td>
+                                    @(hourlyMissionList.Where(x => x.UserRequesterId == mostHourlyMission).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <div class="card card-topline-green">
+        <div class="card-head">
+            <header> کمترین ها در ماه گذشته </header>
+        </div>
+        <div class="card-body ">
+            <div class="table table-striped table-hover">
+                <div class="table-scrollable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4">
+                                    کمترین تعداد
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="width:10%">
+                                    ردیف
+                                </th>
+                                <th style="width:40%">
+                                    عنوان
+                                </th>
+                                <th style="width:30%">
+                                    نام و نام خانوادگی
+                                </th>
+                                <th style="width:10%">
+                                    تعداد
+                                </th>
+                                <th style="width:10%">
+                                    روز
+                                </th>
+                                <th style="width:10%">
+                                    ساعت
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>مرخصی روزانه</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(leastDailyAnsence))
+                                </td>
+                                <td>
+                                    @(dailyAbsenceList.Where(x => x.UserRequesterId == leastDailyAnsence).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>مرخضی ساعتی</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(leastHourlyAnsence))
+                                </td>
+                                <td>
+                                    @(hourlyAbsenceList.Where(x => x.UserRequesterId == leastHourlyAnsence).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ماموریت روزانه</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(leastDailyMission))
+                                </td>
+                                <td>
+                                    @(dailyMissionList.Where(x => x.UserRequesterId == leastDailyMission).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ماموریت ساعتی</td>
+                                <td>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(leastHourlyMission))
+                                </td>
+                                <td>
+                                    @(hourlyMissionList.Where(x => x.UserRequesterId == leastHourlyMission).ToList().Count())
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

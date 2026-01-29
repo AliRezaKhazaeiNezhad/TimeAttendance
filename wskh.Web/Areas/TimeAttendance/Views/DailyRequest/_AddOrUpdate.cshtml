@@ -1,0 +1,88 @@
+﻿@model TimeAttendance.Model.DailyRequestCRUDModel
+@{
+    Layout = null;
+}
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger w100">
+        @(Model.Error)
+    </div>
+}
+
+
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.UserId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.UserId, Model.UsersList, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserId, null, new { @class = "validation" })
+</div>
+
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.StartDate, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control", MaxLength = "75" })
+    @Html.ValidationMessageFor(x => x.StartDate, null, new { @class = "validation" })
+</div>
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.EndDate, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control", MaxLength = "75" })
+    @Html.ValidationMessageFor(x => x.EndDate, null, new { @class = "validation" })
+</div>
+
+
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.LeaveTypeId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.LeaveTypeId, Model.LeaveTypeList, new { @class = "form-control", onchange = "showDetail()" })
+    @Html.ValidationMessageFor(x => x.LeaveTypeId, null, new { @class = "validation" })
+</div>
+
+<button type="button" onclick="Check()" id="checkBTN" class="btn btn-warning btn-sm pull-left" >بررسی</button>
+<button type="submit" onclick="AddLoading()" id="submitBTN" class="btn btn-success btn-sm pull-left hide">ثبت / ویرایش</button>
+
+
+
+<script src="~/wwwroot/componenets/persiancalendar/js-persian-cal.min.js"></script>
+<script type="text/javascript">
+    var objCal1 = new AMIB.persianCalendar('StartDate');
+    var objCal2 = new AMIB.persianCalendar('EndDate');
+</script>
+<script>
+    function Check() {
+        AddLoading();
+
+        var $userId = $("#UserId").val();
+        var $leaveTypeId = $("#LeaveTypeId").val();
+        var $startDate = $("#StartDate").val();
+        var $endDate = $("#EndDate").val();
+
+        if ($leaveTypeId.length <= 0 || $startDate.length <= 0 || $endDate.length <= 0) {
+            Message(1, "فیلدهای ضروری را تکمیل نمایید");
+        }
+        else {
+            $.ajax({
+                url: "/TimeAttendance/DailyRequest/Report",
+                data: {
+                    userId: $userId,
+                    leaveTypeId: $leaveTypeId,
+                    startDate: $startDate,
+                    endDate: $endDate
+                },
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#Report-Part").html(data);
+                    $("#submitBTN").removeClass('hide');
+                    $("#checkBTN").addClass('hide');
+                    ReomveLoading();
+                }
+            });
+        }
+    }
+</script>

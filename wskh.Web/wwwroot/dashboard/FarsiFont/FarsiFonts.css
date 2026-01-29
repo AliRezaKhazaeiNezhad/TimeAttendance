@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Farsi';
+    src: url('IRANSansWeb(FaNum)_Medium.eot') format('embedded-opentype'), url('IRANSansWeb(FaNum)_Medium.ttf') format('truetype'), url('IRANSansWeb(FaNum)_Medium.woff') format('woff'), url('IRANSansWeb(FaNum)_Medium.woff2') format('woff2');
+}
+
+textarea,
+select,
+input,
+div,
+p,
+a,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+center,
+.dropdown-item,
+row {
+    font-family: Farsi !important;
+}
+
+span
+row {
+    font-family: Farsi;
+}

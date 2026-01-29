@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "گزارشات | گزارش خام تردد";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    جستجو
+                </header>
+            </div>
+            <div class="card-body " id="Search-Part">
+                @Html.Action("Search", "TradeReport", new { groupId = 0, userId = "", startDate = "", endMonth = "", tradeTypeId = 0 })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="HiddenPart" >
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part" style="direction:rtl !important;">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#UserGroupId").select2();
+            $("#UserId").select2();
+            $("#TradeTypeId").select2();
+        });
+    </script>
+    <script>
+        function SelectUsers() {
+            $.ajax({
+                url: "/TimeAttendance/TradeReport/GetDrop?usergroupId=" + $("#UserGroupId").val(),
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#UserId").html(data);
+                }
+            });
+        }
+
+        function List() {
+            $.ajax({
+                url: "/TimeAttendance/TradeReport/ListIndex",
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#Grid-Part").html(data);
+                    ReomveLoading();
+                }
+            });
+        }
+
+        function AddTrades() {
+            var $enteranceTime = $("#EnteranceTime").val();
+            var $exitTime = $("#ExitTime").val();
+            var $reportDayId = $("#ReportDayId").val();
+            var $userId = $("#UserIds").val();
+
+            $.ajax({
+                url: '/TimeAttendance/TradeReport/CheckTimes',
+                data: {
+                    enteranceTime: $enteranceTime,
+                    exitTime: $exitTime
+                },
+                type: 'Get',
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        $.ajax({
+                            url: '/TimeAttendance/TradeReport/AddRowToUser',
+                            data: {
+                                reportDayId: $reportDayId,
+                                userId: $userId,
+                                enteranceTime: $enteranceTime,
+                                exitTime: $exitTime
+                            },
+                            type: 'Post',
+                            dataType: "html",
+                            success: function (data2) {
+                                if (data2) {
+                                    Message(0, "عملیات با موفقیت انجام شد");
+                                    HideBootbox();
+                                }
+                                else {
+                                    Message(1, "خطایی رخ داده است، در فرصتی دیگر تلاش نمایید");
+                                }
+                                $('#Grid').DataTable().ajax.reload();
+                            }
+                        });
+                    }
+                    else {
+                        Message(1, "زمان پایان باید بزرگتر از زمان شروع باشد");
+                    }
+                }
+            });
+        }
+
+        function PrintPDF() {
+            var $userGroupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+            var $startDate = $("#StartDate").val();
+            var $endDate = $("#EndDate").val();
+            var $tradeTypeId = 0;
+
+            var url = "/TimeAttendance/StimulReport/TradeReportIndex?userGroupId=" + $userGroupId + "&userId=" + $userId + "&startDate=" + $startDate + "&endDate=" + $endDate + "&tradeTypeId=" + $tradeTypeId;
+            window.open(url, '_blank');
+        }
+
+
+         function Search() {
+            AddLoading();
+
+            var $userGroupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+            var $startDate = $("#StartDate").val();
+            var $endDate = $("#EndDate").val();
+            var $tradeTypeId = 0;
+
+            $.ajax({
+                url: "/TimeAttendance/StimulReport/TradeReportNoLayoutIndex",
+                data: {
+                    groupId: $userGroupId,
+                    userId: $userId,
+                    startDate: $startDate,
+                    endDate: $endDate,
+                    tradeTypeId: $tradeTypeId
+                },
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#Grid-Part").html(data);
+                    ReomveLoading();
+                }
+            });
+        }
+    </script>
+}

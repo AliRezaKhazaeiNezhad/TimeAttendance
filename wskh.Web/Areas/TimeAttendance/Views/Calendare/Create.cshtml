@@ -1,0 +1,80 @@
+﻿@{
+    var model = (TimeAttendance.Model.CalendarModel)Session["calendarmodel"];
+    ViewBag.Title = "قوانین و برنامه ها | شیفت کاری";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => model.Id)
+
+
+<div class="panel-group" id="AlertPart" style="display:none">
+    <div class="col-12">
+        <div class="alert alert-success">
+            اطلاعات با موفقیت ثبت شد.
+            <a class="btn btn-sm btn-info pull-left" href="/TimeAttendance/Calendare/Index">بازگشت</a>
+        </div>
+    </div>
+</div>
+
+<div class="panel-group" id="DetailPart">
+    <div class="col-12">
+        <div class="panel panel-default" id="Panel1">
+            <div class="panel-heading panel-headingDanger" onclick="ShowPanel('StepOne')">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse">
+                        <b>گام اول</b> - تکمیل اطلاعات تقویم
+                    </a>
+                    <a class="btn btn-info pull-left" href="/TimeAttendance/Calendare/Index">بازگشت</a>
+                </h4>
+            </div>
+            <div id="StepOne" class="panel-collapse collapse panel-bodyDanger" style="display:block;">
+                @Html.Action("CalendarInformation")
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-12">
+        <div class="panel panel-default  @(model.Id > 0 ? Html.Raw("") : Html.Raw("customeDisabled"))" id="Panel3">
+            <div class="panel-heading panel-headingDanger">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse">
+                        <b>گام دوم</b> - تعریف تقویم
+                    </a>
+                </h4>
+            </div>
+            <div id="StepThree" class="panel-collapse collapse panel-bodyDanger"  >
+                @Html.Action("CalendarDetail")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/wwwroot/controllersGrid/calendareaddorupdate.js"></script>
+    <script src="~/wwwroot/componenets/persiancalendar/js-persian-cal.min.js"></script>
+}
+
+
+<script src="~/wwwroot/componenets/global/global.js"></script>
+<script>
+    function ShowPanel($id) {
+        $("#" + $id).slideToggle();
+    }
+</script>

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "دستگاه | مدیریت دستگاه";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>ثبت / ویرایش</header>
+                <i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/FingerDevice/Description')"></i>
+            </div>
+            <div class="card-body ">
+                @using (Ajax.BeginForm("AddOrUpdate", "FingerDevice", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+                {
+                    <div id="AddOrUpdate-Part">
+                        @Html.Action("AddOrUpdate", "FingerDevice", new { id = 0 })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-8 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body " id="Grid-Part">
+                <a class="btn btn-warning" href="/TimeAttendance/PDF/PrintDevice" target="_blank">چاپ</a>
+                @*<button class="btn btn-warning btn-sm" type="button">@Html.ActionLink("نسخه PDF", "PrintDevice", "PDF")</button>*@
+                @Html.Action("ListIndex", "FingerDevice")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/fingerdevice.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/dashboard/js/jquery.mask.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        function Success(data) {  
+            $("#AddOrUpdate-Part").html(data.Html);
+            blink("AddOrUpdate-Part");
+            if (data.State == "0") { 
+                Message(data.State, data.Message);
+            }
+            GridReload("Grid");
+            if (data.State == "0") { 
+                GetEmptyView("/TimeAttendance/FingerDevice/AddOrUpdate", "AddOrUpdate-Part");
+            }
+        }
+        $(document).ready(function () {
+            $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', { translation: { 'Z': { pattern: /[0-9]/, optional: true } } });
+        })
+
+    </script>
+}
+<script src="~/wwwroot/custome/js/device.js"></script>

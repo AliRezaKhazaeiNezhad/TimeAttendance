@@ -1,0 +1,58 @@
+﻿@model TimeAttendance.Model.HourlyMissionRequestModel
+@{
+    Layout = null;
+}
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger w100">
+        @(Model.Error)
+    </div>
+}
+
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.UserId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.UserId, Model.UsersList, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserId, null, new { @class = "validation" })
+
+</div>
+<div class="form-group w100">
+    @Html.LabelFor(x => x.StartDate, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control", MaxLength = "75" })
+    @Html.ValidationMessageFor(x => x.StartDate, null, new { @class = "validation" })
+</div>
+
+
+
+<div class="form-group w100 col-md-6 pull-right">
+    @Html.LabelFor(x => x.StartHour, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.StartHour, new { @class = "form-control", MaxLength = "5" })
+    @Html.ValidationMessageFor(x => x.StartHour, null, new { @class = "validation" })
+</div>
+
+<div class="form-group w100 col-md-6 pull-right">
+    @Html.LabelFor(x => x.EndHour, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.EndHour, new { @class = "form-control", MaxLength = "5" })
+    @Html.ValidationMessageFor(x => x.EndHour, null, new { @class = "validation" })
+</div>
+
+
+<button type="submit" onclick="AddLoading()" class="btn btn-success btn-sm pull-left">ثبت / ویرایش</button>
+
+
+
+<script src="~/wwwroot/componenets/persiancalendar/js-persian-cal.min.js"></script>
+<script type="text/javascript">
+    var objCal1 = new AMIB.persianCalendar('StartDate');
+    var objCal2 = new AMIB.persianCalendar('EndDate');
+</script>
+
+
+
+
+

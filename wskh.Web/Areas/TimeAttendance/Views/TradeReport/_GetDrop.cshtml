@@ -1,0 +1,8 @@
+﻿@model List<TimeAttendance.Model.DropDownModel>
+
+@foreach (var item in Model)
+{
+    <option value="@(item.Value)">
+        @item.Text
+    </option>
+}

@@ -1,0 +1,149 @@
+﻿@model TimeAttendance.Core.UserGroup
+@{
+    var _calendarService = DependencyResolver.Current.GetService<wskh.Service.ICalendarService>();
+    var calendarList = _calendarService.GetList;
+
+}
+
+<br />
+
+
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>@(Model.Title)</header>
+            </div>
+            <div class="card-body ">
+
+                <div class="row">
+                    <div class="form-group w100">
+                        <div class="row">
+                            <div class="col-12 col-md-6 pull-right">
+                                <label class="pull-right">قرارداد</label>
+                                <select class="form-control" id="ContractDrop" name="ContractDrop">
+                                    @if (calendarList.Count() > 0 && calendarList != null)
+                                    {
+                                        foreach (var item in calendarList)
+                                        {
+                                            <option value="@(item.Id)">@(item.Title)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-2 pull-right">
+                                <br />
+                                <button type="button" class="btn btn-info w100" style="margin-top:5px !important;" onclick="AddContract(@(Model.Id))">
+                                    درج
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-12" id="WarningMessage" style="display:none;">
+                                <div class="alert alert-danger" id="WarningMessageData">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group w100" id="ContractList">
+
+                        <div class="row">
+                            @Html.Action("ContractList", new { id = Model.Id })
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    function AddContract($id) {
+        $("#WarningMessage").fadeOut();
+        $("#WarningMessageData").html('');
+
+        $.ajax({
+            url: "/TimeAttendance/UserGroup/AddCalendare?id=" + $id + "&calendareId=" + $("#ContractDrop").val(),
+            type: 'Get',
+            dataType: "json",
+            success: function (data) {
+                if (data == 0) {
+                    Message(0, "عملیات با موفقیت انجام شد");
+                    ContractList();
+                } else if (data == 1) {
+                    $("#WarningMessage").fadeIn();
+                    $("#WarningMessageData").html('عملیات ناموفق! درفرصتی دیگر تلاش نمایید');
+                }else if (data == 2) {
+                    $("#WarningMessage").fadeIn();
+                    $("#WarningMessageData").html('قرارداد انتخاب شده در بازه زمانی تداخل با قراردادهای قبلی این گروه دارد');
+                } else if (data == -1) {
+                    Message(1, "خطایی رخ داده است! درفرصتی دیگر تلاش نمایید");
+
+                }
+            }
+        });
+        }
+
+     function ContractList() {
+        $("#WarningMessage").fadeOut();
+        $("#WarningMessageData").html('');
+
+        $.ajax({
+            url: "/TimeAttendance/UserGroup/ContractList?id=" + @(Model.Id),
+            type: 'Get',
+            dataType: "html",
+            success: function (data) {
+                $("#ContractList").html(data);
+            }
+        });
+    }
+
+    function DeleteCalendare(id, calendareId) {
+        toastr.warning("<br /><br /><button type='button' id='confirmationRevertYes' class='btn btn-default clear  btn-sm'>بله</button>&nbsp;&nbsp;&nbsp;<button type='button'  class='btn clear btn-dark btn-sm'>انصراف</button>", 'آیا از حذف مطمئنید؟',
+            {
+                closeButton: false,
+                allowHtml: true,
+                progressBar: true,
+                onShown: function (toast) {
+                    $("#confirmationRevertYes").click(function () {
+
+                        $.ajax({
+                            url: "/TimeAttendance/UserGroup/DeleteCalendare?id=" + id + "&calendareId=" + calendareId,
+                            type: 'Get',
+                            dataType: "json",
+                            success: function (data) {
+                                ToastOptions();
+                                if (data) {
+                                    Message(0, "حذف با موفقیت انجام شد");
+                                }
+                                else {
+                                    Command: toastr["error"](data.Message)
+                                    Message(1, "حذف انجام نشد! درفرصتی دیگر تلاش نمایید");
+                                }
+                                ContractList();
+                            }
+                        });
+
+                        ContractList();
+                    });
+                }
+            });
+    }
+</script>

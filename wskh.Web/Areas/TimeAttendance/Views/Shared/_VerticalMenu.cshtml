@@ -1,0 +1,402 @@
+﻿<div class="sidebar-container">
+    <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+        <div id="remove-scroll" class="left-sidemenu">
+            <ul class="sidemenu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true"
+                data-slide-speed="200">
+
+
+                <li class="sidebar-toggler-wrapper hide">
+                    <div class="sidebar-toggler">
+                        <span></span>
+                    </div>
+                </li>
+
+                <li class="nav-item @(ViewBag.MenuName == "home" ? Html.Raw("active ") : Html.Raw(""))">
+                    <a href="/Home/Index" class="nav-link nav-toggle link">
+                        <span class="title">
+                            <i class="fa fa-home"></i>
+                            پورتال
+                        </span>
+                    </a>
+                </li>
+
+
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "educationlevel" || ViewBag.MenuName == "employmenttype" || ViewBag.MenuName == "organizationbranch"  || ViewBag.MenuName == "organizationlevel" || ViewBag.MenuName == "leavetype" ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            اطلاعات پایه
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "educationlevel" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/EducationLevel/Index" class="nav-link link">
+                                <span class="title">
+                                    مقطع تحصیلی
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "employmenttype" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/EmploymentType/Index" class="nav-link link">
+                                <span class="title">
+                                    نوع استخدامی
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "organizationbranch" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/OrganizationBranch/Index" class="nav-link link">
+                                <span class="title">
+                                    شعبات سازمان
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "organizationlevel" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/OrganizationLevel/Index" class="nav-link link">
+                                <span class="title">
+                                    سمت سازمانی
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "leavetype" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/LeaveType/Index" class="nav-link link">
+                                <span class="title">
+                                    تعریف مرخصی
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "fingerdevice" ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            دستگاه
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "fingerdevice" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/FingerDevice/Index" class="nav-link link">
+                                <span class="title">
+                                    مدیریت دستگاه
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "requestrule" || ViewBag.MenuName == "ordinaryworkprogram" || ViewBag.MenuName == "specialdaygrouping" || ViewBag.MenuName == "calendar" ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            قوانین و برنامه ها
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "requestrule" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/RequestRule/Index" class="nav-link link">
+                                <span class="title">
+                                    قوانین تردد
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "ordinaryworkprogram" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/OrdinaryWorkProgram/Index" class="nav-link link">
+                                <span class="title">
+                                    برنامه کاری
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "specialdaygrouping" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/SpecialDayGrouping/Index" class="nav-link link">
+                                <span class="title">
+                                    تعطیلات و ایام خاص
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "calendar" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/Calendare/Index" class="nav-link link">
+                                <span class="title">
+                                    شیفت کاری
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "user" || ViewBag.MenuName == "usergroup" ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            کاربران
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "usergroup" ? Html.Raw("active") : Html.Raw(""))" style="display: list-item;">
+                            <a class="nav-link link" href="/TimeAttendance/UserGroup/Index">
+                                <span class="title">گروه بندی پرسنل</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start @(ViewBag.MenuName == "user" ? Html.Raw("active") : Html.Raw(""))" style="display: list-item;">
+                            <a class="nav-link link" href="/TimeAttendance/User/Index">
+                                <span class="title">پرسنل</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "hourlyleaveReport" || ViewBag.MenuName == "dailyleaveReport"  || ViewBag.MenuName == "hourlymissionReport" || ViewBag.MenuName == "dailymissionReport" || ViewBag.MenuName == "tradereport" || ViewBag.MenuName == "instantreport" || ViewBag.MenuName == "instantreportaudience" || ViewBag.MenuName == "instantreportabsence" || ViewBag.MenuName == "analyzedreport" || ViewBag.MenuName == "removedlogs" || ViewBag.MenuName == "command" || ViewBag.MenuName == "absenceeport"  || ViewBag.MenuName == "userenroll"  || ViewBag.MenuName == "softwareuser"? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            گزارشات
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "hourlyleaveReport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/HourlyLeaveReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش مرخصی ساعتی
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "dailyleaveReport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/dailyLeaveReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش مرخصی روزانه
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "hourlymissionReport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/HourlyMissionReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش ماموریت ساعتی
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "dailymissionReport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/DailyMissionReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش ماموریت روزانه
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "tradereport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/TradeReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش خام تردد
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "instantreport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/InstantReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش لحظه ای کل
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "instantreportaudience" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/InstantReportAudience/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش لحظه ای حاضرین
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "instantreportabsence" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/InstantReportAbsence/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش لحظه ای غایبین
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "analyzedreport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/AnalyzedReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش ریزکارکرد
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "absenceeport" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/AbsenceReport/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش غیبت ها
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "softwareuser" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/SoftwareUser/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش کاربران 
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "removedlogs" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/RemovedLogs/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش ترددهای حذف شده
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "command" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/Command/Index" class="nav-link link">
+                                <span class="title">
+                                    گزارش فعالیت دستگاه ها
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "organizationinformation" || ViewBag.MenuName == "tickettodevelopers" ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            تیکتینگ
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "organizationinformation" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/OrganizationInformation/Index" class="nav-link link">
+                                <span class="title">
+                                    تیکت به مدیریت
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "tickettodevelopers" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/TicketToDevelopers/Index" class="nav-link link">
+                                <span class="title">
+                                    تیکت به شرکت نرم افزاری
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "dailyleave" || ViewBag.MenuName == "hourlyleave"  || ViewBag.MenuName == "dailymission" || ViewBag.MenuName == "hourlymission"? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            درخواست ها
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "dailyleave" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/DailyLeave/Index" class="nav-link link">
+                                <span class="title">
+                                    مرخصی روزانه
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "hourlyleave" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/HourlyLeave/Index" class="nav-link link">
+                                <span class="title">
+                                    مرخصی ساعتی
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "dailymission" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/DailyMission/Index" class="nav-link link">
+                                <span class="title">
+                                    ماموریت روزانه
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "hourlymission" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/HourlyMission/Index" class="nav-link link">
+                                <span class="title">
+                                    ماموریت ساعتی
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item @(ViewBag.MenuName == "changepassword" || ViewBag.MenuName == "profile" || ViewBag.MenuName == "organizationinformation" ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            تنظیمات
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "changepassword" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/Account/ChangePassword" class="nav-link link">
+                                <span class="title">
+                                    تغییر گذرواژه
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "profile" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/Profile/AddOrUpdate" class="nav-link link">
+                                <span class="title">
+                                    پروفایل
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "organizationinformation" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/OrganizationInformation/Index" class="nav-link link">
+                                <span class="title">
+                                    اطلاعات سازمانی
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="nav-item @(ViewBag.MenuName == "aboutus" || ViewBag.MenuName == "aboutsoftware"  ? Html.Raw("active") : Html.Raw(""))">
+                    <a class="nav-link nav-toggle">
+                        <span class="title">
+                            درباره ما
+                        </span>
+                        <i class="fa fa-sort-down"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item @(ViewBag.MenuName == "aboutus" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/AboutUs/Index" class="nav-link link">
+                                <span class="title">
+                                    درباره ما
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(ViewBag.MenuName == "aboutsoftware" ? Html.Raw("active") : Html.Raw(""))">
+                            <a href="/TimeAttendance/AboutSoftware/Index" class="nav-link link">
+                                <span class="title">
+                                    درباره نرم افزار
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+            </ul>
+        </div>
+    </div>
+</div>

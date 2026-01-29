@@ -1,0 +1,383 @@
+﻿@model TimeAttendance.Model.RequestRuleModel
+@{
+    ViewBag.Title = "قوانین و برنامه ها | قوانین تردد";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Partial("_AccessControll")
+
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+
+
+
+
+
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>ثبت</header>
+                <a class="btn btn-info pull-left" href="/TimeAttendance/RequestRule/Index">بازگشت</a>
+            </div>
+            <div class="card-body " id="Grid-Part">
+                <form method="post" resource="/TimeAttendance/RequestRule/AddOrUpdate">
+
+                    <div class="row">
+                        <div class="form-group w100 col-12">
+                            @Html.LabelFor(x => x.Title, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "50" })
+                            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "validation" })
+                        </div>
+
+                        <div class="form-group w100 col-md-2">
+                            @Html.LabelFor(x => x.MaximumAbsence, new { @class = "pull-right" })<label class="required">*</label>
+                            <br />
+                            @Html.TextBoxFor(x => x.MaximumAbsence, new { @class = "form-control w100", MaxLength = "5" })
+                            @Html.ValidationMessageFor(x => x.MaximumAbsence, null, new { @class = "validation" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            @Html.LabelFor(x => x.DayDuration, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.TextBoxFor(x => x.DayDuration, new { @class = "form-control w100 col-12", MaxLength = "5" })
+                            @Html.ValidationMessageFor(x => x.DayDuration, null, new { @class = "validation" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            @Html.LabelFor(x => x.FlowTimeId, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.DropDownListFor(x => x.FlowTimeId, Model.FlowTimes, new { @class = "form-control", MaxLength = "5", onchange = "selectMe(this)" })
+                            @Html.ValidationMessageFor(x => x.FlowTimeId, null, new { @class = "validation" })
+                        </div>
+                        <div class="form-group w100 col-md-3" id="flowTimeMinPart" style="display:none">
+                            @Html.LabelFor(x => x.FlowTimeMin, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.TextBoxFor(x => x.FlowTimeMin, new { @class = "form-control numeric", MaxLength = "3" })
+                            @Html.ValidationMessageFor(x => x.FlowTimeMin, null, new { @class = "validation" })
+                        </div>
+                    </div>
+
+                    <div class="row" id="otherPart">
+                        <div class="form-group w100 col-md-3">
+                            @Html.LabelFor(x => x.DelayActionId, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.DropDownListFor(x => x.DelayActionId, Model.DelayActionList, new { @class = "form-control", onclick = "delayActionChange(this)" })
+                            @Html.ValidationMessageFor(x => x.DelayActionId, null, new { @class = "validation" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            @Html.LabelFor(x => x.DelayActionPercent, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.TextBoxFor(x => x.DelayActionPercent, new { @class = "form-control numeric", MaxLength = "2", disabled = "diesabled" })
+                            @Html.ValidationMessageFor(x => x.DelayActionPercent, null, new { @class = "validation" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            @Html.LabelFor(x => x.DelyMonthMin, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.TextBoxFor(x => x.DelyMonthMin, new { @class = "form-control numeric", MaxLength = "2" })
+                            @Html.ValidationMessageFor(x => x.DelyMonthMin, null, new { @class = "validation" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            @Html.LabelFor(x => x.DelayDayMin, new { @class = "pull-right" })<label class="required">*</label>
+                            @Html.TextBoxFor(x => x.DelayDayMin, new { @class = "form-control numeric", MaxLength = "2" })
+                            @Html.ValidationMessageFor(x => x.DelayDayMin, null, new { @class = "validation" })
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+
+                        <hr />
+                        <br />
+
+                        <div class="col-12">
+                            <table class="table  table-striped table-condensed table-bordered no-margin center">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%">عنوان</th>
+                                        <th style="width:40%">سالانه (روز)</th>
+                                        <th style="width:40%">ماهانه (روز)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.RequestRuleDetailModels)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                <span>
+                                                    @(item.LeaveTypeName)
+                                                    <input type="text"
+                                                           class="nodisplay"
+                                                           name="RequestRuleDetailModels[@(item.Index)].Index"
+                                                           value="@(item.Index)" />
+
+                                                    <input type="text"
+                                                           class="nodisplay"
+                                                           name="RequestRuleDetailModels[@(item.Index)].LeaveTypeId"
+                                                           value="@(item.LeaveTypeId)" />
+
+                                                    <input type="text"
+                                                           class="nodisplay"
+                                                           name="RequestRuleDetailModels[@(item.Index)].Id"
+                                                           value="@(item.Id)" />
+                                                </span>
+                                            </td>
+
+                                            @if (item.Index != 2)
+                                            {
+                                                <td>
+                                                    @if (item.Index == 0)
+                                                    {
+                                                        <span>
+                                                            <label>محاسبه سالانه</label>
+                                                            <input type="radio"
+                                                                   class="numeric form-control noUnderMargin"
+                                                                   name="RequestRuleDetailModels[@(item.Index)].CalculateYearly"
+                                                                   id="CalculateYearlys"
+                                                                   value="true"
+                                                                   @(item.CalculateYearly.Contains("true") ? Html.Raw("checked") : Html.Raw(""))
+                                                                   onchange="selectYearly(true)" />
+                                                        </span>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin yearly-radio yearly-radio1"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestDayCountYearly"
+                                                               value="@(item.RestDayCountYearly)" />
+                                                        <label>میزان انتقال به سال بعد</label>
+                                                        <input type="text"
+                                                               maxlength="2"
+                                                               class="numeric form-control noUnderMargin yearly-radio yearly-radio2"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestToNextYear"
+                                                               value="@(item.RestToNextYear)"
+                                                               onblur="calcYearlyRestToNextYear()" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="radio"
+                                                               class="numeric form-control noUnderMargin nodisplay"
+                                                               id="CalculateYearlys"
+                                                               name="RequestRuleDetailModels[@(item.Index)].CalculateYearly"
+                                                               value="@(item.CalculateYearly)" />
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestDayCountYearly"
+                                                               value="@(item.RestDayCountYearly)" />
+                                                    }
+
+
+                                                </td>
+                                                <td>
+                                                    @if (item.Index == 0)
+                                                    {
+                                                        <span>
+                                                            <label>محاسبه ماهانه</label>
+                                                            <input type="radio"
+                                                                   class="numeric form-control noUnderMargin"
+                                                                   name="RequestRuleDetailModels[@(item.Index)].CalculateYearly"
+                                                                   id="CalculateMonthlys"
+                                                                   value="false"
+                                                                   @(item.CalculateYearly.Contains("true") ? Html.Raw("") : Html.Raw("checked"))
+                                                                   onchange="selectYearly(false)" />
+                                                        </span>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin monthly-radio monthly-radio1"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestDayCountMonthly"
+                                                               id="CalculateMonthlys"
+                                                               maxlength="2"
+                                                               value="@(item.RestDayCountMonthly)"
+                                                               disabled />
+
+                                                        <label class="">میزان انتقال به ماه بعد</label>
+                                                        <input type="text"
+                                                               maxlength="2"
+                                                               class="numeric form-control noUnderMargin monthly-radio monthly-radio2"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestToNextMonth"
+                                                               value="@(item.RestToNextMonth)"
+                                                               disabled
+                                                               onblur="calcYearlyRestToNextMonth()" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestDayCountMonthly"
+                                                               maxlength="2"
+                                                               value="@(item.RestDayCountMonthly)"
+                                                               disabled />
+                                                        <input type="text"
+                                                               class="numeric form-control nodisplay noUnderMargin"
+                                                               name="RequestRuleDetailModels[@(item.Index)].RestDayCountMonthly"
+                                                               value="@(item.RestDayCountMonthly)" />
+                                                    }
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           value="0" disabled />
+                                                </td>
+                                                <td>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           value="0" disabled />
+                                                </td>
+                                            }
+
+
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                        <br />
+                        <hr />
+                        <br />
+
+
+                        <div class="col-12 w100">
+                            <div class="alert alert-danger w100">
+                                کاربر گرامی، پیش از ثبت اطلاعات با دقت بررسی نمایید زیرا امکان ویرایش اطلاعات در این فرم وجود ندارد.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12 w100">
+                            <button type="submit" id="submit" onclick="AddLoading()" class="btn btn-success btn-sm pull-left">ذخیره قوانین</button>
+                        </div>
+                    </div>
+
+                    <br />
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/lastTimepicker/alex-date-time.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#MaximumAbsence").typeATime();
+            $("#DayDuration").typeATime2();
+        });
+        function selectMe(data) {
+            var $val = parseInt($(data).val());
+            if ($val == 0) {
+                $("#otherPart").show();
+                $("#flowTimeMinPart").hide();
+            }
+            else {
+                $("#otherPart").hide();
+                $("#flowTimeMinPart").show();
+            }
+        }
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+}
+
+<script>
+    var $disable = true;
+    function selectYearly(data) {
+        if (data) {
+            $(".yearly-radio").removeAttr("disabled");
+            $(".monthly-radio").attr("disabled", "disabled");
+
+            $("#CalculateYearlys").val("true");
+            $("#CalculateMonthlys").val("true");
+        }
+        else {
+            $(".monthly-radio").removeAttr("disabled", "disabled");
+            $(".yearly-radio").attr("disabled", "disabled");
+
+
+            $("#CalculateYearlys").val("false");
+            $("#CalculateMonthlys").val("false");
+        }
+    }
+    function calcYearlyRestToNextYear() {
+        var $val1 = parseInt($(".yearly-radio1").val());
+        var $val2 = parseInt($(".yearly-radio2").val());
+        if ($val1 <= $val2) {
+            Message(1, "میزان مرخصی فابل انتقال به سال بعد باید کوچکتر از میزان کل آن در سال باشد");
+            $disable = true;
+        }
+        else {
+            $disable = false;
+        }
+        ActivatingSubmit();
+    }
+    function calcYearlyRestToNextMonth() {
+        var $val1 = parseInt($(".monthly-radio1").val());
+        var $val2 = parseInt($(".monthly-radio2").val());
+        if ($val1 <= $val2) {
+            Message(1, "میزان مرخصی فابل انتقال به ماه بعد باید کوچکتر از میزان کل آن در ماه باشد");
+            $disable = true;
+        }
+        else {
+            $disable = false;
+        }
+        ActivatingSubmit();
+    }
+
+
+    function ActivatingSubmit() {
+        if ($disable == true) {
+            $("#submit").attr("disabled", "disabled");
+        }
+        else {
+            $("#submit").removeAttr("disabled", "disabled");
+        }
+    }
+
+    function delayActionChange(data) {
+        var $data = parseInt($(data).val());
+
+        if ($data == 0 || $data == 3) {
+            $("#DelayActionPercent").val(1);
+            $("#DelayActionPercent").attr("disabled", "disabled");
+        }
+        else {
+            $("#DelayActionPercent").val(1);
+            $("#DelayActionPercent").removeAttr("disabled");
+        }
+    }
+</script>
+
+

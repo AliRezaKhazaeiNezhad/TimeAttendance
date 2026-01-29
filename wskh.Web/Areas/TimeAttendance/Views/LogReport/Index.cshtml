@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "دستگاه | گزارش خام تردد";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>جستجو</header>
+            </div>
+            <div class="card-body " id="Grid-Part0">
+                <div class="card-body " id="Filter-Part">
+                    
+                    @Html.Action("SearchPart")
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body " id="Grid-Part">
+                <div class="card-body " id="Grid-Part">
+                    <div id="GridPart">
+
+                        <div class="col-md-4">
+                            <table class="table table-condensed table-bordered no-margin dataTable no-footer">
+                                <tr>
+                                    <td>
+                                        ورود
+                                    </td>
+                                    <td class="enterancegrid"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        خروج
+                                    </td>
+                                    <td class="exitgrid"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        @Html.Action("ListIndex", "LogReport")
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+
+    <script>
+        var table = $("#Grid").DataTable({
+            "language": {
+                "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+                "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": "نمایش _MENU_ رکورد",
+                "sLoadingRecords": "در حال بارگزاری...",
+                "sProcessing": "در حال پردازش...",
+                "sSearch": "جستجو:",
+                "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+                "oPaginate": {
+                    "sFirst": "ابتدا",
+                    "sLast": "انتها",
+                    "sNext": "بعدی",
+                    "sPrevious": "قبلی"
+                },
+                "oAria": {
+                    "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+                    "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+                }
+            },
+            "processing": true,
+            "serverSide": true,
+            "searching": false,
+            "info": true,
+            "scrollX": false,
+            "stateSave": true,
+            "lenghtMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+            "ajax": {
+                "url": "/LogReport/List",
+                "type": "get"
+            },
+            "columns": [
+                { "data": "Index", "orderable": false, "width": "10" },
+                { "data": "DayName", "orderable": false, "width": "20" },
+                { "data": "LogDatePersian", "orderable": false, "width": "20" },
+                { "data": "LogTime", "orderable": false },
+                { "data": "StateString", "orderable": false, "width": "100" },
+                { "data": "DeviceName", "orderable": false, "width": "100" },
+                { "data": "EnrollNo", "orderable": false, "width": "100" },
+                { "data": "UserName", "orderable": false, "width": "100" },
+            ],
+            "order": [[0, "asc"]]
+        });
+
+    </script>
+}
+<script>
+    function SearchBTN() {
+        $.ajax({
+            url: "/TimeAttendance/LogReport/ListIndex?stDate=" + $("#stDate").val() + '&edDate=' + $("#edDate").val() + '&deviceId=' + $("#deviceId").val() + '&userId=' + $("#userId").val() + '&enrollId=' + $("#enrollId").val(),
+            type: 'Get',
+            dataType: "html",
+            success: function (data) {
+                $("#GridPart").html();
+                GridReload("Grid")
+            }
+        });
+    }
+
+    function GetEnrollList(data) {
+        $.ajax({
+            url: "/TimeAttendance/LogReport/EnrollDropDown?deviceId=" + $(data).val(),
+            type: 'Get',
+            dataType: "html",
+            success: function (data) {
+                $("#enrollDropHTML").html(data);
+            }
+        });
+    }
+
+</script>
+<script src="~/wwwroot/componenets/persiancalendar/js-persian-cal.min.js"></script>
+<script type="text/javascript">
+    var objCal1 = new AMIB.persianCalendar('stDate');
+    var objCal2 = new AMIB.persianCalendar('edDate');
+</script>

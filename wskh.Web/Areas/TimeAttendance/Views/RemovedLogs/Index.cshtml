@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "گزارشات | گزارش ترددهای حذف شده";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+
+
+<div class="row" id="HiddenPart">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+                @Html.Action("ListIndex", "RemovedLogs")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script src="~/wwwroot/componenets/datatableajax/jquery.dataTables.js"></script>
+    <script src="~/wwwroot/controllersGrid/removedlogsreport.js"></script>
+}

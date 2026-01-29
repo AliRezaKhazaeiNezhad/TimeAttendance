@@ -1,0 +1,68 @@
+﻿@model wskh.Core.FingerDevice
+
+
+<div class="panel panel-default">
+    <div class="panel-heading panel-headingDanger" onclick="ShowPanel('collapse3')">
+        <h4 class="panel-title">
+            <a data-toggle="collapse">کارت تردد</a>
+        </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse panel-bodyDanger">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-5 pull-right">
+
+                    <select class="form-control functionkeysdrop" id="AddCard">
+                        <option value="0">
+                            ورود
+                        </option>
+                        <option value="1">
+                            خروج
+                        </option>
+                        <option value="2">
+                            مرخصی ساعتی
+                        </option>
+                        <option value="3">
+                            ماموریت ساعتی
+                        </option>
+                        <option value="4">
+                            تاخیر سرویس
+                        </option>
+                        <option value="5">
+                            نماز، نهار، استراحت
+                        </option>
+                        <option value="6">
+                            پاس شیر
+                        </option>
+                        <option value="7">
+                            غیره
+                        </option>
+                    </select>
+                    <br />
+
+                    <input type="text" maxlength="5" class="form-control numeric" id="AddCardEnroll" value="0" />
+                    <button type="button" class="btn btn-success" onclick="AddCard(@(Model.Id))">
+                        افزودن
+                    </button>
+                </div>
+                <div class="col-12 col-md-7 pull-right" id="CardsList">
+                    @if (Model.DeviceCards == null || Model.DeviceCards.Count() <= 0)
+                    {
+                        <div class="alert alert-warning">
+                            کارتی تعریف نشده است
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var card in Model.DeviceCards)
+                        {
+                            <div class="alert alert-info">
+                                @(card.EnrollNo) - @(TimeAttendance.Web.Helper.EnumHelper.FunctionKeyToString(card.Type)) <i class="fa fa-trash pointer pull-left" onclick="DeleteCard(@(card.Id))"></i>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

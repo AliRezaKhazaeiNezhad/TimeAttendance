@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "قوانین و برنامه ها | قوانین کاری";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>ثبت / ویرایش</header>
+                <i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/WorkRule/Description')"></i>
+            </div>
+            <div class="card-body ">
+                @using (Ajax.BeginForm("AddOrUpdate", "WorkRule", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+                {
+                    <div id="AddOrUpdate-Part">
+                        @Html.Action("AddOrUpdate", "WorkRule", new { id = 0 })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-8 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body " id="Grid-Part">
+                @Html.Action("ListIndex", "WorkRule")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/workrule.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        function Success(data) {  
+            $("#AddOrUpdate-Part").html(data.Html);
+            blink("AddOrUpdate-Part");
+            if (data.State == "0") { 
+                Message(data.State, data.Message);
+            }
+            GridReload("Grid");
+            if (data.State == "0") { 
+                GetEmptyView("/TimeAttendance/workrule/AddOrUpdate", "AddOrUpdate-Part");
+            }
+        }
+        function GetView(innerId) {
+            $.ajax({
+                url: "/TimeAttendance/workrule/GetView?id=" + innerId,
+                type: 'get',
+                dataType: "html",
+                success: function (data) {
+                    bootbox.dialog({
+                        message: data
+                    })
+                }
+            });
+        }
+    </script>
+}

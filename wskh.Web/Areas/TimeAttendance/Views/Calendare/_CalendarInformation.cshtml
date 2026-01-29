@@ -1,0 +1,51 @@
+﻿@{
+    var model = (TimeAttendance.Model.CalendarModel)Session["calendarmodel"];
+    Layout = null;
+    var PersianYears = TimeAttendance.Web.Helper.WebConfigHelper.PersianYears();
+}
+
+
+
+<div class="col-12">
+    <div class="row">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.Title, new { @class = "pull-right" })<label class="required">*</label>
+            @Html.TextBoxFor(x => model.Title, new { @class = "form-control", MaxLength = "50", onkeyup = "isTitleNull(this)" })
+            @Html.ValidationMessageFor(x => model.Title, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.PersianYearId, new { @class = "pull-right" })<label class="required">*</label>
+            @*@Html.DropDownListFor(x => model.PersianYearId, model.PersianYears, new { @class = "form-control" })*@
+
+            <select class="form-control" id="PersianYearId" name="PersianYearId" autocomplete="off">
+                @foreach (var year in model.PersianYears)
+                {
+                    <option value="@(year.Value)" @(int.Parse(year.Value) == model.PersianYearId ? Html.Raw("selected") : Html.Raw(""))> @(year.Text)</option>
+                }
+            </select>
+
+            @Html.ValidationMessageFor(x => model.PersianYearId, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.HolidayAndSpecialDayId, new { @class = "pull-right" })<label class="required">*</label>
+            @Html.DropDownListFor(x => model.HolidayAndSpecialDayId, model.HolidayAndSpecialDays, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.HolidayAndSpecialDayId, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.RequestRuleId, new { @class = "pull-right" })<label class="required">*</label>
+            @*@Html.DropDownListFor(x => model.RequestRuleId, model.RequestRules, new { @class = "form-control" })*@
+            <select class="form-control" id="RequestRuleId" name="RequestRuleId" autocomplete="off">
+                @foreach (var year in model.RequestRules)
+                {
+                    <option value="@(year.Value)" @(int.Parse(year.Value) == model.RequestRuleId ? Html.Raw("selected") : Html.Raw(""))> @(year.Text)</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(x => model.RequestRuleId, null, new { @class = "validation" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="pull-left col-12">
+            <button type="button" id="StepOneBTN" @(model.Id > 0 ? Html.Raw("") : Html.Raw("disabled")) onclick="StepPneNextLevel()" class="btn btn-info btn-sm pull-left"> مرحله بعد</button>
+        </div>
+    </div>
+</div>

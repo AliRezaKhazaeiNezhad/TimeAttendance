@@ -1,0 +1,37 @@
+﻿@model TimeAttendance.Model.ChangePassWordModel
+
+@{
+    ViewBag.Title = "تنظیمات | تغییر گذرواژه";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+    <div class="row">
+
+
+        <div class="card card-box col-12">
+            <div class="card-head">
+                <header>تغییر گذرواژه</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+                <form method="post" resource="/TimeAttendance/Account/ChangePassword">
+
+
+
+                    <div class="row">
+
+                        <div class="alert alert-success col-12">
+                            تغییر گذرواژه باموفقیت انجام شد. لطفا یکبار از حساب کاربری خود خارج شده و دوباره ورود نمایید
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+

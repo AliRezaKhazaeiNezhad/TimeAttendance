@@ -1,0 +1,247 @@
+﻿@model TimeAttendance.Model.OrdinaryWorkProgramDayModel
+@{
+    var parentModel = (TimeAttendance.Model.OrdinaryWorkProgramModel)Session["OrdinaryWorkProgramModel"];
+    var day = parentModel.OrdinaryWorkProgramDayModels[Model.DayIndex - 1];
+    day.OrdinaryWorkProgramTimeModels = day.OrdinaryWorkProgramTimeModels.OrderBy(x => x.StartTime).ToList();
+}
+
+<br />
+
+<div id="ModelDays">
+
+    @if (parentModel.WorkProgramType == 2)
+    {
+        <div class="alert alert-danger col-md-12">
+            مدت فعالیت منظور از زمانی است که پرسنل باید در مجموعه فعالیت داشته باشد. بطور مثال 6:45 یعنی به مدت 6 ساعت و 45 دقیقه باید در مجموعه فعالیت داشته باشد
+        </div>
+
+        <hr />
+        if (parentModel.OrdinaryWorkProgramDayModels.Count() > 0 && parentModel.OrdinaryWorkProgramDayModels.Where(x => x.OrdinaryWorkProgramTimeModels.Count() > 0).Count() > 0)
+        {
+            <div class="row">
+                <div class="form-group col-md-3">
+                    @if (parentModel.WorkProgramType == 2)
+                    {
+                        <label class="pull-right">موظفی روزانه</label>
+                    }
+                    else
+                    {
+                        <label class="pull-right">مدت فعالیت</label>
+                    }
+                    <input type="text" name="WorkTimeInDay" id="WorkTimeInDay" class="form-control" value="@(parentModel.OrdinaryWorkProgramDayModels[0].OrdinaryWorkProgramTimeModels[0].Duration)" placeholder="00:00" maxlength="5" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="pull-right w100">عملیات</label>
+                    <button onclick="AddTime(@(parentModel.WorkProgramType), @(Model.DayIndex) ,this)" type="button" class="btn btn-info btn-sm  w100">
+                        درج
+                    </button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="form-group col-md-3">
+                    @if (parentModel.WorkProgramType == 2)
+                    {
+                        <label class="pull-right">موظفی روزانه</label>
+                    }
+                    else
+                    {
+                        <label class="pull-right">مدت فعالیت</label>
+                    }
+                    <input type="text" name="WorkTimeInDay" id="WorkTimeInDay" class="form-control" value="00:00" placeholder="00:00" maxlength="5" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="pull-right">تردد در دو تاریخ</label>
+                    <input type="checkbox" name="MoreThan24Houres" id="MoreThan24Houres" class="form-control" value="" placeholder="" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="pull-right w100">عملیات</label>
+                    <button onclick="AddTime(@(parentModel.WorkProgramType), @(Model.DayIndex) ,this)" type="button" class="btn btn-info btn-sm  w100">
+                        درج
+                    </button>
+                </div>
+            </div>
+        }
+
+
+        <hr />
+
+
+        <script src="~/wwwroot/componenets/mask/jquery.inputmask.bundle.js"></script>
+        <script>
+            $(function () {
+
+                $('input[id$="WorkTimeInDay"]').inputmask(
+                    "hh:mm", {
+                        placeholder: "00:00",
+                        insertMode: false,
+                        showMaskOnHover: false,
+                        hourFormat: "24"
+                    }
+                );
+            });
+
+        </script>
+    }
+    else
+    {
+
+        <div class="alert alert-danger col-md-12">
+            لطفا برای درج ساعت از فرمت 24 ساعته استفاده نماید. بطور مثال برای <u>ساعت 10 و 30 دقیقه <b>شب</b></u> باید نوشته شود 22:30
+        </div>
+
+        <hr />
+
+        @(wskh.WebEssentials.DateAndTime.DateTimeHelper.GetDayName((Model.DayIndex - 1)))
+
+        <hr />
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="pull-right">نوع فعالیت</label>
+                <select class="form-control" name="WorkType" id="WorkType">
+                    <option value="1">کار</option>
+                    <option value="2">اضافه کار اول وقت</option>
+                    <option value="3">اضافه کار آخر وقت</option>
+                    <option value="4">استراحت/ نهار</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="pull-right">شروع</label>
+                <input type="text" name="StartTime" id="StartTime" class="form-control" value="00:00" placeholder="00:00" maxlength="5" onblur="GetDuration()" />
+            </div>
+            <div class="form-group col-md-2">
+                <label class="pull-right">پایان</label>
+                <input type="text" name="EndTime" id="EndTime" class="form-control" value="23:59" placeholder="00:00" maxlength="5" onblur="GetDuration()" />
+            </div>
+            <div class="form-group col-md-2">
+                <label class="pull-right">مدت</label>
+                <input type="text" name="Duration" id="Duration" class="form-control" value="23:59" placeholder="00:00" maxlength="5" disabled />
+            </div>
+            <div class="form-group col-md-2">
+                <label class="pull-right w100">عملیات</label>
+                <button onclick="AddTime(@(parentModel.WorkProgramType), @(Model.DayIndex) ,this)" type="button" class="btn btn-info btn-sm  w100">
+                    درج
+                </button>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-12" style="padding:10%">
+                <table class="table table-condensed custable">
+                    <thead>
+                        <tr>
+                            <th>
+                                عنوان فعالیت
+                            </th>
+                            <th>
+                                شروع
+                            </th>
+                            <th>
+                                پایان
+                            </th>
+                            <th>
+                                مدت
+                            </th>
+                            <th>
+                                حذف
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (day.OrdinaryWorkProgramTimeModels == null || day.OrdinaryWorkProgramTimeModels.Count() <= 0)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    داده ای ثبت نشده است
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var time in day.OrdinaryWorkProgramTimeModels)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (time.TimeType == wskh.Core.Enumerator.TimeType.WorkTime)
+                                        {
+                                            <span>
+                                                <i class="fa fa-male CustomeFaIcon" aria-hidden="true"></i>
+                                                کار (ساعت موظفی)
+                                            </span>
+                                        }
+                                        @if (time.TimeType == wskh.Core.Enumerator.TimeType.OverTimeStart)
+                                        {
+                                            <span>
+                                                <i class="fa fa-hourglass  CustomeFaIcon" aria-hidden="true"></i>
+                                                اضافه کار اول وقت
+                                            </span>
+                                        }
+                                        @if (time.TimeType == wskh.Core.Enumerator.TimeType.OverTimeEnd)
+                                        {
+                                            <span>
+                                                <i class="fa fa-clock-o CustomeFaIcon" aria-hidden="true"></i>
+                                                اضافه کار آخر وقت
+                                            </span>
+                                        }
+                                        @if (time.TimeType == wskh.Core.Enumerator.TimeType.RestTime)
+                                        {
+                                            <span>
+                                                <i class="fa fa-cutlery CustomeFaIcon" aria-hidden="true"></i>
+                                                استراحت (نماز، نهار و ...)
+                                            </span>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @(time.StartTime)
+                                    </td>
+                                    <td>
+                                        @(time.EndTime)
+                                    </td>
+                                    <td>
+                                        @(time.Duration.Length > 5 ? time.Duration.Substring(0, 5).ToString() : time.Duration)
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-trash Red pointer CrudFamily" onclick="DeleteTime(@(day.OrdinaryWorkProgramTimeModels.FindIndex(x => x.StartTime == time.StartTime && x.EndTime == time.EndTime)), @(Model.DayIndex - 1))"></i>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="~/wwwroot/componenets/mask/jquery.inputmask.bundle.js"></script>
+        <script>
+            $(function () {
+
+                $('input[id$="StartTime"]').inputmask(
+                    "hh:mm", {
+                        placeholder: "00:00",
+                        insertMode: false,
+                        showMaskOnHover: false,
+                        hourFormat: "24"
+                    }
+                );
+                $('input[id$="EndTime"]').inputmask(
+                    "hh:mm", {
+                        placeholder: "00:00",
+                        insertMode: false,
+                        showMaskOnHover: false,
+                        hourFormat: "24"
+                    }
+                );
+            });
+
+        </script>
+    }
+
+
+</div>

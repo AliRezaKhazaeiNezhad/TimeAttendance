@@ -1,0 +1,57 @@
+﻿@model wskh.Model.FingerDeviceModel
+@{
+    Layout = null;
+}
+
+
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.Title, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "50", @onkeyup = "isNullInput()" })
+    @Html.ValidationMessageFor(x => x.Title, null, new { @class = "validation" })
+</div>
+<div class="form-group w100">
+    @Html.LabelFor(x => x.IP, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.IP, new { @class = "form-control ip_address", MaxLength = "15", @onkeyup = "isNullInput()" })
+    @Html.ValidationMessageFor(x => x.IP, null, new { @class = "validation" })
+</div>
+<div class="form-group w100">
+    @Html.LabelFor(x => x.PortNo, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.PortNo, new { @class = "form-control numeric", MaxLength = "4", @onkeyup = "isNullInput()" })
+    @Html.ValidationMessageFor(x => x.PortNo, null, new { @class = "validation" })
+</div>
+<div class="form-group w100">
+    @Html.LabelFor(x => x.DeviceInnerId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.DeviceInnerId, new { @class = "form-control numeric", MaxLength = "4", @onkeyup = "isNullInput()" })
+    @Html.ValidationMessageFor(x => x.DeviceInnerId, null, new { @class = "validation" })
+</div>
+<div class="form-group w100">
+    @Html.LabelFor(x => x.CommKey, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.CommKey, new { @class = "form-control numeric", MaxLength = "5", @onkeyup = "isNullInput()" })
+    @Html.ValidationMessageFor(x => x.CommKey, null, new { @class = "validation" })
+</div>
+
+<div class="form-group">
+    <button type="button" class="btn btn-default btn-sm pull-right" id="Connection" disabled="disabled" onclick="ConnectionSearch()">
+        بررسی اتصال
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw" id="Spiner" style="display:none"></i>
+    </button>
+    <button type="submit" onclick="AddLoading()" class="btn btn-default btn-sm pull-left" disabled>ثبت / ویرایش</button>
+</div>
+
+<br />
+
+<div class="form-group">
+    @Html.TextBoxFor(x => x.Manufacturer, new { @class = "form-control hideInput" })
+    @Html.TextBoxFor(x => x.SDKVersion, new { @class = "form-control hideInput" })
+    @Html.TextBoxFor(x => x.FirmwareVersion, new { @class = "form-control hideInput" })
+    @Html.TextBoxFor(x => x.SerialNo, new { @class = "form-control hideInput" })
+    @Html.TextBoxFor(x => x.MacAddress, new { @class = "form-control hideInput" })
+    @Html.TextBoxFor(x => x.ModelName, new { @class = "form-control hideInput" })
+    @Html.TextBoxFor(x => x.FTPDescription, new { @class = "form-control hideInput" })
+    @Html.CheckBoxFor(x => x.IsColorScreen, new { @class = "form-control hideInput" })
+</div>

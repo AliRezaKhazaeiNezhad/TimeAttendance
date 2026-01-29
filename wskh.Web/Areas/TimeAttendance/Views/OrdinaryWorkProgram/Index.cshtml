@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "قوانین و برنامه ها | برنامه کاری";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                @*<i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/OrdinaryWorkProgram/Description')"></i>*@
+                <header>
+                    گزارش
+                </header>
+                <a class="btn btn-info pull-left" href="/TimeAttendance/OrdinaryWorkProgram/AddOrUpdate?id=0">ثبت</a>
+            </div>
+            <div class="card-body " id="Grid-Part">
+                @Html.Action("ListIndex", "OrdinaryWorkProgram")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/ordinaryworkprogram.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+}

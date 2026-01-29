@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+@{
+    var model = (TimeAttendance.Model.CalendarModel)Session["getprogrammodel"];
+    var _workProgramService = DependencyResolver.Current.GetService<wskh.Service.IWorkProgramService>();
+}
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+<div class="col-8 pull-right">
+    <table class="table clendareTable table-responsive" style="width:100% !important">
+        <thead>
+            <tr>
+                <th>
+                    ماه
+                </th>
+                <th colspan="31">
+                    روز
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 1; i <= 12; i++)
+            {
+                <tr>
+                    <td>
+                        @(TimeAttendance.Web.Helper.CalendareHelper.GetMonth(i))
+                    </td>
+                    @for (int j = 1; j <= 31; j++)
+                    {
+                        <td class="@(TimeAttendance.Web.Helper.CalendareHelper.DayType(i, j)) @(TimeAttendance.Web.Helper.CalendareHelper.DayKind(model.CalendarDayModels,i, j))">
+                            <div>
+                                @(j)
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="col-3 pull-right">
+
+    <table class="table clendareTable table-responsive" style="width:100% !important">
+        <thead>
+            <tr>
+                <th>
+                    برنامه کاری
+                </th>
+                <th>
+                    تاریخ شروع
+                </th>
+                <th>
+                    تاریخ پایان
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model.CalendarDayModels != null && model.CalendarDayModels.Count() > 0)
+            {
+                foreach (var day in model.CalendarDayModels.OrderBy(x => x.StartDateGeo.Date))
+                {
+                    <tr>
+                        <td>@(_workProgramService.FindById(day.WorkProgramId).Title)</td>
+                        <td>@(TimeAttendance.Web.Helper.CalendareHelper.PersianName(day.StartDateGeo))</td>
+                        <td>@(TimeAttendance.Web.Helper.CalendareHelper.PersianName(day.EndDateGeo))</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">
+                        داده ای ثبت نشده است
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

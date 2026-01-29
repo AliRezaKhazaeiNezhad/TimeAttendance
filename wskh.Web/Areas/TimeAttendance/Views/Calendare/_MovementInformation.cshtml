@@ -1,0 +1,143 @@
+﻿@{
+    var model = (TimeAttendance.Model.CalendarModel)Session["calendarmodel"];
+    Layout = null;
+}
+
+
+
+<div class="col-12">
+    <div class="row">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.FunctionKey, new { @class = "pull-right" })
+            @Html.CheckBoxFor(x => model.WorkRuleModel.FunctionKey, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.FunctionKey, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.WorkCode, new { @class = "pull-right" })
+            @Html.CheckBoxFor(x => model.WorkRuleModel.WorkCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.WorkCode, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.Card, new { @class = "pull-right" })
+            @Html.CheckBoxFor(x => model.WorkRuleModel.Card, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.Card, null, new { @class = "validation" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.FlowTimeId, new { @class = "pull-right" })
+            @Html.DropDownListFor(x => model.WorkRuleModel.FlowTimeId, model.WorkRuleModel.FlowTimeList, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.FlowTimeId, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3 FlowTimeMinPart" style="display:none">
+            @Html.LabelFor(x => model.WorkRuleModel.FlowTimeMin, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.FlowTimeMin, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.FlowTimeMin, null, new { @class = "validation" })
+        </div>
+    </div>
+
+
+
+    <div class="row NoneFlowTimeMinPart">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.DelyMonthMin, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.DelyMonthMin, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.DelyMonthMin, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.DelayDayMin, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.DelayDayMin, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.DelayDayMin, null, new { @class = "validation" })
+        </div>
+    </div>
+
+
+
+    <div class="row NoneFlowTimeMinPart">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.RestDayCountYearly, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.RestDayCountYearly, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.RestDayCountYearly, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.RestToNextYear, new { @class = "pull-right" })
+            @Html.CheckBoxFor(x => model.WorkRuleModel.RestToNextYear, new { @class = "form-control", onclick = "checlNext()" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.RestToNextYear, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3" style="display:none" id="yearlyPart">
+            @Html.LabelFor(x => model.WorkRuleModel.DaylyLeaveForNextYear, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.DaylyLeaveForNextYear, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.DaylyLeaveForNextYear, null, new { @class = "validation" })
+        </div>
+    </div>
+
+
+
+    <div class="row NoneFlowTimeMinPart">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.RestDayCountMonthly, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.RestDayCountMonthly, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.RestDayCountMonthly, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.RestToNextMonth, new { @class = "pull-right" })
+            @Html.CheckBoxFor(x => model.WorkRuleModel.RestToNextMonth, new { @class = "form-control", onclick = "checlNext()" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.RestToNextMonth, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3" style="display:none" id="monthlyPart">
+            @Html.LabelFor(x => model.WorkRuleModel.DaylyLeaveForNextMonth, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.DaylyLeaveForNextMonth, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.DaylyLeaveForNextMonth, null, new { @class = "validation" })
+        </div>
+    </div>
+
+
+    <div class="row NoneFlowTimeMinPart">
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.DelayActionId, new { @class = "pull-right" })
+            @*@Html.DropDownListFor(x => model.WorkRuleModel.DelayActionId, model.WorkRuleModel.DelayActionList, new { @class = "form-control" })*@
+            <select class="form-control" data-val="true" data-val-number="The field در صورت تاخیر ورود؟ must be a number." data-val-required="The در صورت تاخیر ورود؟ field is required." id="WorkRuleModel_DelayActionId" name="WorkRuleModel.DelayActionId" autocomplete="off">
+                <option value="0" @(model.WorkRuleModel.DelayActionId == 0 ? Html.Raw("selected") : Html.Raw(""))>هیچ عملیاتی انجام نشود</option>
+                <option value="1" @(model.WorkRuleModel.DelayActionId == 1 ? Html.Raw("selected") : Html.Raw(""))>استحقاقی از ابتدای ساعت</option>
+                <option value="2" @(model.WorkRuleModel.DelayActionId == 2 ? Html.Raw("selected") : Html.Raw(""))>استحقاقی از ابتدای تاخیر</option>
+                <option value="3" @(model.WorkRuleModel.DelayActionId == 3 ? Html.Raw("selected") : Html.Raw(""))>غیبت</option>
+            </select>
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.DelayActionId, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(x => model.WorkRuleModel.DelayActionPercent, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => model.WorkRuleModel.DelayActionPercent, new { @class = "form-control numeric" })
+            @Html.ValidationMessageFor(x => model.WorkRuleModel.DelayActionPercent, null, new { @class = "validation" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="pull-left col-12">
+            <button type="button" id="StepTwoBTN" onclick="StepTwoLevel()" class="btn btn-info btn-sm pull-left"> مرحله بعد</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function checlNext() {
+        var $isYearlyCheck = $("#WorkRuleModel_RestToNextYear").is(':checked');
+        var $isMonthlyCheck = $("#WorkRuleModel_RestToNextMonth").is(':checked');
+
+        if ($isYearlyCheck) {
+            $("#yearlyPart").show();
+        }
+        else {
+            $("#yearlyPart").hide();
+        }
+
+        if ($isMonthlyCheck) {
+            $("#monthlyPart").show();
+        }
+        else {
+            $("#monthlyPart").hide();
+        }
+    }
+</script>

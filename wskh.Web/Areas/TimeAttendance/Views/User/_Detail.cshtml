@@ -1,0 +1,63 @@
+﻿@model wskh.Core.wskhUser
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12 col-md-4 pull-right">
+        <span class="customeLabel">
+            @(Model.Sex ? Html.Raw("آقای") : Html.Raw("خانم")) @(Model.FirstName) @(Model.Lastname)
+        </span>
+    </div>
+    <div class="col-xs-12 col-md-4 pull-right">
+        <span class="customeLabel">
+            شماره همراه: @(wskh.Data.HashHelper.Decrypt(Model.UserName))
+        </span>
+    </div>
+    <div class="col-xs-12 col-md-4 pull-right">
+        <span class="customeLabel">
+            کدملی: @(wskh.Data.HashHelper.Decrypt(Model.NationalCode))
+        </span>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12 col-md-4 pull-right">
+        <span class="customeLabel">
+            @(Model.Active ? Html.Raw("وضعیت : فعال") : Html.Raw("وضعیت : <span style='color:red'>غیرفعال</span>")) *
+        </span>
+    </div>
+    <div class="col-xs-12 col-md-4 pull-right">
+        <span class="customeLabel">
+            مقطع تحصیلی: @(Model.EducationLevel.Title)
+        </span>
+    </div>
+    <div class="col-xs-12 col-md-4 pull-right">
+        <span class="customeLabel">
+            نوع استخدامی: @(Model.EmploymentType.Title)
+        </span>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12 col-md-5 pull-right">
+        <span class="customeLabel">
+            سمت سازمانی: @(Model.OrganizationLevel.Title)
+        </span>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-xs-12 pull-right" style="padding:10px;">
+        <span class="customeLabel">
+            * کاربرانی که غیرفعال تعریف شده باشند امکان ورود به نرم افزار را ندارند.
+        </span>
+    </div>
+</div>
+
+<br />

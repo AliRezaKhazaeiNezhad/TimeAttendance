@@ -1,0 +1,43 @@
+﻿@model TimeAttendance.Core.UserGroup
+    @{ 
+        var entityList = Model.UserGroupCalendares.Where(x => x.Remove == false).ToList();
+    }
+
+<br />
+
+
+<table class="table  table-bordered">
+    <thead>
+        <tr>
+            <th>سال</th>
+            <th>عنوان تقویم</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (entityList == null || entityList.Count() <= 0)
+        {
+            <tr>
+                <td colspan="3">داده ای ثبت نشده است</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in entityList)
+            {
+                <tr>
+                    <td>
+                        @item.Calendar.Year
+                    </td>
+                    <td>
+                        @item.Calendar.Title
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="DeleteCalendare(@(Model.Id), @(item.CalendarId))"> <i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

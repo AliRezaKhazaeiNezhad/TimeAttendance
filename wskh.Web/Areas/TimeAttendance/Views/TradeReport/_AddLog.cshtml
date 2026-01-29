@@ -1,0 +1,52 @@
+﻿
+<div class="col-md-2 pull-right">
+    <label class="lable">زمان</label>
+    <input type="time" name="Time" id="Time" value="00" class="form-control numeric" maxlength="2" style="direction:ltr !important;" />
+</div>
+
+
+<div class="col-md-2 pull-right">
+    <button type="button" onclick="AddLog()" class="form-control btn btn-info numeric" maxlength="2" style="margin-top:25px;text-align:center !important">
+        درج
+    </button>
+</div>
+
+
+<script>
+    $(function () {
+        var d = new Date(),
+            h = d.getHours(),
+            m = d.getMinutes();
+        if (h < 10) h = '0' + h;
+        if (m < 10) m = '0' + m;
+        $('input[type="time"][value="now"]').each(function () {
+            $(this).attr({ 'value': h + ':' + m });
+        });
+    });
+    function AddLog(userId) {
+        var $time = $("#Time").val();
+        if ($time == '') {
+            Message(1, "لطفا زمان را بدرستی وارد نمایید");
+        }
+        else {
+            $.ajax({
+                url: "/TimeAttendance/TradeReport/AddLog",
+                data: {
+                    reportDayId: $("#ReportDayId").val(),
+                    userId: $("#UserId2").val(),
+                    time: $time
+                },
+                type: 'get',
+                dataType: "html",
+                success: function (data) {
+                    if (data) {
+                        Message(0, "درج با موفقیت انجام شده");
+                        TradeList();
+                    } else {
+                        Message(1, "خطایی رخ داده است، در فرصتی دیگر تلاش نمایید");
+                    }
+                }
+            });
+        }
+    }
+</script>

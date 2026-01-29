@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "کارتابل | درخواست مرخصی روزانه";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+
+<div class="row">
+
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    ثبت مرخصی روزانه
+                </header>
+                <i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/DailyRequest/Description')"></i>
+            </div>
+            <div class="card-body ">
+                @using (Ajax.BeginForm("AddOrUpdate", "DailyRequest", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+                {
+                    <div id="AddOrUpdate-Part">
+                        @Html.Action("AddOrUpdate", "DailyRequest", new { id = 0 })
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    گزارش مانده مرخصی
+                </header>
+            </div>
+            <div class="card-body ">
+                <div id="Report-Part">
+                    @Html.Action("Report", "DailyRequest", new { userId = "", leaveTypeId = 0, startDate = "", endDate = "" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-8 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+                @Html.Action("ListIndex", "DailyRequest")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/dailyrequest.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        function Success(data) {  
+            $("#AddOrUpdate-Part").html(data.Html);
+            blink("AddOrUpdate-Part");
+            if (data.State == "0") { 
+                Message(data.State, data.Message);
+            }
+            GridReload("Grid");
+            if (data.State == "0") { 
+                GetEmptyView("/TimeAttendance/DailyRequest/AddOrUpdate", "AddOrUpdate-Part");
+            }
+        }
+    </script>
+}

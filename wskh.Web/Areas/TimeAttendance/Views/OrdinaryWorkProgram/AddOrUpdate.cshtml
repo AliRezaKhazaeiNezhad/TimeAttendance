@@ -1,0 +1,84 @@
+﻿@model TimeAttendance.Model.OrdinaryWorkProgramModel
+
+@{
+    ViewBag.Title = "قوانین و برنامه ها | ثبت ویرایش برنامه کاری";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>ثبت</header>
+                <a class="btn btn-info pull-left" href="/TimeAttendance/OrdinaryWorkProgram/Index">بازگشت</a>
+            </div>
+            <form method="post" resource="/TimeAttendance/OrdinaryWorkProgram/AddOrUpdate">
+                <div class="card-body ">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.Id)
+
+                    <div class="form-group col-12">
+                        @Html.LabelFor(x => x.Title, new { @class = "pull-right" })<label class="required">*</label>
+                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "50", onkeyup = "isTitleNull(this)" })
+                        @Html.ValidationMessageFor(x => x.Title, null, new { @class = "validation" })
+                    </div>
+
+
+                    <div id="DropPart" style="display:none">
+                        <div class="form-group col-md-3  pull-right">
+                            <label class="pull-right col-12">
+                                نوع برنامه
+                            </label>
+                            <select class="form-control" onchange="SelectDayIndex(this)" id="ProgramTypeDrop">
+                                <option value="-1" @(Model.WorkProgramType == -1 ? Html.Raw("selected='selected'") : Html.Raw(""))>انتخاب نمایید</option>
+                                <option value="3" @(Model.WorkProgramType == 3 ? Html.Raw("selected='selected'") : Html.Raw(""))>بیمارستانی/نگهبانی</option>
+                                <option value="1" @(Model.WorkProgramType == 1 ? Html.Raw("selected='selected'") : Html.Raw(""))>منظم/چرخشی</option>
+                                <option value="2" @(Model.WorkProgramType == 2 ? Html.Raw("selected='selected'") : Html.Raw(""))>شناور</option>
+                            </select>
+
+                        </div>
+                        @*<div class="form-group col-md-3 pull-right" id="CalculateAbsence" style="display:none">
+                            @Html.LabelFor(x => x.CalculateAbsence, new { @class = "pull-right" })
+                            @Html.CheckBoxFor(x => x.CalculateAbsence, new { @class = "form-control", onchange = "CalculateAbsence(this)" })
+                            @Html.ValidationMessageFor(x => x.CalculateAbsence, null, new { @class = "validation" })
+                        </div>*@
+                    </div>
+
+
+
+                    <br />
+                    <br />
+
+
+                    <div id="ProgramGrid" style="display:none">
+                        @Html.Action("GetTable")
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div class="col-12">
+                        <div class="alert alert-danger" style="display:none" id="WeeklyAlert">
+                            جهت فعال شدن کلید ثبت باید تعداد روزهای هفته کامل باشند.
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <button type="submit" onclick="AddLoading()" id="Submit" class="btn btn-success pull-left" disabled> ثبت </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/wwwroot/controllersGrid/ordinaryworkprogramaddorupdate.js"></script>
+}

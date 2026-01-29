@@ -1,0 +1,75 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-headingDanger" onclick="ShowPanel('logdetail')">
+        <h4 class="panel-title">
+            <a data-toggle="collapse">ورود و خروج ها</a>
+        </h4>
+    </div>
+    <div id="logdetail" class="panel-collapse collapse panel-bodyDanger">
+
+        <div class="container">
+            <table id="GridGetLogs" class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+                <thead>
+                    <tr>
+                        <th>EnrollNo</th>
+                        <th>روز</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>VerifyMode</th>
+                        <th>InOutMode</th>
+                        <th>WorkCode</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var table = $("#GridGetLogs").DataTable({
+    "language": {
+        "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+        "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+        "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+        "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+        "sInfoPostFix": "",
+        "sInfoThousands": ",",
+        "sLengthMenu": "نمایش _MENU_ رکورد",
+        "sLoadingRecords": "در حال بارگزاری...",
+        "sProcessing": "در حال پردازش...",
+        "sSearch": "جستجو:",
+        "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+        "oPaginate": {
+            "sFirst": "ابتدا",
+            "sLast": "انتها",
+            "sNext": "بعدی",
+            "sPrevious": "قبلی"
+        },
+        "oAria": {
+            "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+            "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+        }
+    },
+    "processing": true,
+    "serverSide": true,
+    "searching": false,
+    "info": true,
+    "scrollX": false,
+    "stateSave": true,
+    "lenghtMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+    "ajax": {
+        "url": "/DeviceCommand/GetLogsList?deviceId=@(ViewBag.DeviceIdGetLogs)",
+        "type": "get"
+    },
+    "columns": [
+        { "data": "EnrollNo", "orderable": false },
+        { "data": "DayOfWeek", "orderable": false },
+        { "data": "LogDate", "orderable": false },
+        { "data": "LogTime", "orderable": false },
+        { "data": "VerifyMode", "orderable": false },
+        { "data": "InOutMode", "orderable": false },
+        { "data": "WorkCode", "orderable": false }
+    ],
+    "order": [[0, "asc"]]
+});
+</script>

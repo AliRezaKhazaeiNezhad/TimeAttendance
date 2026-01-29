@@ -1,0 +1,91 @@
+﻿@model wskh.Model.WorkRuleModel
+@{
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+    <div class="row">
+        <div class="form-group col-12 col-md-6">
+            @Html.LabelFor(x => x.Title, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "50" })
+            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12 col-md-6">
+            @Html.LabelFor(x => x.MaxDelyInDay, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => x.MaxDelyInDay, new { @class = "form-control numeric", MaxLength = "4" })
+            @Html.ValidationMessageFor(x => x.MaxDelyInDay, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12 col-md-6">
+            @Html.LabelFor(x => x.MaxDelyInMonth, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => x.MaxDelyInMonth, new { @class = "form-control numeric", MaxLength = "4" })
+            @Html.ValidationMessageFor(x => x.MaxDelyInMonth, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12 col-md-6">
+            @Html.LabelFor(x => x.DailyLeaveInMonth, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => x.DailyLeaveInMonth, new { @class = "form-control numeric", MaxLength = "6" })
+            @Html.ValidationMessageFor(x => x.DailyLeaveInMonth, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(x => x.HourlyLeaveInMonthHour, new { @class = "pull-right" })
+            <div class="pull-right row">
+                <div class="form-group col-12 col-md-6 col-lg-6 col-xl-6 pull-right">
+                    <label class="pull-right">ساعت</label>
+                    @Html.TextBoxFor(x => x.HourlyLeaveInMonthHour, new { @class = "form-control numeric", MaxLength = "2" })
+                </div>
+                <div class="form-group col-12 col-md-6 col-lg-6 col-xl-6 pull-right">
+                    <label class="pull-right">دقیقه</label>
+                    @Html.TextBoxFor(x => x.HourlyLeaveInMonthMinute, new { @class = "form-control numeric", MaxLength = "2" })
+                </div>
+            </div>
+            @Html.ValidationMessageFor(x => x.HourlyLeaveInMonthHour, null, new { @class = "validation" })
+            @Html.ValidationMessageFor(x => x.HourlyLeaveInMonthMinute, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12 col-md-6">
+            @Html.LabelFor(x => x.NoExitLog, new { @class = "pull-right" })
+            @Html.DropDownListFor(x => x.NoExitLog, Model.NoExitLogs, new { @class = "form-control numeric" })
+            @Html.ValidationMessageFor(x => x.NoExitLog, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-12 col-md-6">
+            @Html.LabelFor(x => x.HourlyLeavePassToNextMonthId, new { @class = "pull-right" })
+            @Html.DropDownListFor(x => x.HourlyLeavePassToNextMonthId, Model.HourlyLeavePassToNextMonths, new { @class = "form-control numeric leftSideCheckBox" })
+            @Html.ValidationMessageFor(x => x.HourlyLeavePassToNextMonthId, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-12">
+            @Html.LabelFor(x => x.DailyLeavePassToNeztLeaveId, new { @class = "pull-right" })
+            @Html.DropDownListFor(x => x.DailyLeavePassToNeztLeaveId, Model.DailyLeavePassToNeztLeaves, new { @class = "form-control numeric leftSideCheckBox" })
+            @Html.ValidationMessageFor(x => x.DailyLeavePassToNeztLeaveId, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12">
+            @Html.LabelFor(x => x.FlowTimeMinDay, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => x.FlowTimeMinDay, new { @class = "form-control numeric", MaxLength = "3" })
+            @Html.ValidationMessageFor(x => x.FlowTimeMinDay, null, new { @class = "validation" })
+        </div>
+
+        <div class="form-group col-12 col-md-9">
+            @Html.LabelFor(x => x.DelayActionId, new { @class = "pull-right" })
+            @Html.DropDownListFor(x => x.DelayActionId, Model.DelayActions, new { @class = "form-control numeric leftSideCheckBox", onchange="DelayAction(this)" })
+            @Html.ValidationMessageFor(x => x.DelayActionId, null, new { @class = "validation" })
+        </div>
+        <div class="form-group col-12 col-md-3">
+            @Html.LabelFor(x => x.DelayActionPercent, new { @class = "pull-right" })
+            @Html.TextBoxFor(x => x.DelayActionPercent, new { @class = "form-control numeric", MaxLength = "3", disabled = "disabled" })
+            @Html.ValidationMessageFor(x => x.DelayActionPercent, null, new { @class = "validation" })
+        </div>
+
+    </div>
+
+<br />
+
+<div class="form-group col-12">
+    <button type="submit" onclick="AddLoading()" class="btn btn-success btn-sm pull-left">ثبت / ویرایش</button>
+</div>
+
+

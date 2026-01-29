@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "کارتابل | درخواست مرخصی ساعتی";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+
+<div class="row">
+
+    <div class="col-md-4 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    ثبت مرخصی ساعتی
+                </header>
+                <i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/HourlyLeaveRequest/Description')"></i>
+            </div>
+            <div class="card-body ">
+                @using (Ajax.BeginForm("AddOrUpdate", "HourlyLeaveRequest", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+                {
+                    <div id="AddOrUpdate-Part">
+                        @Html.Action("AddOrUpdate", "HourlyLeaveRequest", new { id = 0 })
+                    </div>
+                }
+
+
+            </div>
+        </div>
+
+
+
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    گزارش مانده مرخصی
+                </header>
+            </div>
+            <div class="card-body ">
+                <div id="Report-Part">
+                    @Html.Action("Report", "HourlyLeaveRequest", new { userId = "", leaveTypeId = 0 , dateStriing = "", startHour = "", endHour = "", date = ""})
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="col-md-8 col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+                @Html.Action("ListIndex", "HourlyLeaveRequest")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/hourlyleaverequest.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        function Success(data) {  
+            $("#AddOrUpdate-Part").html(data.Html);
+            blink("AddOrUpdate-Part");
+            if (data.State == "0") { 
+                Message(data.State, data.Message);
+                window.location.reload();
+            }
+            GridReload("Grid");
+            if (data.State == "0") { 
+                GetEmptyView("/TimeAttendance/HourlyLeaveRequest/AddOrUpdate", "AddOrUpdate-Part");
+            }
+        }
+    </script>
+    <script src="~/wwwroot/componenets/lastTimepicker/alex-date-time.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#StartHour").typeATime();
+            $("#EndHour").typeATime();
+        });
+
+
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+}

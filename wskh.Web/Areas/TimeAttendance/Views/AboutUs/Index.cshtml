@@ -1,0 +1,45 @@
+﻿@model TimeAttendance.Model.OrganizationInformationModel
+@{
+    ViewBag.Title = "تنظیمات | درباره ما";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>درباره ما</header>
+            </div>
+            <div class="card-body " style="text-align: justify;direction: rtl;line-height: 42px;padding: 40px;font-size: 18px;">
+
+                شرکت فن آوری اطلاعات و ارتباطات برتراندیشان سناباد در سال 1382 با گردهمایی جمعی از متخصصین و مهندسین حوزه IT و الکترونیک با هدف خلق و اجرای ایده های نوین در حوزه فناوری اطلاعات و ارتباطات فعالیت خود را آغاز نموده و با کسب بیش از یک دهه تجربه در طراحی و پیاده سازی پروژه های خرد تا کلان در مقیاس شهری و کشوری همگام با ارتقا و تکمیل کادر فنی و تحقیقاتی خود به فعالیت ادامه می دهد.
+                در حال حاضر طیف وسیعی از سازمانهای دولتی و خصوصی و موسسات آموزش عالی از مشتریان محصولات سخت افزاری و نرم افزاری این شرکت می باشند.
+                شرکت برتراندیشان سناباد دارای مجوز و رتبه از شورای عالی انفورماتیک کشور و گواهینامه صلاحیت پیمانکاران می باشد .
+
+                <br /><br />
+                زمینه های فعالیت این شرکت عبارتند از :
+
+                <br />✔ طراحی و اجرای انواع پروژه در زمینه سامانه های مبتنی برکارت هوشمند و RFID
+                <br />✔ اجرای پروژه در زمینه سامانه های مدیریت پرداخت الکترونیکی، کارت و بلیط الکترونیک و پرداخت خرد شهروندی
+                <br />✔ اجرای پروژه در زمینه سامانه های امنیتی ؛کنترل تردد و حضور و غیاب
+                <br />✔ تامین انواع کارت هوشمند تماسی و غیر تماسی، کارتخوان، تگ های RFID و پرینترهای چاپ کارت پی وی سی
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+}

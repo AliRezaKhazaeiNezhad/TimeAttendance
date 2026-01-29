@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "قوانین و برنامه ها | گروهبندی تعطیلات و ایام خاص";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+
+<div class="panel-group">
+    <div class="col-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-headingDanger" onclick="ShowPanel('Grouping')">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse">
+                        گروهبندی تعطیلات و ایام خاص
+                    </a>
+                </h4>
+                <a class="btn btn-warning pull-left custome-btn-left" href="/TimeAttendance/PDF/PrintSpecialDayGrouping" target="_blank">چاپ</a>
+            </div>
+            <div id="Grouping" class="panel-collapse collapse panel-bodyDanger" style="display:block;">
+                <div class="col-12">
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="card card-topline-red">
+                                <div class="card-head">
+                                    <header>ثبت / ویرایش</header>
+                                    <i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/SpecialDayGrouping/Description')"></i>
+                                </div>
+                                <div class="card-body ">
+                                    @using (Ajax.BeginForm("AddOrUpdate", "SpecialDayGrouping", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
+                                    {
+                                        <div id="AddOrUpdate-Part">
+                                            @Html.Action("AddOrUpdate", "SpecialDayGrouping", new { id = 0 })
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8 col-sm-12">
+                            <div class="card card-topline-red">
+                                <div class="card-head">
+                                    <header>گزارش</header>
+                                </div>
+                                <div class="card-body " id="Grid-Part">
+                                    @Html.Action("ListIndex", "SpecialDayGrouping")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-headingDanger" onclick="ShowPanel('Hoidays')">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse">
+                        تعطیلات و ایام خاص
+                    </a>
+                </h4>
+                <a class="btn btn-warning pull-left custome-btn-left" href="/TimeAttendance/PDF/PrintSpecialDay" target="_blank">چاپ</a>
+            </div>
+            <div id="Hoidays" class="panel-collapse collapse panel-bodyDanger">
+                <div class="col-12">
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="card card-topline-red">
+                                <div class="card-head">
+                                    <header>ثبت / ویرایش</header>
+                                    <i class="fa fa-helper poiner information" onclick="getDescription('/TimeAttendance/SpecialDay/Description')"></i>
+                                </div>
+                                <div class="card-body ">
+                                    @using (Ajax.BeginForm("AddOrUpdate", "SpecialDay", new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success2" }))
+                                    {
+                                        <div id="AddOrUpdate-Part2">
+                                            @Html.Action("AddOrUpdate", "SpecialDay", new { id = 0 })
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8 col-sm-12">
+                            <div class="card card-topline-red">
+                                <div class="card-head">
+                                    <header>گزارش</header>
+                                </div>
+                                <div class="card-body " id="Grid-Part2">
+                                    @Html.Action("ListIndex", "SpecialDay")
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/specialdaygrouping.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script src="~/wwwroot/controllersGrid/specialday.js"></script>
+
+    <script>
+        function Success(data) {  
+            $("#AddOrUpdate-Part").html(data.Html);
+            blink("AddOrUpdate-Part");
+            if (data.State == "0") { 
+                Message(data.State, data.Message);
+            }
+            GridReload("Grid");
+            if (data.State == "0") { 
+                GetEmptyView("/TimeAttendance/SpecialDayGrouping/AddOrUpdate", "AddOrUpdate-Part");
+                GetCreate();
+            }
+        }
+
+        function Success2(data) {
+            $("#AddOrUpdate-Part2").html(data.Html);
+            blink("AddOrUpdate-Part2");
+            if (data.State == "0") { 
+                Message(0, data.Message);
+            }
+            if (data.State == "1") {
+                Message(1, data.Message);
+            }
+            if (data.State == "15") {
+                Message(1, data.Message);
+            }
+            GridReload("Grid2");
+            if (data.State == "0") { 
+                GetEmptyView("/TimeAttendance/SpecialDay/AddOrUpdate", "AddOrUpdate-Part2");
+            }
+        }
+
+        function GetCreate() {
+            GridReload("Grid");
+            GridReload("Grid2");
+            GetEmptyView("/TimeAttendance/SpecialDay/AddOrUpdate", "AddOrUpdate-Part2");
+        }
+    </script>
+}
+
+
+<script src="~/wwwroot/componenets/global/global.js"></script>
+<script>
+    function ShowPanel($id) {
+        $("#" + $id).slideToggle();
+    }
+</script>

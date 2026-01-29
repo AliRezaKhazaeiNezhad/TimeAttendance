@@ -1,0 +1,138 @@
+﻿@model TimeAttendance.Model.HourlyRequestModel
+@{
+    Layout = null;
+}
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert alert-danger w100">
+        @(Model.Error)
+    </div>
+}
+
+
+
+
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.UserId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.UserId, Model.UsersList, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserId, null, new { @class = "validation" })
+</div>
+
+
+<div class="form-group w100 pull-right">
+    @Html.LabelFor(x => x.DateStriing, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.DateStriing, new { @class = "form-control", MaxLength = "75" })
+    @Html.ValidationMessageFor(x => x.DateStriing, null, new { @class = "validation" })
+</div>
+
+
+
+
+<div class="form-group w100 col-md-6 pull-right">
+    @Html.LabelFor(x => x.StartHour, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.StartHour, new { @class = "form-control", MaxLength = "5" })
+    @Html.ValidationMessageFor(x => x.StartHour, null, new { @class = "validation" })
+</div>
+
+<div class="form-group w100 col-md-6 pull-right">
+    @Html.LabelFor(x => x.EndHour, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.EndHour, new { @class = "form-control", MaxLength = "5" })
+    @Html.ValidationMessageFor(x => x.EndHour, null, new { @class = "validation" })
+</div>
+
+
+
+
+<div class="form-group w100 pull-right">
+    @Html.LabelFor(x => x.LeaveTypeId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.LeaveTypeId, Model.LeaveTypeList, new { @class = "form-control", MaxLength = "75", onchange = "hasChange(this)" })
+    @Html.ValidationMessageFor(x => x.LeaveTypeId, null, new { @class = "validation" })
+</div>
+
+<div class="form-group w100" id="ResultPart">
+
+</div>
+
+
+
+<button type="button" onclick="Check()" id="checkBTN" class="btn btn-warning btn-sm pull-left" disabled>بررسی</button>
+<button type="submit" onclick="AddLoading()" id="submitBTN" class="btn btn-success btn-sm pull-left hide">ثبت / ویرایش</button>
+
+
+
+
+<script src="~/wwwroot/componenets/persiancalendar/js-persian-cal.min.js"></script>
+<script type="text/javascript">
+    var objCal1 = new AMIB.persianCalendar('DateStriing');
+
+    function hasChange(data) {
+
+        var $val = $(data).val();
+        $("#submitBTN").addClass('hide');
+        $("#checkBTN").removeClass('hide');
+
+        if (parseInt($(data).val()) > 0) {
+            $("#checkBTN").removeAttr('disabled');
+        }
+        else {
+            $("#checkBTN").attr('disabled', 'disabled');
+        }
+    }
+
+    function Check() {
+        AddLoading();
+        $.ajax({
+            url: "/TimeAttendance/HourlyLeaveRequest/Check",
+            data: {
+                userId: $("#UserId").val(),
+                dateStriing: $("#DateStriing").val()
+            },
+            type: 'Get',
+            dataType: "json",
+            success: function (data) {
+                if (data.State == 1) {
+                    GetReport();
+                    $("#submitBTN").removeClass('hide');
+                    $("#checkBTN").addClass('hide');
+                } else if (data.State == 0) {
+                    Message(1, data.Message);
+                } else if (data.State == -1) {
+                    Message(2, data.Message);
+                }
+                ReomveLoading();
+            }
+        });
+    }
+
+    function GetReport() {
+        $.ajax({
+            url: "/TimeAttendance/HourlyLeaveRequest/Report",
+            data: {
+                userId: $("#UserId").val(),
+                leaveTypeId: $("#LeaveTypeId").val(),
+                dateStriing: $("#DateStriing").val(),
+                startHour: $("#StartHour").val(),
+                endHour: $("#EndHour").val(),
+                date: $("#DateStriing").val()
+            },
+            type: 'Get',
+            dataType: "html",
+            success: function (data) {
+                $("#Report-Part").html(data);
+            }
+        });
+    }
+
+    function ActiveDeactiveBTNS() {
+        $("#submitBTN").addClass('hide');
+        $("#checkBTN").removeClass('hide');
+    }
+</script>
+
+

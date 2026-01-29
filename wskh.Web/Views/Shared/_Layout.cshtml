@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>@(ViewBag.Title)</title>
+
+    @Styles.Render("~/Content/FontsAndIcons")
+    @Styles.Render("~/Content/Bootstrap")
+    @Styles.Render("~/Content/Material")
+    @Styles.Render("~/Content/Theme")
+    <link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/wwwroot/dashboard/img/128.png" />
+</head>
+
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md sidemenu-container-reversed logo-red header-red white-sidebar-color" style="overflow-x:hidden;">
+    <div class="page-wrapper">
+        @Html.Partial("_HorizontalMenu")
+        <div class="page-container">
+            <div class="page-content-wrapper">
+                    @RenderBody()
+            </div>
+        </div>
+        @Html.Partial("_Footer")
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/Default")
+    @Scripts.Render("~/bundles/Bootstrap")
+    @Scripts.Render("~/bundles/Common")
+    @Scripts.Render("~/bundles/Material")
+    @Scripts.Render("~/bundles/Chart")
+    @Scripts.Render("~/bundles/Summernote")
+</body>
+</html>

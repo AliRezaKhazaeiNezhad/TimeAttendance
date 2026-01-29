@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "گزارشات | گزارش خام تردد";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+<style>
+    .panel-heading-gray {
+        background: #ffdcd8;
+    }
+</style>
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    جستجو
+                </header>
+            </div>
+            <div class="card-body " id="Search-Part">
+                @Html.Action("Search", "AbsenceReport")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="HiddenPart">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    @*<script>
+            $(document).ready(function () {
+                $("#UserGroupId").select2();
+                $("#UserId").select2();
+            });
+        </script>*@
+    <script>
+        function Search() {
+            AddLoading();
+
+            var $groupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+            var $stDate = $("#StartDatePersian").val();
+            var $edDate = $("#EndDatePersian").val();
+            var $analyzedReportState = $("#TypeId").val();
+
+
+            if ($groupId <= 0 ||
+                $userId.length <= 0 ||
+                $stDate.length <= 0 ||
+                $stDate.length <= 0) {
+                ReomveLoading();
+                Message(1, "کلیه فیلدها را تکمیل نمایید");
+            }
+            else {
+                $.ajax({
+                    url: "/TimeAttendance/StimulReport/AbsenceNoLayoutIndex",
+                    data: {
+                        groupId: $groupId,
+                        userId: $userId,
+                        stDate: $stDate,
+                        edDate: $edDate,
+                        analyzedReportState: $analyzedReportState,
+                    },
+                    type: 'Get',
+                    dataType: "html",
+                    success: function (data) {
+                        $("#Grid-Part").html(data);
+                        ReomveLoading();
+                    }
+                });
+            }
+        }
+
+        function SelectUsers() {
+            $.ajax({
+                url: "/TimeAttendance/AnalyzedReport/GetDrop?usergroupId=" + $("#UserGroupId").val(),
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#UserId").html(data);
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+        function ShowMore(id) {
+            var $id = id;
+            $.ajax({
+                url: "/TimeAttendance/AnalyzedReport/Detail?id=" + $id,
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    bootbox.dialog({
+                        message: data
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function PrintPDF() {
+            var $userGroupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+            var $startDate = $("#StartDate").val();
+            var $endDate = $("#EndDate").val();
+            var $tradeTypeId = $("#TradeTypeId").val();
+
+
+            var $groupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+            var $stDate = $("#StartDatePersian").val();
+            var $edDate = $("#EndDatePersian").val();
+            var $analyzedReportState = $("#TypeId").val();
+
+            if ($groupId <= 0 ||
+                $userId.length <= 0 ||
+                $stDate.length <= 0 ||
+                $stDate.length <= 0) {
+                ReomveLoading();
+                Message(1, "کلیه فیلدها را تکمیل نمایید");
+            }
+            else {
+                var url = "/TimeAttendance/StimulReport/AbsenceReportIndex?groupId=" + $groupId + "&userId=" + $userId + "&stDate=" + $stDate + "&edDate=" + $edDate + "&analyzedReportState=" + $analyzedReportState;
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+}

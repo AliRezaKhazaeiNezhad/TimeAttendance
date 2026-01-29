@@ -1,0 +1,104 @@
+﻿@model TimeAttendance.Model.DailyLeaveReportModel
+@{
+    Layout = null;
+    var result = TimeAttendance.WebEssentials.RequestPart.RequestHelper.RemainDailyLeave(Model.UserId, Model.LeaveTypeId, Model.StartDate, Model.EndDate);
+}
+
+
+@if (Model.LeaveTypeId == 0 || string.IsNullOrEmpty(Model.UserId) || Model.LeaveTypeId == 3)
+{
+    <div class="form-group w100">
+        <table class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>مانده مرخصی</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        داده ای وجود ندارد
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
+else if (Model.LeaveTypeId == 1)
+{
+
+    <div class="form-group w100">
+        <table class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+            <thead>
+                <tr>
+                    <th>عنوان</th>
+                    <th>
+                        ساعت
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>مدت مرخصی درخواستی</td>
+                    <td>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.TotalHours(result.Item1))
+                    </td>
+                </tr>
+                <tr>
+                    <td>مانده سال قبل</td>
+                    <td>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.TotalHours(result.Item2))
+                    </td>
+                </tr>
+                <tr>
+                    <td>مانده سال جاری</td>
+                    <td>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.TotalHours(result.Item3))
+                    </td>
+                </tr>
+                <tr class="btn-info">
+                    <td>
+                        <h5>
+                            مانده پس از کسر
+                        </h5>
+                    </td>
+                    <td>
+                        <h5>
+                            @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.TotalHours(result.Item4))
+                        </h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+}
+else if (Model.LeaveTypeId != 3)
+{
+    <div class="form-group w100">
+        <table class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+            <thead>
+                <tr>
+                    <th>عنوان</th>
+                    <th>دقیقه</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>مدت مرخصی</td>
+                    <td>@(result.Item1)</td>
+                </tr>
+                <tr>
+                    <td>مانده سال جاری</td>
+                    <td>@(result.Item3)</td>
+                </tr>
+                <tr>
+                    <td>مانده پس از کسر</td>
+                    <td>@(result.Item4)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}

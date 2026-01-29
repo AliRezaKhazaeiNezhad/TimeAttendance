@@ -1,0 +1,82 @@
+﻿@model wskh.Core.FingerDevice
+
+<div class="panel panel-default">
+    <div class="panel-heading panel-headingDanger" onclick="ShowPanel('collapse1')">
+        <h4 class="panel-title">
+            <a data-toggle="collapse">ارتباط با دستگاه</a>
+        </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse panel-bodyDanger">
+        <div class="container">
+            <table class="table table-striped table-condensed table-bordered no-margin dataTable no-footer">
+                <tr>
+                    <td>
+                        بروزرسانی زمان و تاریخ
+                    </td>
+                    <td>
+                        حذف سطح دسترسی مدیران دستگاه
+                    </td>
+                    <td>
+                        حذف همه ورود و خروج های دستگاه
+                    </td>
+                    <td>
+                        حذف تمام اطلاعات دستگاه(Reset Factory)
+                    </td>
+                    <td>
+                        راه اندازی مجدد دستگاه (Restart)
+                    </td>
+                    <td>
+                        دریافت ورود و خروج ها
+                    </td>
+                    <td>
+                        دریافت کاربران دستگاه
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" disabled="disabled" onclick="UpdateDateTime(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="SetDateTimeSpiner"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" onclick="ClearAdministrator(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="ClearAdministratorSpiner"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" onclick="DeleteGeneralLogs(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="DeleteGeneralLogSpiner"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" onclick="ClearAllData(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="ClearAllDataSpiner"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" onclick="RestartDevice(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="RestartDeviceSpiner"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" onclick="GetLogs(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="GetLogSpiner"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default w100 actionBTN" onclick="GetEnroll(@(Model.Id))">
+                            اعمال
+                            <i class="fa fa-spinner fa-spin" id="GetEnrollSpiner"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

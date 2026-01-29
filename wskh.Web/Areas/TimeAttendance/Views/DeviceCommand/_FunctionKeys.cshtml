@@ -1,0 +1,299 @@
+﻿@model wskh.Core.FingerDevice
+
+<div class="panel panel-default">
+    <div class="panel-heading panel-headingDanger" onclick="ShowPanel('collapse2')">
+        <h4 class="panel-title">
+            <a data-toggle="collapse">کلیدهای تابعی</a>
+        </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse panel-bodyDanger">
+        <div class="container">
+
+            <table class="table table-striped table-condensed table-bordered no-margin dataTable no-footer">
+                <tr>
+                    <th style="width:5%">
+                        عنوان
+                    </th>
+                    <th style="width:20%">
+                        مقدار
+                    </th>
+
+                    <th style="width:5%">
+                        عنوان
+                    </th>
+                    <th style="width:20%">
+                        مقدار
+                    </th>
+
+                    <th style="width:5%">
+                        عنوان
+                    </th>
+                    <th style="width:20%">
+                        مقدار
+                    </th>
+
+                    <th style="width:5%">
+                        عنوان
+                    </th>
+                    <th style="width:20%">
+                        مقدار
+                    </th>
+
+                </tr>
+                <tr>
+                    <td>
+                        F1
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F1', this)">
+                            <option value="0" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F1 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        F2
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F2', this)">
+                            <option value="0" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F2 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        F3
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F3', this)">
+                            <option value="0" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F3 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        F4
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F4', this)">
+                            <option value="0" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F4 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        F5
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F5', this)">
+                            <option value="0" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F5 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        F6
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F6', this)">
+                            <option value="0" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F6 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        F7
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F7', this)">
+                            <option value="0" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F7 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        F8
+                    </td>
+                    <td>
+                        <select class="form-control functionkeysdrop" onchange="ChangeFunctionKey(@(Model.Id), 'F8', this)">
+                            <option value="0" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.Enterance ? Html.Raw("selected") : Html.Raw(""))>
+                                ورود
+                            </option>
+                            <option value="1" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.Exit ? Html.Raw("selected") : Html.Raw(""))>
+                                خروج
+                            </option>
+                            <option value="2" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.HourlyLeave ? Html.Raw("selected") : Html.Raw(""))>
+                                مرخصی ساعتی
+                            </option>
+                            <option value="3" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.HourlyMission ? Html.Raw("selected") : Html.Raw(""))>
+                                ماموریت ساعتی
+                            </option>
+                            <option value="4" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.TransportDelay ? Html.Raw("selected") : Html.Raw(""))>
+                                تاخیر سرویس
+                            </option>
+                            <option value="5" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.Rest ? Html.Raw("selected") : Html.Raw(""))>
+                                نماز، نهار، استراحت
+                            </option>
+                            <option value="6" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.ChildRest ? Html.Raw("selected") : Html.Raw(""))>
+                                پاس شیر
+                            </option>
+                            <option value="7" @(Model.F8 == wskh.Core.Enumerator.FunctionKeyType.Other ? Html.Raw("selected") : Html.Raw(""))>
+                                غیره
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>

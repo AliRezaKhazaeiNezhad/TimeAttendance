@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "گزارشات | گزارش لحظه ای کل";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+    var dtNow = DateTime.Now;
+    string time = $"{dtNow.Hour}:{dtNow.Minute}:{dtNow.Second}";
+}
+
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    جستجو
+                </header>
+            </div>
+            <div class="card-body " id="Search-Part">
+                @Html.Action("Search", "InstantReport", new { groupId = 0, userId = "" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="HiddenPart">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#UserGroupId").select2();
+            $("#UserId").select2();
+        });
+    </script>
+    <script>
+        function SelectUsers() {
+            $.ajax({
+                url: "/TimeAttendance/InstantReport/GetDrop?usergroupId=" + $("#UserGroupId").val(),
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#UserId").html(data);
+                }
+            });
+        }
+
+       
+         function Search() {
+            AddLoading();
+
+            var $userGroupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+
+            $.ajax({
+                url: "/TimeAttendance/StimulReport/InstantNoLayoutIndex",
+                data: {
+                    userGroupId: $userGroupId,
+                    userId: $userId
+                },
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#Grid-Part").html(data);
+                    ReomveLoading();
+                }
+            });
+        }
+
+
+        function List() {
+            $.ajax({
+                url: "/TimeAttendance/InstantReport/ListIndex",
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#Grid-Part").html(data);
+                    ReomveLoading();
+                }
+            });
+        }
+
+        function PrintPDF() {
+            var $userGroupId = $("#UserGroupId").val();
+            var $userId = $("#UserId").val();
+            var url = "/TimeAttendance/StimulReport/InstantReportIndex?userGroupId=" + $userGroupId + "&userId=" + $userId ;
+            window.open(url, '_blank');
+        }
+    </script>
+}

@@ -1,0 +1,272 @@
+﻿@model List<TimeAttendance.Model.AnalyzedReportListModel>
+@{
+    Layout = null;
+
+    List<TimeAttendance.Model.AnalyzedReportListModel> entityList = new List<TimeAttendance.Model.AnalyzedReportListModel>();
+
+    entityList = Model;
+}
+
+
+
+
+@if (entityList == null)
+{
+    <div class="alert alert-warning w100 pull-right">
+        داده ای یافت نشد!
+    </div>
+}
+else
+{
+    foreach (var user in entityList)
+    {
+        <div class="panel-group pabel-accordion" id="accordion@(entityList.FindIndex(x => x.UserInformattion == user.UserInformattion))">
+            <div class="panel panel-info">
+                <a class="accordion-toggle accordion-toggle-styled " data-toggle="collapse" data-parent="#accordion@(entityList.FindIndex(x => x.UserInformattion == user.UserInformattion))" href="#collapse_@(entityList.FindIndex(x => x.UserInformattion == user.UserInformattion))_@(entityList.FindIndex(x => x.UserInformattion == user.UserInformattion))" aria-expanded="false">
+                    <div class="panel-heading panel-heading-gray">
+                        <h4 class="panel-title">
+                            <table class="w100 pull-right" style="position: relative;top: -20px;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                          گروه: @(user.UserGroup)
+                                        </td>
+                                        <td>
+                                            اطلاعات پرسنلی: @(user.UserInformattion)
+                                        </td>
+                                        <td>
+                                            تاریخ شروع: @(user.StartDate)
+                                        </td>
+                                        <td>
+                                            تاریخ پایان: @(user.EndDate)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </h4>
+                    </div>
+                </a>
+                <div id="collapse_@(entityList.FindIndex(x => x.UserInformattion == user.UserInformattion))_@(entityList.FindIndex(x => x.UserInformattion == user.UserInformattion))" class="panel-collapse collapse " style="">
+                    <div class="panel-body">
+                        <table id="Grid" class="table  table-striped table-condensed table-bordered no-margin smallTable" style="width:100% !important;">
+                            <thead>
+                                <tr>
+                                    <th>روز</th>
+                                    <th>تاریخ</th>
+
+                                    <th>موظفی روزانه</th>
+                                    <th>زمان حضور</th>
+
+                                    <th>کسر کار (دقیقه)</th>
+                                    @*<th>اضافه کار (دقیقه)</th>*@
+
+
+                                    @*<th>اضافه کار اول وقت (دقیقه)</th>
+                                    <th>اضافه کار آخر وقت (دقیقه)</th>*@
+
+
+
+                                    <th>تاخیر ورود (دقیقه)</th>
+                                    <th>تعجیل ورود (دقیقه)</th>
+
+                                    <th>تاخیر خروج (دقیقه)</th>
+                                    <th>تعجیل خروج (دقیقه)</th>
+
+
+
+                                    <th>وضعیت</th>
+                                    <th width="10%">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (user.Reports.Count() <= 0 || Model == null)
+                                {
+                                    <tr>
+                                        <td colspan="11">داده ای یافت نشد !</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in user.Reports)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @(item.PersianDayName)
+                                            </td>
+                                            <td>
+                                                @(item.PersianDate)
+                                            </td>
+
+
+
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.ToTimeSpan(item.TotalWorkTime).ToString().Substring(0, 5))
+                                            </td>
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.ToTimeSpan(item.RealTotalWorkTime).ToString().Substring(0, 5))
+                                            </td>
+
+                                            @{
+                                                int delayEnterTime = int.Parse(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.DelayEnterTime));
+                                                int earlyExitTime = int.Parse(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.EarlyExit));
+                                                int totalTime = delayEnterTime + earlyExitTime;
+                                            }
+                                            <td>
+                                                @(totalTime)
+                                            </td>
+
+                                            @*@{
+                                                int earlyEnterTime = int.Parse(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.EarlyEnteranceTime));
+                                                int delayExitTime = int.Parse(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.DelayExitTime));
+                                                int totalTime2 = delayExitTime + earlyEnterTime;
+                                            }
+                                            <td>
+                                                @(totalTime2)
+                                            </td>*@
+
+
+                                            @*<td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.TotalEarlyEnterance))
+                                            </td>
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.TotalDelayExit))
+                                            </td>*@
+
+
+
+
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.DelayEnterTime))
+                                            </td>
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.EarlyEnteranceTime))
+                                            </td>
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.DelayExitTime))
+                                            </td>
+                                            <td>
+                                                @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TimeToMinute(item.EarlyExit))
+                                            </td>
+
+
+
+
+                                            <td>
+                                                @switch (item.State)
+                                                {
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.WaitingForAnalyzing:
+                                                        <span class='text-info'>درحل آنالیز</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Presence:
+                                                        <span class='text-success'>حضور</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Absence_NoTransaction:
+                                                        <span class='text-danger'>غیبت</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Absence_Systemic:
+                                                        <span class='text-danger'>غیبت سیستمی</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.FractionTrade:
+                                                        <span class='text-warning'>تردد ناقص</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.RestDay:
+                                                        <span class='text-dark'>روز استراحت</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Holiday:
+                                                        <span class='text-dark'>تعطیلی</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Holiday_Presence:
+                                                        <span class='text-success'>حضور-روز تعطیل</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.HolidayFraction:
+                                                        <span class='text-warning'>ترددناقص-روز تعطیل</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Holiday_Absence_NoTransaction:
+                                                        <span class='text-danger'>غیبت-روز تعطیل</span>
+                                                        break;
+                                                    case wskh.Core.Enumerator.AnalyzedReportState.Holiday_Absence_Systemic:
+                                                        <span class='text-danger'>غیبت سیستمی-روز تعطیل</span>
+                                                        break;
+                                                    default:
+                                                        <span class='text-dark'>-</span>
+                                                        break;
+                                                }
+
+
+                                            </td>
+
+                                            <td>
+                                                <button class="btn btn-default btn btn-sm" onclick="ShowMore(@(item.Id))" type="button">
+                                                    جزئیات
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                @if (user.Reports.Count() <= 0 || Model == null)
+                                {
+
+                                }
+                                else
+                                {
+                                    <tr class="ResultTfoot">
+                                        <th colspan="2">
+                                            جمع کل
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalWorkTime(user.Reports))
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalRealWorkTime(user.Reports))
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.LowWorkTme(user.Reports))
+                                        </th>
+                                        @*<th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.HighWorkTme(user.Reports))
+                                        </th>*@
+                                        @*<th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalEarlyEnteranceTIme(user.Reports))
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalDelayExitTIme(user.Reports))
+                                        </th>*@
+
+
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalDelayEnter(user.Reports))
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalEarlyEnter(user.Reports))
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalDelayExit(user.Reports))
+                                        </th>
+                                        <th>
+                                            @(TimeAttendance.WebEssentials.ReportPart.AnalyzedReportHelper.TotalEarlyExit(user.Reports))
+                                        </th>
+                                        <th>
+                                            -
+                                        </th>
+                                        <th>
+                                            -
+                                        </th>
+                                    </tr>
+                                }
+                            </tfoot>
+
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+

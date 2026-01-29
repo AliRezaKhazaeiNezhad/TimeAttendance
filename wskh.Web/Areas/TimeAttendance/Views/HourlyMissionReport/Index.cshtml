@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "گزارشات | درخواست ماموریت ساعتی";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>
+                    جستجو
+                </header>
+            </div>
+            <div class="card-body " id="Search-Part">
+                @Html.Action("Search", "HourlyMissionReport", new { groupId = 0, leaveType = 0, year = 0, stMonth = 0, stDay = 0, edMonth = 0, edDay = 0 })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="HiddenPart" style="display:none;">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+            </div>
+            <div class="card-body" id="Grid-Part">
+                @Html.Action("ListIndex", "HourlyMissionReport")
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+    <script>
+        function Search() {
+            AddLoading();
+
+
+            var $userGroupId = $("#UserGroupId").val();
+            var $yearId = $("#YearId").val();
+            var $startMonthId = $("#StartMonthId").val();
+            var $startDay = $("#StartDay").val();
+            var $endMonthId = $("#EndMonthId").val();
+            var $endDay = $("#EndDay").val();
+
+            if ($userGroupId < 0 ||
+                $yearId < 0 ||
+                $startMonthId <= 0 ||
+                $startDay.length <= 0 ||
+                $endMonthId <= 0 ||
+                $endDay.length <= 0) {
+                ReomveLoading();
+                Message(1, "کلیه فیلدها را تکمیل نمایید");
+            }
+            else {
+                $.ajax({
+                    url: "/TimeAttendance/HourlyMissionReport/Search",
+                    data: {
+                        groupId: $userGroupId,
+                        year: $yearId,
+                        stMonth: $startMonthId,
+                        stDay: $startDay,
+                        edMonth: $endMonthId,
+                        edDay: $endDay
+                    },
+                    type: 'Get',
+                    dataType: "html",
+                    success: function (data) {
+                        List();
+                        $("#HiddenPart").fadeIn();
+                        ReomveLoading();
+                    }
+                });
+            }
+        }
+
+        function List() {
+            $.ajax({
+                url: "/TimeAttendance/HourlyMissionReport/ListIndex",
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    $("#Grid-Part").html(data);
+                    ReomveLoading();
+                }
+            });
+        }
+
+
+        
+    </script>
+}

@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="RedstarHospital" />
+    <title>@(ViewBag.Title)</title>
+    @Styles.Render("~/Content/FontsAndIcons")
+    @Styles.Render("~/Content/Bootstrap")
+    @Styles.Render("~/Content/Material")
+    @Styles.Render("~/Content/Theme")
+    <link rel="shortcut icon" href="~/wwwroot/dashboard/img/128.png" />
+    <style>
+        #contactUs-logo {
+            color: white;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+   
+
+    <div class="limiter">
+        <div class="container-login100 page-background">
+            <div class="wrap-login100">
+                <i class="fa fa-phone poiner" id="contactUs-logo" onclick="contactus()"></i>
+                <form method="post" resource="/Account/Login">
+                    @Html.AntiForgeryToken()
+                    <span class="login100-form-logo" style="background-color:white !important;">
+                        <img alt="" src="~/wwwroot/dashboard/img/128.png">
+                    </span>
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        ورود به حساب کاربری
+                    </span>
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        <input class="input100" type="text" name="Email" id="Email" placeholder="شماره همراه (09...)">
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <input class="input100" type="password" name="Password" id="Password" placeholder="گذرواژه">
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            ورود
+                        </button>
+                    </div>
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="text-center p-t-30">
+                            <div class="alert alert-danger">
+                                @(ViewBag.Error)
+                            </div>
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/Default")
+    @Scripts.Render("~/bundles/Bootstrap")
+    @Scripts.Render("~/bundles/Common")
+    @Scripts.Render("~/bundles/Material")
+    @Scripts.Render("~/bundles/Chart")
+    @Scripts.Render("~/bundles/Summernote")
+    <script>
+        function contactus() {
+            $.ajax({
+                url: '/ContactUs/Index',
+                type: 'Get',
+                dataType: "html",
+                success: function (data) {
+                    bootbox.dialog({
+                        message: data
+                    });
+                }
+            });
+
+
+        }
+    </script>
+</body>
+
+
+<!-- Mirrored from radixtouch.in/templates/admin/smart/source/rtl/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Apr 2020 07:05:01 GMT -->
+</html>

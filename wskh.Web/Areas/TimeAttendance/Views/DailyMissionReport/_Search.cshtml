@@ -1,0 +1,63 @@
+﻿@model TimeAttendance.Model.HourlyLeaveReportModel
+@{
+    Layout = null;
+}
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+
+
+
+
+<div class="row">
+    <div class="form-group pull-right col-md-4">
+        @Html.LabelFor(x => x.UserGroupId, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.DropDownListFor(x => x.UserGroupId, Model.UserGroupList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.UserGroupId, null, new { @class = "validation" })
+    </div>
+    @*<div class="form-group pull-right col-md-4">
+        @Html.LabelFor(x => x.LeaveTypeId, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.DropDownListFor(x => x.LeaveTypeId, Model.LeaveTypeList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.LeaveTypeId, null, new { @class = "validation" })
+    </div>*@
+    <div class="form-group pull-right col-md-4">
+        @Html.LabelFor(x => x.YearId, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.DropDownListFor(x => x.YearId, Model.YearList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.YearId, null, new { @class = "validation" })
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="form-group pull-right col-md-3">
+        @Html.LabelFor(x => x.StartMonthId, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.DropDownListFor(x => x.StartMonthId, Model.StartMonthList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.StartMonthId, null, new { @class = "validation" })
+    </div>
+    <div class="form-group pull-right col-md-2">
+        @Html.LabelFor(x => x.StartDay, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.TextBoxFor(x => x.StartDay, new { @class = "form-control numeric", maxlength="2" })
+        @Html.ValidationMessageFor(x => x.StartDay, null, new { @class = "validation" })
+    </div>
+    <div class="form-group pull-right col-md-3">
+        @Html.LabelFor(x => x.EndMonthId, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.DropDownListFor(x => x.EndMonthId, Model.EndMonthList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.EndMonthId, null, new { @class = "validation" })
+    </div>
+    <div class="form-group pull-right col-md-2">
+        @Html.LabelFor(x => x.EndDay, new { @class = "pull-right" })<label class="required">*</label>
+        @Html.TextBoxFor(x => x.EndDay, new { @class = "form-control numeric", maxlength="2" })
+        @Html.ValidationMessageFor(x => x.EndDay, null, new { @class = "validation" })
+    </div>
+    <div class="form-group pull-left col-md-2">
+        <button type="button" onclick="Search()" id="submitBTN" class="btn btn-success btn-sm pull-left" style="position: relative;top: 38px;float: left;width:100%">جستجو</button>
+    </div>
+</div>
+
+
+
+
+
+
+

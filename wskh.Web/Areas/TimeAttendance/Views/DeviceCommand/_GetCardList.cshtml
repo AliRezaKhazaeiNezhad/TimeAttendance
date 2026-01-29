@@ -1,0 +1,22 @@
+﻿@model wskh.Core.FingerDevice
+
+@{
+    Layout = null;
+}
+
+@if (Model.DeviceCards == null || Model.DeviceCards.Count() <= 0)
+{
+    <div class="alert alert-warning">
+        کارتی تعریف نشده است
+    </div>
+}
+else
+{
+    foreach (var card in Model.DeviceCards)
+    {
+        <div class="alert alert-info">
+            @(card.EnrollNo) - @(TimeAttendance.Web.Helper.EnumHelper.FunctionKeyToString(card.Type))  <i class="fa fa-trash pointer pull-left" onclick="DeleteCard(@(card.Id))"></i>
+        </div>
+    }
+}
+

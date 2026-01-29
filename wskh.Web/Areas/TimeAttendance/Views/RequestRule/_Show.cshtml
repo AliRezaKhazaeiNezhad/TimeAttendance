@@ -1,0 +1,344 @@
+﻿@model TimeAttendance.Core.RequestRule
+@{
+    Layout = null;
+}
+
+
+<br />
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>اطلاعات</header>
+            </div>
+            <div class="card-body " id="">
+
+                <div class="row">
+                    <div class="form-group w100 col-12">
+                        <label class="pull-right">عنوان گروه</label>
+                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+
+                    <div class="form-group w100 col-md-2">
+                        <label class="pull-right">
+                            سقف مرخصی ساعتی
+                        </label>
+                        @Html.TextBoxFor(x => x.MaximumAbsence, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                @if (Model.FlowTime)
+                {
+
+                    <div class="row">
+                        <div class="form-group w100 col-3">
+                            <label class="pull-right">شناوری در روز</label>
+                            <input class="form-control" type="text" value="بلی" disabled>
+                        </div>
+
+                        <div class="form-group w100 col-md-2">
+                            <label class="pull-right">
+                                میزان شناوری
+                            </label>
+                            @Html.TextBoxFor(x => x.FlowTimeMin, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <hr />
+                    <br />
+
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table  table-striped table-condensed table-bordered no-margin center">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%">عنوان</th>
+                                        <th style="width:25%">روز در سال</th>
+                                        <th style="width:25%">روز در ماه</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.RequestRuleDetails)
+                                    {
+
+                                        if (item.LeaveTypeId == 1)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        @(item.LeaveType.Title)
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           disabled="disabled"
+                                                           value="@(item.RestDayCountYearly)" />
+                                                    <label>تعداد روز قابل انتقال به سال بعد</label>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           disabled="disabled"
+                                                           value="@(item.RestToNextYear)" />
+                                                </td>
+                                                <td>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           maxlength="2"
+                                                           disabled="disabled"
+                                                           value="@(item.RestDayCountMonthly)" />
+                                                    <label>تعداد روز قابل انتقال به ماه بعد</label>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           maxlength="2"
+                                                           disabled="disabled"
+                                                           value="@(item.RestToNextMonth)" />
+                                                </td>
+
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        @(item.LeaveType.Title)
+                                                    </span>
+                                                </td>
+
+                                                @if (item.LeaveTypeId != 3)
+                                                {
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               disabled="disabled"
+                                                               value="@(item.RestDayCountYearly)" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               maxlength="2"
+                                                               disabled="disabled"
+                                                               value="@(item.RestDayCountMonthly)" />
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               disabled="disabled"
+                                                               value="0" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               maxlength="2"
+                                                               disabled="disabled"
+                                                               value="0" />
+                                                    </td>
+                                                }
+
+
+
+                                            </tr>
+                                        }
+
+
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <hr />
+                    <br />
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="form-group w100 col-md-10">
+                            <label class="pull-right">
+                                طول یک روز کاری برای محاسبه ساعت مرخصی و ماموریت روزانه
+                            </label>
+                            @Html.TextBoxFor(x => x.DayDuration, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            <label class="pull-right">
+                                درصورت تاخیر ورود
+                            </label>
+                            @switch (Model.DelayAction)
+                            {
+                                case wskh.Core.Enumerator.DelayAction.Nothing:
+                                    <input maxlength="50" class="form-control" disabled="disabled" value="هیچ عملیاتی انجام نشود">
+                                    break;
+                                case wskh.Core.Enumerator.DelayAction.DelayFromStart:
+                                    <input maxlength="50" class="form-control" disabled="disabled" value="کسر از استحقاقی از ابتدای ساعت">
+                                    break;
+                                case wskh.Core.Enumerator.DelayAction.DelayRemainTime:
+                                    <input maxlength="50" class="form-control" disabled="disabled" value="کسر از استحقاقی از ابتدای تاخیر">
+                                    break;
+                                case wskh.Core.Enumerator.DelayAction.Absence:
+                                    <input maxlength="50" class="form-control" disabled="disabled" value="غیبت">
+                                    break;
+                                default:
+                                    <input maxlength="50" class="form-control" disabled="disabled" value="-">
+                                    break;
+                            }
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            <label class="pull-right">
+                                ضریب کسر
+                            </label>
+                            @Html.TextBoxFor(x => x.DelayActionPercent, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            <label class="pull-right">
+                                تاخیر مجاز در ماه برحسب دقیقه
+                            </label>
+                            @Html.TextBoxFor(x => x.DelyMonthMin, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+
+                        <div class="form-group w100 col-md-3">
+                            <label class="pull-right">
+                                تاخیر مجاز در روز برحسب دقیقه
+                            </label>
+                            @Html.TextBoxFor(x => x.DelayDayMin, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+
+
+                    </div>
+
+                    <hr />
+                    <br />
+
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table  table-striped table-condensed table-bordered no-margin center">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15%">عنوان</th>
+                                        <th style="width:25%">روز در سال</th>
+                                        <th style="width:25%">روز در ماه</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.RequestRuleDetails)
+                                    {
+
+                                        if (item.LeaveTypeId == 1)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        @(item.LeaveType.Title)
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    <label>روز در سال</label>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           disabled="disabled"
+                                                           value="@(item.RestDayCountYearly)" />
+                                                    <label>تعداد روز قابل انتقال به سال بعد</label>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           disabled="disabled"
+                                                           value="@(item.RestToNextYear)" />
+                                                </td>
+                                                <td>
+                                                    <label>روز در ماه</label>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           maxlength="2"
+                                                           disabled="disabled"
+                                                           value="@(item.RestDayCountMonthly)" />
+                                                    <label>تعداد روز قابل انتقال به ماه بعد</label>
+                                                    <input type="text"
+                                                           class="numeric form-control noUnderMargin"
+                                                           maxlength="2"
+                                                           disabled="disabled"
+                                                           value="@(item.RestToNextMonth)" />
+                                                </td>
+
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        @(item.LeaveType.Title)
+                                                    </span>
+                                                </td>
+
+                                                @if (item.LeaveTypeId != 3)
+                                                {
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               disabled="disabled"
+                                                               value="@(item.RestDayCountYearly)" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               maxlength="2"
+                                                               disabled="disabled"
+                                                               value="@(item.RestDayCountMonthly)" />
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               disabled="disabled"
+                                                               value="0" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="numeric form-control noUnderMargin"
+                                                               maxlength="2"
+                                                               disabled="disabled"
+                                                               value="0" />
+                                                    </td>
+                                                }
+
+
+
+                                            </tr>
+                                        }
+
+
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <hr />
+                    <br />
+
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

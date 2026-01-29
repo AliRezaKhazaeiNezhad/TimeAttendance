@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "گزارش | گزارش کاربران و سخت افزار ";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+    var userService = DependencyResolver.Current.GetService<wskh.Service.IUserService>();
+    var userList = userService.GetList;
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+                <a href="/TimeAttendance/StimulReport/UserEnrollIndex" class="btn btn-warning pull-left" target="_blank">چاپ</a>
+            </div>
+            <div class="card-body " id="Grid-Part">
+
+                <table id="Grid" class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+                    <thead>
+                        <tr>
+                            <th style="width:10%">ردیف</th>
+                            <th style="width:20%">گروه</th>
+                            <th style="width:20%">نام و نام خانوادگی</th>
+                            <th style="width:50%">
+                                <div class="w50">دستگاه</div>
+                                <div class="w50">
+                                    کاربر سخت افزار
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (userList == null || userList.Count() < 0)
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    کاربر نرم افزاری ثبت نشده است!
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var user in userList)
+                            {
+                                <tr>
+                                    <td>
+                                        @(userList.FindIndex(x => x.Id == user.Id) + 1)
+                                    </td>
+                                    <td>
+                                        @(user.UserGroup.Title)
+                                    </td>
+                                    <td>
+                                        @(user.FirstName)  @(user.Lastname)
+                                    </td>
+                                    <td>
+
+                                        @if (user.Enrolls != null && user.Enrolls.Count() > 0)
+                                        {
+                                            foreach (var enroll in user.Enrolls)
+                                            {
+                                                <div class="w50">@enroll.FingerDevice.Title</div>
+                                                <div class="w50">
+                                                    @enroll.EnrollNo
+                                                </div>
+                                                <br />
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+                                            <span class="w100">
+                                                کاربر سخت افزاری نسبت داده نشده است.
+                                            </span>
+
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+}

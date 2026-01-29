@@ -1,0 +1,118 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="col-12">
+    <label class="lblTitle lbl">قوانین کاری</label>
+    <label class="lblDescription lbl">
+        دراین فرم به ثبت قوانین کاری مربوطه به سازمان پرداخته میشود
+    </label>
+    <label class="lblExample lbl">
+        بطور مثال : "قوانین شیفت اداری"
+    </label>
+
+</div>
+
+<div class="col-6 pull-right">
+    <div class="col-12">
+        <label class="lblTitle lbl">عنوان قوانین کاری</label>
+        <label class="lblDescription lbl">
+            عنوان قانون ذکر میشود
+            <br />
+            * حداکثر طول 50 کاراکتر میباشد
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : "قانون شیفت نگهبانی 12 در 24"
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">حداكثر تاخير در روز (دقيقه)</label>
+        <label class="lblDescription lbl">
+            میزان مجاز تاخیر در ورود در هر روز است. درصورتیکه کاربر بیشتر از این مقدار تاخیر کند، از مرخصی استحقاقی کاربر کسر میگردد
+            <br />
+            * حداکثر طول 1 کاراکتر میباشد
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : "5" دقیقه
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">حداكثر تاخير در ماه (دقيقه)</label>
+        <label class="lblDescription lbl">
+            میزان مجاز تاخیر در ماه را مشخص میکند
+            <br />
+            * حداکثر طول 1 کاراکتر میباشد
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : سازمانی اعلام میکند هر کاربر میتواند در دروز 5 دقیقه تاخیر در ورود داشته باشد و در ماه مجموعا 20 دقیقه و اگر بیشتر از این مقدار شد ، از استحقاقی کارمند کسر میشود
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">ميزان مرخصي روزانه در ماه</label>
+        <label class="lblDescription lbl">
+            میزان مرخصی روزانه  در ماه است
+            <br />
+            * حداکثر طول 6 کاراکتر میباشد
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : "2" روز
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">ميزان مرخصي ساعتي در ماه</label>
+        <label class="lblDescription lbl">
+            میزان مرخصی ساعتی در ماه است
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : "2:45"
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">درصورت عدم ورود و خروج خروج </label>
+        <label class="lblDescription lbl">
+            این بخش به نرم افزار اجازه میدهد تا درصورتیکه کاربر ورود و خروج خروج رو فراموش کرد بزند، چه فرایندی از سوی نرم افزار انجام شود.
+        </label>
+    </div>
+</div>
+
+
+
+
+<div class="col-5 pull-right">
+    <div class="col-12">
+        <label class="lblTitle lbl">انتقال مرخصی استحقاقی به سال بعد؟</label>
+        <label class="lblDescription lbl">
+            مشخص میکند که مرخصی  استحقاقی به سال بعد میباشد یا خیر
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">انتقال مرخصی روزانه به ماه بعد؟</label>
+        <label class="lblDescription lbl">
+            مشخص میکند که مرخصی  استحقاقی به ماه بعد میباشد یا خیر
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">شناوری در روز (دقیقه)</label>
+        <label class="lblDescription lbl">
+            میزان شناوری در روز را تعیین میکند
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : ساعت شروع کار از 8 صبح است و تا یک ساعت (60 دقیقه) امکان تاخیر در ورود وجود دارد.
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">مدیریت تاخیر ورود</label>
+        <label class="lblDescription lbl">
+            در صورت تاخیر بیش از حد مجاز، چه رویدادی توسط نرم افزار انجام شود
+        </label>
+    </div>
+    <div class="col-12">
+        <label class="lblTitle lbl">ضریب کسر</label>
+        <label class="lblDescription lbl">
+            میزان تاخیر در ورود را براساس  فیلد "مدیریت تاخیر ورود" برحسب دقیقه حساب و در ضریب مذکور ضرب مینماید
+        </label>
+        <label class="lblExample lbl">
+            بطور مثال : ساعت ورود 8 صبح و تا 10 دقیقه تاخیر مجاز میباشد و پرسنلی ساعت 8:15 دقیقه ورود دارد. در نرم افزار ذکر شده محاسبه استحقاقی از ابتدای ساعت با ضریب 2 و نرم افزار 15 دقیقه را ضربدر 2 و تاخیر 30 دقیقه ای حساب میکند.
+        </label>
+    </div>
+</div>

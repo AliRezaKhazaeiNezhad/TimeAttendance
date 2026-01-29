@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "قوانین و برنامه ها | شیفت کاری";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش</header>
+                <a class="btn btn-info pull-left" href="/TimeAttendance/Calendare/Create?id=0">انتساب / تغییر شیفت</a>
+            </div>
+            <div class="card-body " id="Grid-Part">
+                @Html.Action("ListIndex", "Calendare")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/controllersGrid/calendare.js"></script>
+    <script src="~/wwwroot/componenets/unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+}

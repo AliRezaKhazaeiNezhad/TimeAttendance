@@ -1,0 +1,11 @@
+﻿@{
+    var CurrentUser = TimeAttendance.Web.Helper.UserHelper.CurrentUser();
+    var UserRoleType = CurrentUser.UserRoleType;
+    bool IsAdmin = CurrentUser.UserRoleType.Contains("610064006D0069006E00n");
+    if (!IsAdmin)
+    {
+        <script>
+            window.location.href = "/TimeAttendance/RawLogReport/Index";
+        </script>
+    }
+}

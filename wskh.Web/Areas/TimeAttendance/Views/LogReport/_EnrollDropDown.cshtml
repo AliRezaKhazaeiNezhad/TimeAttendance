@@ -1,0 +1,11 @@
+﻿@model List<TimeAttendance.Model.DropDownModel>
+
+
+<label class="pull-right">کاربر سخت افزار</label>
+<select class="form-control w100" id="enrollId" name="enrollId">
+    @foreach (var item in Model)
+    {
+        <option value="@(item.Value)" @(item.Value == ViewBag.EnrollId ? Html.Raw("selected") : Html.Raw(""))>@(item.Text)</option>
+    }
+</select>
+

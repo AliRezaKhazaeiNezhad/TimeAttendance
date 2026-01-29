@@ -1,0 +1,22 @@
+﻿@model TimeAttendance.Model.TicketModel
+@{
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.Title, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "50" })
+    @Html.ValidationMessageFor(x => x.Title, null, new { @class = "validation" })
+</div>
+
+<div class="form-group w100">
+    @Html.LabelFor(x => x.Description, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextAreaFor(x => x.Description, new { @class = "form-control", MaxLength = "500" })
+    @Html.ValidationMessageFor(x => x.Description, null, new { @class = "validation" })
+</div>
+
+
+<button type="submit" onclick="AddLoading()" class="btn btn-success btn-sm pull-left">ثبت / ویرایش</button>

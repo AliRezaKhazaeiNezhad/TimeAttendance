@@ -1,0 +1,446 @@
+﻿@model TimeAttendance.Core.WorkProgram
+@{
+    Layout = null;
+}
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+<br />
+<div class="row">
+
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>گزارش برنامه کاری</header>
+            </div>
+
+            <div class="card-body ">
+
+                <div class="pull-right col-9">
+                    <label class="pull-right custoeLable w100">عنوان برنامه</label>
+                    <span class="pull-right form-control customeDisplay  w100">
+                        @(Model.Title)
+                    </span>
+                </div>
+
+                <br />
+                @if (Model.Type == wskh.Core.Enumerator.WorkProgramType.Flow)
+                {
+                    <div class="pull-right col-12">
+                        <label class="pull-right custoeLable w100">مدت زمان موظفی روزانه :</label>
+                        <span class="pull-right form-control customeDisplay  w100">
+                            @(Model.WorkTimeInDay)
+                        </span>
+                    </div>
+                    <div class="pull-right col-12">
+                        <label class="pull-right custoeLable w100">تردد در دو تاریخ؟</label>
+                        <span class="pull-right form-control customeDisplay  w100">
+                            @(Model.MoreThan24Houres ? Html.Raw("بلی") : Html.Raw("خیر"))
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="pull-right col-md-12">
+                        <table class="table table-bordered  custable">
+                            <thead>
+                                <tr>
+                                    <th style="width:100px !important;">
+                                        @if (Model.Type == wskh.Core.Enumerator.WorkProgramType.Complex)
+                                        {
+                                            <span>شماره روز</span>
+                                        }
+                                        else
+                                        {
+                                            <span>نام روز</span>
+                                        }
+                                    </th>
+                                    <th style="max-width:150px">
+                                        نوع روز
+                                    </th>
+                                    <th>
+                                        اضافه کار اول وقت
+                                    </th>
+                                    <th>
+                                        ساعت کاری
+                                    </th>
+                                    <th>
+                                        نماز، نهار و استراحت
+                                    </th>
+                                    <th>
+                                        اضافه کار آخر وقت
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tboady>
+
+                                @foreach (var day in Model.WorkProgramDays)
+                                {
+                                    if (day.WorkType == wskh.Core.Enumerator.WorkType.Holiday)
+                                    {
+                                        <tr style="background-color:#e67474">
+                                            <td>
+                                                @if (Model.Type == wskh.Core.Enumerator.WorkProgramType.Ordinary)
+                                                {
+                                                    @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.GetDayName(day.DayIndex))
+                                                }
+                                                else
+                                                {
+                                                    @(Model.WorkProgramDays.FindIndex(x => x.Id == day.Id) + 1)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.WorkDay)
+                                                {
+                                                    <span>
+                                                        روزکاری
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.Holiday)
+                                                {
+                                                    <span>
+                                                        آخرهفته (جمعه)
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.RestDay)
+                                                {
+                                                    <span>
+                                                        استراحت
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.HolidayAndSpecialDay)
+                                                {
+                                                    <span>
+                                                        تعطیلی و روز خاص
+                                                    </span>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var earlyEnterance = day
+                                                                            .WorkProgramTimes
+                                                                                            .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.OverTimeStart)
+                                                                                            .ToList();
+                                                }
+                                                @foreach (var time in earlyEnterance)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var workTime = day
+                                                                      .WorkProgramTimes
+                                                                                       .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.WorkTime)
+                                                                                       .ToList();
+                                                }
+                                                @foreach (var time in workTime)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var restTime = day
+                                                                      .WorkProgramTimes
+                                                                                       .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.RestTime)
+                                                                                       .ToList();
+                                                }
+                                                @foreach (var time in restTime)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var earlyExit = day
+                                                                       .WorkProgramTimes
+                                                                                        .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.OverTimeEnd)
+                                                                                        .ToList();
+                                                }
+                                                @foreach (var time in earlyExit)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    else if (day.WorkType == wskh.Core.Enumerator.WorkType.RestDay)
+                                    {
+                                        <tr style="background-color:orange">
+                                            <td>
+                                                @if (Model.Type == wskh.Core.Enumerator.WorkProgramType.Ordinary)
+                                                {
+                                                    @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.GetDayName(day.DayIndex))
+                                                }
+                                                else
+                                                {
+                                                    @(Model.WorkProgramDays.FindIndex(x => x.Id == day.Id) + 1)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.WorkDay)
+                                                {
+                                                    <span>
+                                                        روزکاری
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.Holiday)
+                                                {
+                                                    <span>
+                                                        آخرهفته (جمعه)
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.RestDay)
+                                                {
+                                                    <span>
+                                                        استراحت
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.HolidayAndSpecialDay)
+                                                {
+                                                    <span>
+                                                        تعطیلی و روز خاص
+                                                    </span>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @foreach (var time in day.WorkProgramTimes.Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.WorkTime))
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (Model.Type == wskh.Core.Enumerator.WorkProgramType.Ordinary)
+                                                {
+                                                    @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.GetDayName(day.DayIndex))
+                                                }
+                                                else
+                                                {
+                                                    @(Model.WorkProgramDays.FindIndex(x => x.Id == day.Id) + 1)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.WorkDay)
+                                                {
+                                                    <span>
+                                                        روزکاری
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.Holiday)
+                                                {
+                                                    <span>
+                                                        آخرهفته (جمعه)
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.RestDay)
+                                                {
+                                                    <span>
+                                                        استراحت
+                                                    </span>
+                                                }
+                                                @if (day.WorkType == wskh.Core.Enumerator.WorkType.HolidayAndSpecialDay)
+                                                {
+                                                    <span>
+                                                        تعطیلی و روز خاص
+                                                    </span>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var earlyEnterance = day
+                                                                            .WorkProgramTimes
+                                                                                            .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.OverTimeStart)
+                                                                                            .ToList();
+                                                }
+                                                @foreach (var time in earlyEnterance)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var workTime = day
+                                                                      .WorkProgramTimes
+                                                                                       .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.WorkTime)
+                                                                                       .ToList();
+                                                }
+                                                @foreach (var time in workTime)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var restTime = day
+                                                                      .WorkProgramTimes
+                                                                                       .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.RestTime)
+                                                                                       .ToList();
+                                                }
+                                                @foreach (var time in restTime)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var earlyExit = day
+                                                                       .WorkProgramTimes
+                                                                                        .Where(x => x.TimeType == wskh.Core.Enumerator.TimeType.OverTimeEnd)
+                                                                                        .ToList();
+                                                }
+                                                @foreach (var time in earlyExit)
+                                                {
+                                                    <span style="padding-right:10px">
+                                                        @(time.StartTime)
+                                                    </span>
+                                                    <span style="padding-right:0px; color:orange">
+                                                        تا
+                                                    </span>
+                                                    <span style="padding-right:0px">
+                                                        @(time.EndTime)
+                                                    </span>
+                                                    <span style="padding-right:20px">
+                                                        (@(time.Duration))
+                                                    </span>
+                                                    <br />
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                }
+                            </tboady>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">جمع ساعت فعالیت</th>
+                                    <th>
+                                        @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TotalTimes(Model.TotalOverTimeStartMinute))
+                                    </th>
+                                    <th>
+                                        @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TotalTimes(Model.TotalWorkTimeMinute))
+                                    </th>
+                                    <th>
+                                        @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TotalTimes(Model.TotalRestTimeMinute))
+                                    </th>
+                                    <th>
+                                        @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TotalTimes(Model.TotalOverTimeEndMinute))
+                                    </th>
+
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

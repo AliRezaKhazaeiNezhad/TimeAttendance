@@ -1,0 +1,61 @@
+﻿@model TimeAttendance.Core.Request
+@{
+    Layout = null;
+}
+
+<div class="row">
+
+
+    <div class="col-md-3 pull-right">
+        <div class="form-group w100">
+            <lable class="pull-right"> تاریخ شروع</lable>
+            <input type="text" class="form-control" value="@(wskh.WebEssentials.DateAndTime.DateTimeHelper.TopersianDate(Model.StartDate))" disabled />
+        </div>
+    </div>
+
+    <div class="col-md-3 pull-right">
+        <div class="form-group w100">
+            <lable class="pull-right"> تاریخ پایان</lable>
+            <input type="text" class="form-control" value="@(wskh.WebEssentials.DateAndTime.DateTimeHelper.TopersianDate(Model.EndDate))" disabled />
+        </div>
+    </div>
+
+    <div class="col-md-3 pull-right">
+        <div class="form-group w100">
+            <lable class="pull-right">وضعیت</lable>
+            @switch (Model.State)
+            {
+                case wskh.Core.Enumerator.RequestState.Pending:
+                    <input type="text" class="form-control" value="درانتظار بررسی" disabled />
+                    break;
+                case wskh.Core.Enumerator.RequestState.Approved:
+                    <input type="text" class="form-control" value="تایید شده" disabled />
+                    break;
+                case wskh.Core.Enumerator.RequestState.Rejected:
+                    <input type="text" class="form-control" value="عدم پذیرش" disabled />
+                    break;
+                case wskh.Core.Enumerator.RequestState.All:
+                    <input type="text" class="form-control" value="-" disabled />
+                    break;
+                default:
+                    <input type="text" class="form-control" value="-" disabled />
+                    break;
+            }
+        </div>
+    </div>
+
+    <div class="col-md-12 pull-right">
+        <div class="form-group w100">
+            <lable class="pull-right"> علت عدم پذیرش</lable>
+            <input type="text" class="form-control" value="" id="RejectReason" onkeyup="DisApproveReasn()" />
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <button type="button" class="btn btn-success pull-left" onclick="DisApprovePost(@(Model.Id))" disabled id="DisApprovePost"> تایید </button>
+    </div>
+</div>

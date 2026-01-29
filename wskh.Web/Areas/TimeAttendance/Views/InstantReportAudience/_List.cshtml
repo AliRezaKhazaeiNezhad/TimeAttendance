@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+
+<table id="Grid" class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+    <thead>
+        <tr>
+            <th>ردیف</th>
+            <th>گروه</th>
+            <th>نام و نام خانوادگی</th>
+            <th>
+                @Html.Raw("<table class='table hide-margin' style='width: 100% !important;'><thead><tr><th style='width: 30%;' class='text-success'>ورود</th><th style='width: 30%;' class='text-danger'>خروج</th><th style='width: 40%;' class='text-dark'>مدت</th></table>")
+            </th>
+            <th>وضعیت</th>
+        </tr>
+    </thead>
+</table>
+
+
+<script src="~/wwwroot/componenets/datatableajax/jquery.dataTables.js"></script>
+<script src="~/wwwroot/controllersGrid/instantreportaudience.js"></script>
+

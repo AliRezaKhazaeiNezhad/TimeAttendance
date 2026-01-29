@@ -1,0 +1,1234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC5773DB-009F-4D3B-BF50-C8DAC7C92D8A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TimeAttendance.Web</RootNamespace>
+    <AssemblyName>TimeAttendance.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44393</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.4.42449, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.4\lib\net45\AngleSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.BioBridgeSDKLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AxInterop.BioBridgeSDKLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.BioBridgeSDKv2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AxInterop.BioBridgeSDKv2.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.BioBridgeSDKv3, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AxInterop.BioBridgeSDKv3.dll</HintPath>
+    </Reference>
+    <Reference Include="BioBridgeSDKDLLv3, Version=3.0.0.4, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\BioBridgeSDKDLLv3.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Engine.13.0.4000\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Prompting, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Shared.13.0.4000\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.zkemkeeper, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Interop.zkemkeeper.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.2\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.2\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=3.0.7.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.3.0.7\lib\net452\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Base, Version=2011.3.1200.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dlls\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report, Version=2011.3.1200.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dlls\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Mvc">
+      <HintPath>..\Dlls\Stimulsoft.Report.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\AboutSoftwareController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\AbsenceReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\AccountController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\SoftwareUserController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\StimulReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\UserEnrollController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\CommingSoonController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\AboutUsController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\DailyMissionRequestController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\DailyLeaveReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\DailyMissionReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\AnalyzedReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\InstantReportAbsenceController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\InstantReportAudienceController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\CommandController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\RemovedLogsController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\TradeReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\InstantReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\HourlyMissionReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\HourlyLeaveReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\TicketToDevelopersController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\TicketController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\RequestRuleController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\OrganizationInformationController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\HourlyLeaveRequestController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\LeaveTypeController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\MissionRequestController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\LogReportController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\DailyRequestController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\SpecialDayGroupingController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\DeviceCommandController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\FingerDeviceController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\HomeController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\OrdinaryWorkProgramController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\CalendareController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\SpecialDayController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\UserController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\UserGroupController.cs" />
+    <Compile Include="Areas\TimeAttendance\TimeAttendanceAreaRegistration.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\OrganizationLevelController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\OrganizationBranchController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\EmploymentTypeController.cs" />
+    <Compile Include="Areas\TimeAttendance\Controllers\EducationLevelController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\ErrorPagesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\AutoMapperHelper.cs" />
+    <Compile Include="Helper\BulkCRUD.cs" />
+    <Compile Include="Helper\CalendareHelper.cs" />
+    <Compile Include="Helper\ConnectionHelper.cs" />
+    <Compile Include="Helper\CSSHelper.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\FingerTecHelper.cs" />
+    <Compile Include="Helper\HtmlToJsonHelper.cs" />
+    <Compile Include="Helper\Jobs\AnalyzedReportHelper.cs" />
+    <Compile Include="Helper\Jobs\AnalyzedReportJob.cs" />
+    <Compile Include="Helper\Jobs\ReportDayDuplicatorJob.cs" />
+    <Compile Include="Helper\Jobs\ReportDayJob.cs" />
+    <Compile Include="Helper\Jobs\CommandEntityHelper.cs" />
+    <Compile Include="Helper\Jobs\CommandJob.cs" />
+    <Compile Include="Helper\Jobs\ConnectionHelper.cs" />
+    <Compile Include="Helper\Jobs\LogAndEnrollJob.cs" />
+    <Compile Include="Helper\JsonModel.cs" />
+    <Compile Include="Helper\UserHelper.cs" />
+    <Compile Include="Helper\WebConfigHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\TimeAttendance\Views\Shared\index.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Reports\128.png" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="wwwroot\componenets\androidTimePicker\bootstrap-clockpicker.min.css" />
+    <Content Include="wwwroot\componenets\androidTimePicker\bootstrap-clockpicker.min.js" />
+    <Content Include="wwwroot\componenets\bootbox\bootbox.min.js" />
+    <Content Include="wwwroot\componenets\colorpicker\jquery.drawrpalette.js" />
+    <Content Include="wwwroot\componenets\global\global.js" />
+    <Content Include="wwwroot\componenets\global\global.css" />
+    <Content Include="wwwroot\componenets\images\sort_desc.png" />
+    <Content Include="wwwroot\componenets\lastTimepicker\alex-date-time.js" />
+    <Content Include="wwwroot\componenets\mask\jquery.inputmask.bundle.js" />
+    <Content Include="wwwroot\componenets\persiancalendar\amib.png" />
+    <Content Include="wwwroot\componenets\persiancalendar\js-persian-cal.css" />
+    <Content Include="wwwroot\componenets\persiancalendar\js-persian-cal.min.js" />
+    <Content Include="wwwroot\componenets\persiancalendar\jspc-gray.css" />
+    <Content Include="wwwroot\componenets\persiancalendar\jspc-peach.css" />
+    <Content Include="wwwroot\componenets\persiancalendar\jspc-royal_blue.css" />
+    <Content Include="wwwroot\componenets\persiancalendar\main.css" />
+    <Content Include="wwwroot\componenets\persiancalendar\pcal.png" />
+    <Content Include="wwwroot\componenets\select2\select2.min.css" />
+    <Content Include="wwwroot\componenets\select2\select2.min.js" />
+    <Content Include="wwwroot\componenets\timepicker\css\bootstrap-theme.min.css" />
+    <Content Include="wwwroot\componenets\timepicker\css\bootstrap.css" />
+    <Content Include="wwwroot\componenets\timepicker\css\style.css" />
+    <Content Include="wwwroot\componenets\timepicker\css\timepicki.css" />
+    <Content Include="wwwroot\componenets\timepicker\images\arrow.png" />
+    <Content Include="wwwroot\componenets\timepicker\images\top_arr.png" />
+    <Content Include="wwwroot\componenets\timepicker\js\timepicki.js" />
+    <Content Include="wwwroot\componenets\unobtrusive\jquery.unobtrusive-ajax.js" />
+    <Content Include="wwwroot\componenets\unobtrusive\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="wwwroot\componenets\datatableajax\jquery.dataTables.js" />
+    <Content Include="wwwroot\componenets\datatableajax\jquery.dataTables.min.css" />
+    <Content Include="wwwroot\componenets\toastr\toastr.css" />
+    <Content Include="wwwroot\componenets\toastr\toastr.min.js" />
+    <Content Include="wwwroot\controllersGrid\contract.js" />
+    <Content Include="wwwroot\controllersGrid\calendareaddorupdate.js" />
+    <Content Include="wwwroot\controllersGrid\dailyLeavereport.js" />
+    <Content Include="wwwroot\controllersGrid\dailymissionreport.js" />
+    <Content Include="wwwroot\controllersGrid\analyzedreport.js" />
+    <Content Include="wwwroot\controllersGrid\removedlogsreport.js" />
+    <Content Include="wwwroot\controllersGrid\tradereport.js" />
+    <Content Include="wwwroot\controllersGrid\instantreportaudience.js" />
+    <Content Include="wwwroot\controllersGrid\instantreportabsence.js" />
+    <Content Include="wwwroot\controllersGrid\instantreport.js" />
+    <Content Include="wwwroot\controllersGrid\hourlymissionreport.js" />
+    <Content Include="wwwroot\controllersGrid\hourlyLeavereport.js" />
+    <Content Include="wwwroot\controllersGrid\ticket.js" />
+    <Content Include="wwwroot\controllersGrid\hourlyleaverequest.js" />
+    <Content Include="wwwroot\controllersGrid\leavetype.js" />
+    <Content Include="wwwroot\controllersGrid\dailymisstionrequest.js" />
+    <Content Include="wwwroot\controllersGrid\misstionrequest.js" />
+    <Content Include="wwwroot\controllersGrid\dailyrequest.js" />
+    <Content Include="wwwroot\controllersGrid\requestrule.js" />
+    <Content Include="wwwroot\controllersGrid\request.js" />
+    <Content Include="wwwroot\controllersGrid\rawlogreport.js" />
+    <Content Include="wwwroot\controllersGrid\command.js" />
+    <Content Include="wwwroot\controllersGrid\specialdaygrouping.js" />
+    <Content Include="wwwroot\controllersGrid\fingerdevice.js" />
+    <Content Include="wwwroot\controllersGrid\calendare.js" />
+    <Content Include="wwwroot\controllersGrid\ordinaryworkprogramaddorupdate.js" />
+    <Content Include="wwwroot\controllersGrid\specialday.js" />
+    <Content Include="wwwroot\controllersGrid\workProgramForm.js" />
+    <Content Include="wwwroot\controllersGrid\workProgram.js" />
+    <Content Include="wwwroot\controllersGrid\flowworkprogram.js" />
+    <Content Include="wwwroot\controllersGrid\workrule.js" />
+    <Content Include="wwwroot\controllersGrid\user.js" />
+    <Content Include="wwwroot\controllersGrid\usergroup.js" />
+    <Content Include="wwwroot\controllersGrid\ordinaryworkprogram.js" />
+    <Content Include="wwwroot\controllersGrid\organizationunit.js" />
+    <Content Include="wwwroot\controllersGrid\organizationbranch.js" />
+    <Content Include="wwwroot\controllersGrid\organizationlevel.js" />
+    <Content Include="wwwroot\controllersGrid\employmenttype.js" />
+    <Content Include="wwwroot\controllersGrid\educationlevel.js" />
+    <Content Include="wwwroot\custome\css\basicinformation_dashboard.css" />
+    <Content Include="wwwroot\custome\css\custome.css" />
+    <Content Include="wwwroot\custome\js\custome.js" />
+    <Content Include="wwwroot\custome\js\device.js" />
+    <Content Include="wwwroot\dashboard\css\material_style.css" />
+    <Content Include="wwwroot\dashboard\css\pages\extra_pages.css" />
+    <Content Include="wwwroot\dashboard\css\pages\formlayout.css" />
+    <Content Include="wwwroot\dashboard\css\pages\inbox.min.css" />
+    <Content Include="wwwroot\dashboard\css\pages\typography.css" />
+    <Content Include="wwwroot\dashboard\css\plugins.min.css" />
+    <Content Include="wwwroot\dashboard\css\responsive.css" />
+    <Content Include="wwwroot\dashboard\css\theme\img\remove-icon-small.html" />
+    <Content Include="wwwroot\dashboard\css\theme\rtl\images\arrow-down.html" />
+    <Content Include="wwwroot\dashboard\css\theme\rtl\rtl.css" />
+    <Content Include="wwwroot\dashboard\css\theme\rtl\style.css" />
+    <Content Include="wwwroot\dashboard\css\theme\rtl\theme-color.css" />
+    <Content Include="wwwroot\dashboard\css\theme\rtl\theme_style.css" />
+    <Content Include="wwwroot\dashboard\FarsiFont\FarsiFonts.css" />
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="wwwroot\dashboard\fonts\material-design-icons\material-icon.css" />
+    <Content Include="wwwroot\dashboard\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.svg" />
+    <Content Include="wwwroot\dashboard\fonts\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="wwwroot\dashboard\img\10100.jpg" />
+    <Content Include="wwwroot\dashboard\img\128-2.png" />
+    <Content Include="wwwroot\dashboard\img\128.png" />
+    <Content Include="wwwroot\dashboard\img\22.jpg" />
+    <Content Include="wwwroot\dashboard\img\bg-01.jpg" />
+    <Content Include="wwwroot\dashboard\img\blog\blog2.jpg" />
+    <Content Include="wwwroot\dashboard\img\blog\blog3.jpg" />
+    <Content Include="wwwroot\dashboard\img\blog\blog4.jpg" />
+    <Content Include="wwwroot\dashboard\img\course\course1.jpg" />
+    <Content Include="wwwroot\dashboard\img\course\course2.jpg" />
+    <Content Include="wwwroot\dashboard\img\course\course3.jpg" />
+    <Content Include="wwwroot\dashboard\img\course\course4.jpg" />
+    <Content Include="wwwroot\dashboard\img\datatable-row-openclose.html" />
+    <Content Include="wwwroot\dashboard\img\details_close.png" />
+    <Content Include="wwwroot\dashboard\img\details_open.png" />
+    <Content Include="wwwroot\dashboard\img\dp.jpg" />
+    <Content Include="wwwroot\dashboard\img\flags\de.png" />
+    <Content Include="wwwroot\dashboard\img\flags\es.png" />
+    <Content Include="wwwroot\dashboard\img\flags\gb.png" />
+    <Content Include="wwwroot\dashboard\img\flags\ru.png" />
+    <Content Include="wwwroot\dashboard\img\flags\ua.png" />
+    <Content Include="wwwroot\dashboard\img\invoice_logo.png" />
+    <Content Include="wwwroot\dashboard\img\loading.gif" />
+    <Content Include="wwwroot\dashboard\img\logo-1.jpg" />
+    <Content Include="wwwroot\dashboard\img\logo-2.png" />
+    <Content Include="wwwroot\dashboard\img\mega-img1.jpg" />
+    <Content Include="wwwroot\dashboard\img\mega-img2.jpg" />
+    <Content Include="wwwroot\dashboard\img\mega-img3.jpg" />
+    <Content Include="wwwroot\dashboard\img\name.png" />
+    <Content Include="wwwroot\dashboard\img\prof\prof1.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof10.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof2.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof3.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof4.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof5.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof6.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof7.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof8.jpg" />
+    <Content Include="wwwroot\dashboard\img\prof\prof9.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\fullimage1.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\fullimage2.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\fullimage3.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl1.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl2.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl3.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl4.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl5.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl6.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl7.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\owl8.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\slider1.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\slider2.jpg" />
+    <Content Include="wwwroot\dashboard\img\slider\slider3.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std1.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std10.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std2.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std3.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std4.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std5.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std6.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std7.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std8.jpg" />
+    <Content Include="wwwroot\dashboard\img\std\std9.jpg" />
+    <Content Include="wwwroot\dashboard\img\Untitled.png" />
+    <Content Include="wwwroot\dashboard\js\app.js" />
+    <Content Include="wwwroot\dashboard\js\jquery.mask.js" />
+    <Content Include="wwwroot\dashboard\js\layout.js" />
+    <Content Include="wwwroot\dashboard\js\pages\calendar\calendar.min.js" />
+    <Content Include="wwwroot\dashboard\js\pages\chart\chartjs\chartjs-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\chart\chartjs\home-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\chart\chartjs\home-data2.js" />
+    <Content Include="wwwroot\dashboard\js\pages\chart\chartjs\home-data3.js" />
+    <Content Include="wwwroot\dashboard\js\pages\chart\echart\echart-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\chart\morris\morris_chart_data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\extra-pages\pages.js" />
+    <Content Include="wwwroot\dashboard\js\pages\map\google-maps-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\map\vector-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\material-loading\material-loading.js" />
+    <Content Include="wwwroot\dashboard\js\pages\material-select\getmdl-select.js" />
+    <Content Include="wwwroot\dashboard\js\pages\owl-carousel\owl_data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\select2\select2-init.js" />
+    <Content Include="wwwroot\dashboard\js\pages\sparkline\sparkline-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\steps\steps-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\summernote\summernote-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\sweet-alert\sweet-alert-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\table\table_data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\treeview\treeview-data.js" />
+    <Content Include="wwwroot\dashboard\js\pages\validation\form-validation.js" />
+    <Content Include="wwwroot\dashboard\js\theme-color.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker-init.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datepicker\bootstrap-datepicker.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datepicker\datepicker-init.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datepicker\datepicker.css" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.html" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datetimepicker\js\bootstrap-datetimepicker-init.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-editable\bootstrap-editable\css\bootstrap-editable.css" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-editable\bootstrap-editable\img\clear.png" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-editable\bootstrap-editable\img\loading.gif" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-editable\inputs-ext\address\address.css" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-inputmask\bootstrap-inputmask.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-switch\js\bootstrap-switch.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-tabdrop\js\bootstrap-tabdrop.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap-treeview\bootstrap-treeview.js" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\chart-js\Chart.bundle.js" />
+    <Content Include="wwwroot\dashboard\plugins\chart-js\utils.js" />
+    <Content Include="wwwroot\dashboard\plugins\counterup\jquery.counterup.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\counterup\jquery.waypoints.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\buttons.dataTables.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\buttons.flash.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\buttons.html5.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\buttons.print.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\dataTables.buttons.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\jszip.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\pdfmake.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\export\vfs_fonts.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\plugins\bootstrap\dataTables.bootstrap4.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\datatables\plugins\bootstrap\dataTables.bootstrap4.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\dropzone\dropzone-call.js" />
+    <Content Include="wwwroot\dashboard\plugins\dropzone\dropzone.css" />
+    <Content Include="wwwroot\dashboard\plugins\dropzone\dropzone.js" />
+    <Content Include="wwwroot\dashboard\plugins\echarts\echarts.js" />
+    <Content Include="wwwroot\dashboard\plugins\fullcalendar\fullcalendar.css" />
+    <Content Include="wwwroot\dashboard\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\gmaps\gmaps.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\iconic\css\material-design-iconic-font.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-blockui\jquery.blockui.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\blueimp-gallery\blueimp-gallery.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\css\jquery.fileupload-ui.css" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\css\jquery.fileupload.css" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\img\error.html" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\img\loading.gif" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\img\play-pause.html" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\img\progressbar.gif" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-file-upload\img\video-play.html" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-tags-input\jquery-tags-input-init.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-tags-input\jquery-tags-input.css" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-tags-input\jquery-tags-input.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-toast\dist\jquery.toast.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-toast\dist\jquery.toast.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-toast\dist\toast.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-validation\js\additional-methods.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery-validation\js\jquery.validate.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\jquery\jquery.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\data\jquery.vmap.sampledata.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\jquery.vmap.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\jqvmap.css" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\maps\jquery.vmap.europe.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\maps\jquery.vmap.germany.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\maps\jquery.vmap.russia.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\maps\jquery.vmap.usa.js" />
+    <Content Include="wwwroot\dashboard\plugins\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="wwwroot\dashboard\plugins\material-datetimepicker\bootstrap-material-datetimepicker.css" />
+    <Content Include="wwwroot\dashboard\plugins\material-datetimepicker\bootstrap-material-datetimepicker.js" />
+    <Content Include="wwwroot\dashboard\plugins\material-datetimepicker\datetimepicker.js" />
+    <Content Include="wwwroot\dashboard\plugins\material-datetimepicker\moment-with-locales.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\material\material.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\material\material.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\material\material.rtl.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\moment\moment.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\morris\morris.css" />
+    <Content Include="wwwroot\dashboard\plugins\morris\morris.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\morris\raphael-min.js" />
+    <Content Include="wwwroot\dashboard\plugins\owl-carousel\AjaxLoader.html" />
+    <Content Include="wwwroot\dashboard\plugins\owl-carousel\grabbing.html" />
+    <Content Include="wwwroot\dashboard\plugins\owl-carousel\owl.carousel.css" />
+    <Content Include="wwwroot\dashboard\plugins\owl-carousel\owl.carousel.js" />
+    <Content Include="wwwroot\dashboard\plugins\owl-carousel\owl.theme.css" />
+    <Content Include="wwwroot\dashboard\plugins\popper\popper.js" />
+    <Content Include="wwwroot\dashboard\plugins\select2\css\select2-bootstrap.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\select2\css\select2.css" />
+    <Content Include="wwwroot\dashboard\plugins\select2\js\select2.js" />
+    <Content Include="wwwroot\dashboard\plugins\sparkline\jquery.sparkline.js" />
+    <Content Include="wwwroot\dashboard\plugins\steps\jquery.steps.js" />
+    <Content Include="wwwroot\dashboard\plugins\steps\steps.css" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\summernote.css" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\summernote.js" />
+    <Content Include="wwwroot\dashboard\plugins\sweet-alert\sweetalert2.all.min.js" />
+    <Content Include="wwwroot\dashboard\plugins\sweet-alert\sweetalert2.min.css" />
+    <Content Include="wwwroot\dashboard\plugins\sweet-alert\sweetalert2.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\fonts\fontawesome-webfont3e6e.woff2" />
+    <Content Include="wwwroot\dashboard\fonts\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="wwwroot\dashboard\fonts\material-design-icons\iconfont\MaterialIcons-Regular.eot" />
+    <Content Include="wwwroot\dashboard\fonts\material-design-icons\iconfont\MaterialIcons-Regular.ttf" />
+    <Content Include="wwwroot\dashboard\fonts\material-design-icons\iconfont\MaterialIcons-Regular.woff" />
+    <Content Include="wwwroot\dashboard\fonts\material-design-icons\iconfont\MaterialIcons-Regular.woff2" />
+    <Content Include="wwwroot\dashboard\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.eot" />
+    <Content Include="wwwroot\dashboard\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.ttf" />
+    <Content Include="wwwroot\dashboard\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.woff" />
+    <Content Include="wwwroot\dashboard\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.woff2" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\font\summernote.eot" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\font\summernote.ttf" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\font\summernote.woff" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\font\summernote.woff2" />
+    <Content Include="wwwroot\dashboard\plugins\summernote\font\summernoted41d.eot" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\material_style.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\pages\extra_pages.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\pages\formlayout.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\pages\inbox.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\pages\typography.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\plugins.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\responsive.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\theme\img\remove-icon-small.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\theme\rtl\images\arrow-down.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\theme\rtl\rtl.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\theme\rtl\style.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\theme\rtl\theme-color.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\css\theme\rtl\theme_style.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\bg-01.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\blog\blog1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\blog\blog2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\blog\blog3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\blog\blog4.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\course\course1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\course\course2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\course\course3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\course\course4.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\datatable-row-openclose.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\details_close.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\details_open.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\dp.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\flags\de.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\flags\es.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\flags\gb.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\flags\ru.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\flags\ua.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\invoice_logo.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\logo-2.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\mega-img1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\mega-img2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\mega-img3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof10.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof4.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof5.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof6.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof7.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof8.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\prof\prof9.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\fullimage1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\fullimage2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\fullimage3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl4.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl5.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl6.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl7.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\owl8.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\slider1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\slider2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\slider\slider3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std10.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std2.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std3.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std4.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std5.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std6.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std7.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std8.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\img\std\std9.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\app.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\layout.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\calendar\calendar.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\amchart\amchart-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\apex\apexcharts.data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\chartjs\chartjs-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\chartjs\home-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\chartjs\home-data2.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\chartjs\home-data3.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\echart\echart-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\chart\morris\morris_chart_data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\date-time\date-time.init.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\extra-pages\pages.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\map\google-maps-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\map\vector-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\material-loading\material-loading.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\material-select\getmdl-select.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\owl-carousel\owl_data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\select2\select2-init.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\sparkline\sparkline-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\steps\steps-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\summernote\summernote-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\sweet-alert\sweet-alert-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\table\table_data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\treeview\treeview-data.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\pages\validation\form-validation.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\js\theme-color.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\amcharts4\animated.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\amcharts4\charts.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\amcharts4\core.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\amcharts4\maps.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\amcharts4\worldLow.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\apexcharts\apexcharts.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker-init.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-datepicker\bootstrap-datepicker.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-datepicker\datepicker-init.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.min.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-datetimepicker\js\bootstrap-datetimepicker-init.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-editable\bootstrap-editable\css\bootstrap-editable.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-editable\bootstrap-editable\img\clear.png" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-editable\bootstrap-editable\img\loading.gif" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-editable\inputs-ext\address\address.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-inputmask\bootstrap-inputmask.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-switch\js\bootstrap-switch.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-tabdrop\js\bootstrap-tabdrop.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap-treeview\bootstrap-treeview.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\chart-js\Chart.bundle.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\chart-js\utils.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\counterup\jquery.counterup.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\counterup\jquery.waypoints.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\buttons.dataTables.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\buttons.flash.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\buttons.html5.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\buttons.print.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\dataTables.buttons.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\jszip.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\pdfmake.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\export\vfs_fonts.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\plugins\bootstrap\dataTables.bootstrap4.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\datatables\plugins\bootstrap\dataTables.bootstrap4.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\dropzone\dropzone-call.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\dropzone\dropzone.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\dropzone\dropzone.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\echarts\echarts.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\flatpicker\css\flatpickr.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\flatpicker\js\flatpicker.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\fullcalendar\fullcalendar.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\gmaps\gmaps.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\iconic\css\material-design-iconic-font.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-blockui\jquery.blockui.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\blueimp-gallery\blueimp-gallery.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\css\jquery.fileupload-ui.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\css\jquery.fileupload.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\img\error.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\img\loading.gif" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\img\play-pause.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\img\progressbar.gif" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-file-upload\img\video-play.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-tags-input\jquery-tags-input-init.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-tags-input\jquery-tags-input.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-tags-input\jquery-tags-input.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-toast\dist\jquery.toast.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-toast\dist\jquery.toast.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-toast\dist\toast.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-validation\js\additional-methods.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery-validation\js\jquery.validate.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jquery\jquery.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\data\jquery.vmap.sampledata.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\jquery.vmap.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\jqvmap.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\maps\jquery.vmap.europe.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\maps\jquery.vmap.germany.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\maps\jquery.vmap.russia.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\maps\jquery.vmap.usa.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\material\material.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\material\material.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\material\material.rtl.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\moment\moment.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\morris\morris.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\morris\morris.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\morris\raphael-min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\owl-carousel\AjaxLoader.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\owl-carousel\grabbing.html" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\owl-carousel\owl.carousel.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\owl-carousel\owl.carousel.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\owl-carousel\owl.theme.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\popper\popper.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\select2\css\select2-bootstrap.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\select2\css\select2.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\select2\js\select2.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\sparkline\jquery.sparkline.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\steps\jquery.steps.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\steps\steps.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\summernote.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\summernote.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\sweet-alert\sweetalert2.all.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\sweet-alert\sweetalert2.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\sweet-alert\sweetalert2.min.js" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\material-design-icons\material-icon.css" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.svg" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="wwwroot\Dashboard_V2\img\128-2.png" />
+    <Content Include="wwwroot\Dashboard_V2\img\128.png" />
+    <Content Include="wwwroot\Dashboard_V2\img\22.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\img\bg-01.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\img\cropped-Group-1-1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\img\loading.gif" />
+    <Content Include="wwwroot\Dashboard_V2\img\logo-1.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\img\logo.jpg" />
+    <Content Include="wwwroot\Dashboard_V2\img\name.png" />
+    <Content Include="wwwroot\Dashboard_V2\img\sort_desc.png" />
+    <Content Include="wwwroot\Dashboard_V2\img\Untitled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\TimeAttendance\Views\web.config" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_VerticalMenu.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Home\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserGroup\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserGroup\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\User\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\User\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\User\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\User\_Detail.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\FingerDevice\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\FingerDevice\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\FingerDevice\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_Actions.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_Update.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\WorkRule\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\WorkRule\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\WorkRule\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EducationLevel\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EmploymentType\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\FingerDevice\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationBranch\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationLevel\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\User\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\WorkRule\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserGroup\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\_GetDay.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\_Table.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\GetProgram.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Account\ChangePassword.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Account\Success.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDay\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDay\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDay\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDay\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_GetCalendare.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_Table.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\Create.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_GetProgram.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\WorkRule\_GetView.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Profile\AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrdinaryWorkProgram\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_GetCardList.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDayGrouping\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDayGrouping\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDayGrouping\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDayGrouping\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_GetLogs.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_GetEnrolls.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Command\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Command\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LogReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_AccessControll.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LogReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\User\_AssignEnroll.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LogReport\_EnrollDropDown.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserGroup\_GetContracts.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_DeviceCommands.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_FunctionKeys.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_WorkCodes.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_Cards.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DeviceCommand\_GetWorkCodeList.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_CalendarInformation.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_MovementInformation.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Calendare\_CalendarDetail.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserGroup\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserGroup\_ContractList.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LogReport\_SearchPart.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\CommingSoon\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SpecialDay\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\_DisApprove.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\MissionRequest\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\MissionRequest\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\MissionRequest\_DisApprove.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\MissionRequest\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\MissionRequest\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\MissionRequest\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\_DisApprove.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LeaveType\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LeaveType\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LeaveType\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\LeaveType\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_Loading.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationInformation\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AboutUs\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AboutSoftware\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RequestRule\AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RequestRule\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RequestRule\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RequestRule\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RequestRule\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionRequest\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionRequest\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionRequest\_DisApprove.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionRequest\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionRequest\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionRequest\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveRequest\_Report.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Ticket\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Ticket\_Description.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Ticket\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Ticket\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Ticket\_Response.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Ticket\_Show.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TicketToDevelopers\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyRequest\_Report.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyLeaveReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyLeaveReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyLeaveReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyLeaveReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyMissionReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyMissionReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\HourlyMissionReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\DailyMissionReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAudience\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAudience\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAbsence\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAbsence\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TradeReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TradeReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AnalyzedReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AnalyzedReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AnalyzedReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AnalyzedReport\_GetUserDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Home\_MonthlyReport.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Home\_PendingRequests.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Home\_WeekReport.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Home\_ToadyReport.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TradeReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TradeReport\_AddRowToUser.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TradeReport\_AddLog.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\TradeReport\_GetDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RemovedLogs\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\RemovedLogs\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\UserEnroll\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AnalyzedReport\_GetDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReport\_GetDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAbsence\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAbsence\_GetDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAudience\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\InstantReportAudience\_GetDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_LayoutPDF.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\SoftwareUser\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Shared\_Layout2.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Home\Index2.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AnalyzedReport\_Detail.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AbsenceReport\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AbsenceReport\_Search.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AbsenceReport\_GetDrop.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\AbsenceReport\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\TradeReportIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\InstantReportIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\InstantAudianceReportIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\InstantAbsenceReportIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\AbsenceReportIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\UserEnrollIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\SoftwareUserIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\AnalyzedReportIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\TradeReportNoLayoutIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\InstantNoLayoutIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\InstantAudianceNoLayoutIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\InstantAbsenceNoLayoutIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\AbsenceNoLayoutIndex.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\StimulReport\SoftwareUserNoLayoutIndex.cshtml" />
+    <None Include="packages.config" />
+    <Content Include="wwwroot\dashboard\FarsiFont\IRANSansWeb%28FaNum%29_Medium.eot" />
+    <Content Include="wwwroot\dashboard\FarsiFont\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="wwwroot\dashboard\FarsiFont\IRANSansWeb%28FaNum%29_Medium.woff" />
+    <Content Include="wwwroot\dashboard\FarsiFont\IRANSansWeb%28FaNum%29_Medium.woff2" />
+    <Content Include="Areas\TimeAttendance\Views\EducationLevel\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\Setting\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EducationLevel\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EducationLevel\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EmploymentType\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EmploymentType\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\EmploymentType\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationLevel\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationLevel\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationLevel\Index.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationBranch\_AddOrUpdate.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationBranch\_List.cshtml" />
+    <Content Include="Areas\TimeAttendance\Views\OrganizationBranch\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="wwwroot\componenets\timepicker\css\bootstrap.css~" />
+    <Content Include="wwwroot\componenets\timepicker\css\style.css~" />
+    <Content Include="wwwroot\componenets\timepicker\css\timepicki.css~" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\LogOff.cshtml" />
+    <Content Include="Views\ErrorPages\Error.cshtml" />
+    <Content Include="Views\ErrorPages\Error404.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\ContactUs\_Index.cshtml" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\font\summernote.eot" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\font\summernote.ttf" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\font\summernote.woff" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\font\summernote.woff2" />
+    <Content Include="wwwroot\Dashboard_V2\assets\plugins\summernote\font\summernoted41d.eot" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\fonts\fontawesome-webfont3e6e.woff2" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\material-design-icons\iconfont\MaterialIcons-Regular.eot" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\material-design-icons\iconfont\MaterialIcons-Regular.ttf" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\material-design-icons\iconfont\MaterialIcons-Regular.woff" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\material-design-icons\iconfont\MaterialIcons-Regular.woff2" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.eot" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.ttf" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.woff" />
+    <Content Include="wwwroot\Dashboard_V2\fonts\simple-line-icons\fonts\Simple-Line-Iconsb26c.woff2" />
+    <Content Include="Reports\Report.mrt" />
+    <Content Include="Reports\AbsenceReport.mrt" />
+    <Content Include="Reports\AnalyzedReport.mrt" />
+    <Content Include="Reports\InstantAbsenceReport.mrt" />
+    <Content Include="Reports\InstantAudianceReport.mrt" />
+    <Content Include="Reports\InstantReport.mrt" />
+    <Content Include="Reports\SoftwareUserReport.mrt" />
+    <Content Include="Reports\TimeAttendance_Frame.mrt" />
+    <Content Include="Reports\TradeReport.mrt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OrdinaryWorkProgram.anly\OrdinaryWorkProgram.anly.csproj">
+      <Project>{44f0f9c3-0adf-4d97-b725-2dd6c584f079}</Project>
+      <Name>OrdinaryWorkProgram.anly</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.Core\wskh.Core.csproj">
+      <Project>{34bebc71-46a7-47f2-9416-dbdd8f2ac266}</Project>
+      <Name>wskh.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.Data\wskh.Data.csproj">
+      <Project>{2278611a-c485-40da-af04-5c71c57874f1}</Project>
+      <Name>wskh.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.FingerTec\wskh.FingerTec.csproj">
+      <Project>{a3b82dd0-9e7d-4d74-87cc-4a69492f4ca6}</Project>
+      <Name>wskh.FingerTec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.Model\wskh.Model.csproj">
+      <Project>{06a0de46-ca6d-418b-82dc-8b7280e3fc94}</Project>
+      <Name>wskh.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.ReportModel\wskh.ReportModel.csproj">
+      <Project>{e306394f-b7c0-4667-8946-e24ebfa55afd}</Project>
+      <Name>wskh.ReportModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.Service\wskh.Service.csproj">
+      <Project>{c625200f-d801-4358-a14d-66a0c2df3491}</Project>
+      <Name>wskh.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.StoredProcedure\wskh.StoredProcedure.csproj">
+      <Project>{4d47e216-7994-4dad-8695-e3bc4a906bd2}</Project>
+      <Name>wskh.StoredProcedure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.WebEssentials\wskh.WebEssentials.csproj">
+      <Project>{4bba69cb-adda-4e6c-99dc-252dad47b618}</Project>
+      <Name>wskh.WebEssentials</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3150</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44393/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

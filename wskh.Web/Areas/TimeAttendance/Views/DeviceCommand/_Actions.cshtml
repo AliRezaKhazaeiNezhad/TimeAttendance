@@ -1,0 +1,54 @@
+﻿@model wskh.Core.FingerDevice
+
+<input type="text" name="CloseState" id="CloseState" value="@(Model.Id)" style="display:none" />
+
+<input type="text" name="name" id="DEVICEID" value="@(Model.Id)" style="display:none" />
+<br />
+<div class="row">
+    <div class="alert alert-success">
+        <h4>
+            @(Model.Title) @(Model.ModelName)
+        </h4>
+        <div class="row" id="FingerDetail">
+            <span class="col-md-12">
+                <span id="ConnectionState">
+                    بررسی اتصال
+                    <i class="fa fa-spinner fa-spin"></i>
+                </span>
+                <i class="fa fa-refresh poiner darkish fontBTN" id="refreshConnection" onclick="IsConnectedByBTN(@(Model.Id))"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<hr />
+
+<br />
+
+<div class="panel-group">
+    <div class="col-12">
+        @Html.Action("DeviceCommands", new { deviceId = Model.Id })
+        @*@Html.Action("FunctionKeys", new { deviceId = Model.Id })*@
+    </div>
+    @*<div class="col-12 col-md-6 pull-right">
+        @Html.Action("WorkCodes", new { deviceId = Model.Id })
+    </div>
+    <div class="col-12 col-md-6 pull-right">
+        @Html.Action("Cards", new { deviceId = Model.Id })
+    </div>*@
+    @*<div class="col-12 col-md-7 pull-right">
+        @Html.Action("GetLogs", new { deviceId = Model.Id })
+    </div>
+    <div class="col-12 col-md-5 pull-right">
+        @Html.Action("GetEnrolls", new { deviceId = Model.Id })
+    </div>*@
+</div>
+
+
+<script src="~/wwwroot/componenets/global/global.js"></script>
+<script>
+     IsConnected(@(Model.Id));
+     function ShowPanel($id) {
+        $("#"+$id).slideToggle();
+    }
+</script>
+

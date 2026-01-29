@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "پورتال - خانه";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+@{
+    var CurrentUser = TimeAttendance.Web.Helper.UserHelper.CurrentUser();
+    var UserRoleType = CurrentUser.UserRoleType;
+    bool IsAdmin = CurrentUser.UserRoleType.Contains("610064006D0069006E00n");
+}
+
+<style>
+    th {
+        text-align: center !important;
+    }
+
+    .card.card-box {
+        min-height: 0px !important;
+    }
+</style>
+
+
+@if (IsAdmin)
+{
+    <div class="row">
+        @Html.Action("MonthlyReport", "Home")
+    </div>
+
+    <div class="row">
+        @Html.Action("PendingRequests", "Home")
+    </div>
+
+    <div class="row">
+        @Html.Action("ToadyReport", "Home")
+
+        @Html.Action("WeekReport", "Home")
+    </div>
+}
+
+@Html.Partial("_AccessControll")
+

@@ -1,0 +1,73 @@
+﻿@model wskh.Model.WorkRuleModel
+@{
+    Layout = null;
+}
+
+
+<div class="row">
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.Title, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "50", disabled = "disabled" })
+    </div>
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.MaxDelyInDay, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.MaxDelyInDay, new { @class = "form-control", disabled = "disabled" })
+    </div>
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.MaxDelyInMonth, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.MaxDelyInMonth, new { @class = "form-control", disabled = "disabled" })
+    </div>
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.DailyLeaveInMonth, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.DailyLeaveInMonth, new { @class = "form-control", disabled = "disabled" })
+    </div>
+
+
+
+
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.HourlyLeaveInMonthHour, new { @class = "pull-right w100" })
+        @Html.TextBoxFor(x => x.HourlyLeaveInMonthHour, new { @class = "form-control col-6 pull-right", disabled = "disabled" })
+        @Html.TextBoxFor(x => x.HourlyLeaveInMonthMinute, new { @class = "form-control col-6 pull-right", disabled = "disabled" })
+    </div>
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.NoExitLog, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.NoExitLogString, new { @class = "form-control", disabled = "disabled" })
+    </div>
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.HourlyLeavePassToNextMonthId, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.HourlyLeavePassToNextMonthstring, new { @class = "form-control pull-right", disabled = "disabled" })
+    </div>
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.DailyLeavePassToNeztLeaveId, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.DailyLeavePassToNeztLeavesString, new { @class = "form-control pull-right", disabled = "disabled" })
+    </div>
+
+
+
+
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.FlowTimeMinDay, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.FlowTimeMinDay, new { @class = "form-control", disabled = "disabled" })
+    </div>
+
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.DelayActionId, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.DelayActionString, new { @class = "form-control pull-right", disabled = "disabled" })
+    </div>
+    <div class="form-group col-12 col-md-3">
+        @Html.LabelFor(x => x.DelayActionPercent, new { @class = "pull-right" })
+        @Html.TextBoxFor(x => x.DelayActionPercent, new { @class = "form-control", disabled = "disabled" })
+    </div>
+
+</div>
+
+
+

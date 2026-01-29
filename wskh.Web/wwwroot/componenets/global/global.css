@@ -1,0 +1,778 @@
+﻿.custome-btn-left {
+    position: relative;
+    top: -46px;
+}
+.pull-right {
+    text-align: right;
+}
+.required {
+    text-align: right !important;
+    position: relative !important;
+    float: right;
+}
+
+@media(min-width:992px) {
+    .companyname-logo {
+        position: relative;
+        float: right !important;
+        right: 0px !important;
+        width: 50% !important;
+        padding-top: 14px;
+    }
+
+    .li-company-logo {
+        width: 90%;
+    }
+
+    .sidemenu-container.navbar-collapse.collapse.fixed-menu {
+        position: relative;
+        top: -40px;
+        height: 100vh !important;
+    }
+}
+
+@media(max-width:992px) {
+    .companyname-logo {
+        display: none
+    }
+
+    .top-menu {
+        display: none !important;
+    }
+}
+
+
+
+.page-container {
+    margin-top: 70px;
+}
+
+.top-menu {
+    width: 100%;
+}
+
+.nav {
+    width: 100%;
+}
+
+
+td.pickerHead div a.nav {
+    width: 10px;
+}
+
+
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background: none;
+}
+
+.select2-selection.select2-selection--single {
+    height: 40px;
+}
+
+.select2, ul.select2-results__options, ul.select2-results__options li {
+    text-align: right !important;
+}
+
+
+label {
+    font-size: 11px;
+}
+
+
+.padding-top-btn {
+    top: 39px;
+    position: relative;
+}
+
+.customeMargin {
+    margin-left: 15px !important;
+    font-size: 12px !important;
+}
+
+.hide-margin, .hide-margin thead tr th, .hide-margin thead {
+    border: 0px solid transparent;
+}
+
+.smallTable th {
+    font-size: 10px !important;
+    padding: 0px !important;
+}
+
+.smallTable td {
+    font-size: 9px !important;
+}
+
+.ResultTfoot {
+    background-color: #c8c8c8;
+}
+
+
+.tradeUl {
+    font-size: 10px;
+    height: 100%;
+    float: right;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+    .tradeUl li:nth-child(2) {
+        color: red !important;
+    }
+
+    .tradeUl li:first-child {
+        color: green !important;
+    }
+
+.hide {
+    display: none !important;
+}
+
+.nodisplay {
+    position: absolute !important;
+    color: transparent !important;
+    background-color: transparent !important;
+    z-index: -999999999999999 !important;
+}
+
+.noUnderMargin {
+    margin-bottom: 0px !important;
+}
+
+#uploadedlogoimage {
+    height: 100px !important;
+}
+
+#loading {
+    z-index: 9999999999999 !important;
+    position: fixed !important;
+    background-color: #fff;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0.8 !important;
+}
+
+    #loading img {
+        position: absolute;
+        left: 40%;
+        top: 30%;
+    }
+
+.search-form-opened.activepanel:hover {
+    background-color: #ffc6c9 !important;
+}
+
+.fa-helper::after {
+    content: 'راهنما';
+    font-family: Farsi !important;
+    color: Highlight !important;
+    float: left !important;
+}
+
+/*.page-header-inner {
+    background-image: url('/wwwroot/dashboard/img/name.png');
+    background-repeat: no-repeat;
+    background-size: 31%;
+    background-position-x: right;
+    background-position-y: 50%;
+}*/
+
+
+.required {
+    color: red;
+}
+
+.startTime {
+    float: right !important;
+    padding: 7px !important;
+    font-weight: bold !important;
+}
+
+@media (min-width: 992px) {
+    .startTime {
+        width: 10%;
+    }
+}
+
+@media(max-width:992px) {
+    .startTime {
+        width: 100%;
+    }
+}
+
+.enterance {
+    color: green !important;
+}
+
+.exit {
+    color: red !important;
+}
+
+.enterancegrid {
+    background-color: green !important;
+}
+
+.exitgrid {
+    background-color: red !important;
+}
+
+.toast-top-center {
+    top: 40%;
+    left: 50%;
+    margin: 0 0 0 -150px;
+}
+
+@media(min-width:768px) {
+    .fixed-menu {
+        background-image: url('/wwwroot/dashboard/img/128-2.png');
+        background-size: 8%;
+        background-position: 98% 90%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+}
+
+
+#CustomeTitle {
+    position: absolute;
+    float: left;
+    direction: rtl;
+    left: 90px;
+    top: 13px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #e44f56;
+}
+
+.customeDisabled {
+    pointer-events: none !important;
+    opacity: 0.5 !important;
+}
+
+.panel-title {
+    text-align: right !important;
+}
+
+.space {
+    margin: 10px !important;
+}
+
+.customeCheckBox {
+    position: relative;
+    float: left;
+    top: 0px;
+    left: 0px;
+}
+
+.functionkeysdrop {
+    margin-bottom: 0px !important;
+}
+
+.panel-headingDanger {
+    background-color: #fdecec;
+}
+
+.panel-bodyDanger {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+}
+
+.panel-heading {
+    cursor: pointer !important;
+}
+
+th {
+    text-align: center !important;
+}
+
+.panel-headingDanger {
+    padding:;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    margin: 0px !important;
+}
+
+.bootbox-close-button {
+    background-color: red !important;
+    float: left;
+    border-radius: 100%;
+    height: 15px;
+    width: 15px;
+    cursor: pointer !important;
+    position: absolute !important;
+    left: 20px;
+    z-index: 99 !important;
+}
+
+.cusMargin {
+    padding-top: 200px;
+}
+
+.picker {
+    z-index: 999999 !important;
+}
+
+.nav-tabs > li > a.active {
+    background-color: #f95362 !important;
+    border-left: 3px solid #f91c1c;
+    border-top: 3px solid #f91c1c;
+    border-right: 3px solid #f91c1c;
+    color: white !important;
+}
+
+.dataTables_info {
+    font-size: 11px !important;
+}
+
+.dataTables_length {
+    font-size: 11px !important;
+}
+
+.informationRight {
+    position: relative;
+    right: 13px;
+    top: 1px;
+}
+
+.clendareTable th, .clendareTable td {
+    text-align: center;
+}
+
+.NoDay {
+    background-color: #555 !important;
+}
+
+.clendareTable td {
+    padding: 5px;
+}
+
+.StartDateCol {
+    padding-left: 0px !important;
+}
+
+    .StartDateCol div {
+        border-radius: 0px 10px 10px 0px;
+    }
+
+.EndDateCol {
+    padding-right: 0px !important;
+}
+
+    .EndDateCol div {
+        border-radius: 10px 0px 0px 10px;
+    }
+
+#clendareTable td div {
+    height: 40px !important;
+    width: 100% !important;
+}
+
+.StartDateCol div {
+    background-color: #ff7c7c !important;
+    padding-left: 0px !important;
+}
+
+.MiddleDateCol {
+    padding: 0px !important;
+}
+
+    .MiddleDateCol div {
+        background-color: #ff7c7c !important;
+    }
+
+.EndDateCol div {
+    background-color: #ff7c7c !important;
+    padding-right: 0px !important;
+}
+
+.customeTDItem {
+    width: 239px;
+}
+
+
+.lonlyBTN {
+    position: relative !important;
+    top: 30px !important;
+}
+
+.pcalBtn {
+    position: relative !important;
+    float: left !important;
+    left: 10px !important;
+    top: -49px !important;
+}
+
+.custoeLable {
+    font-size: 13px !important;
+}
+
+.customeDisplay {
+    background-color: #d9d9d9;
+    padding: 3px;
+    width: 100%;
+}
+
+.CustomeFaIcon {
+    color: orange !important;
+    margin-left: 1px;
+    font-size: 15px;
+}
+
+.form-group {
+    float: right;
+    z-index: 999;
+}
+
+.custable td {
+    font-size: 11px !important;
+    font-weight: unset !important;
+    padding: 5px !important;
+}
+
+.bgDefault {
+    background-color: transparent !important;
+}
+
+
+.EditParentRowelement {
+    background-color: #76a3aa !important;
+    color: white !important;
+    border: 6px solid #76a3aa;
+}
+
+.EditableRow {
+    border: 6px solid #76a3aa;
+    background-color: rgba(163, 219, 232, 0.25);
+}
+
+    .EditableRow td {
+        padding: 40px !important;
+    }
+
+.w100 {
+    width: 100% !important;
+    float: right;
+}
+
+.w50 {
+    width: 50% !important;
+    float: right;
+}
+
+.CrudFamily {
+    font-size: 14px;
+}
+
+.custable th {
+    font-size: 11px !important;
+    background-color: lightgray;
+}
+
+.customeRadio {
+    position: relative;
+    float: left !important;
+    top: 5px;
+}
+
+.bgOrange {
+    background-color: orange !important;
+}
+
+.Red {
+    color: red !important;
+}
+
+.bgRed {
+    background-color: #e67474 !important;
+}
+
+.customeInTable {
+    margin-bottom: 0px !important;
+}
+
+.custable {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+    .custable > tfoot > tr > th {
+        padding: 2px !important;
+    }
+
+#SetDateTimeSpiner,
+#ClearAdministratorSpiner,
+#DeleteGeneralLogSpiner,
+#ClearAllDataSpiner,
+#RestartDeviceSpiner,
+#refreshConnection,
+#GetEnrollSpiner,
+#GetLogSpiner {
+    display: none;
+}
+
+td, td input, td button {
+    font-size: 10px !important;
+    text-align: center !important;
+}
+
+.hideInput {
+    position: absolute;
+    z-index: 0;
+    color: transparent;
+    border: 1px solid transparent;
+    background-color: transparent !important;
+    z-index: -1000000000;
+}
+
+.hide {
+    display: none;
+}
+
+.modal-dialog {
+    max-width: 70% !important;
+}
+
+.lblHr {
+    padding: 0px !important;
+    padding-top: 0px;
+    margin: 0px;
+    color: #acabab !important;
+    border-top: 1px solid;
+    padding-top: 10px !important;
+}
+
+.information {
+    float: left;
+    position: relative;
+    top: 13px;
+    left: 18px;
+    color: blue !important;
+}
+
+.lblTitle {
+    font-weight: bold;
+    color: #e81111 !important;
+    font-size: 12px !important;
+}
+
+.lbl {
+    font-size: 14px;
+    width: 100% !important;
+}
+
+.lblDescription {
+    font-size: 12px;
+    padding-top: 0px !important;
+    padding: 10px;
+    text-align: justify;
+    direction: rtl;
+    color: #041744;
+}
+
+.lblExample {
+    padding: 0px 20px 10px 10px;
+    font-size: 11px;
+    color: gray;
+}
+
+.darkish {
+    color: black !important;
+}
+
+.poiner {
+    cursor: pointer;
+}
+
+.pull-right {
+    padding-top: 5px;
+}
+
+.customeLabel {
+    font-size: 13px;
+}
+
+.bootbox-body {
+    text-align: justify;
+}
+
+.modal-content {
+    border: 3px solid #e44f56 !important;
+    border-radius: 3px !important;
+    margin-top: 10% !important;
+}
+
+.bootbox.modal.fade.show {
+    background-color: rgba(0, 0, 0, 0.44) !important;
+}
+
+.boldBlue {
+    color: red !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
+.search-form-opened {
+    float: right;
+    padding: 16px;
+    border-left: 1px solid #ec1b1b;
+    cursor: pointer !important;
+    transition: 0.5s;
+    color: black !important;
+}
+
+    .search-form-opened:hover {
+        background-color: white !important;
+        color: black !important;
+    }
+
+.activepanel {
+    background-color: #e44f56 !important;
+    color: white !important;
+}
+
+.page-footer {
+    background-color: white;
+    bottom: 0px !important;
+    position: absolute;
+    width: 100% !important;
+    z-index: 100000 !important;
+    height: 85px;
+    border-top: 1px solid #e44f56;
+}
+
+.page-footer-inner {
+    color: #e44f56 !important;
+}
+
+.page-header-inner {
+    border-bottom: 5px solid #e44f56;
+}
+
+.danger2 {
+    color: red !important;
+}
+
+.danger {
+    border: 2px solid red;
+    color: red;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.card.card-box {
+    min-height: 100vh !important;
+}
+
+.customerBTN-Post2 {
+    top: 30px !important;
+    position: relative !important;
+}
+
+#Grid_length {
+    font-size: 11px;
+}
+
+#Grid_info {
+    font-size: 11px !important;
+}
+
+.paginate_button {
+    font-size: 10px !important;
+}
+
+.dropdown-menu li, .dropdown-menu li a {
+    text-align: center;
+    font-size: 10px !important;
+    cursor: pointer !important;
+}
+
+.toast-success {
+    text-align: right !important;
+    background-color: #4bd396 !important;
+    border: 1px solid #4bd396 !important;
+    color: #fff !important;
+}
+
+.toast-warning {
+    text-align: right !important;
+    background-color: #f9c851 !important;
+    border: 1px solid #f9c851 !important;
+    color: dimgray !important;
+}
+
+.field-validation-error {
+    color: red !important;
+    float: right !important;
+    font-size: 11px !important;
+}
+
+.form-control:focus {
+    border: 2px solid #ccc !important;
+}
+
+.alert {
+    width: 100%;
+    text-align: right;
+}
+
+.customerBTN-Pos {
+    position: relative;
+    top: 30px;
+}
+
+.w100 {
+    width: 100%;
+    margin-right: 0px !important;
+}
+
+.colorTable {
+    text-align: center;
+}
+
+    .colorTable th {
+        text-align: center;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 5px !important;
+        background-color: #e44f56 !important;
+        color: white !important;
+    }
+
+    .colorTable td, .colorTable td select {
+        text-align: center;
+        font-size: 11px;
+        padding: 5px !important;
+    }
+
+.center {
+    text-align: center !important;
+}
+
+.ltr {
+    direction: ltr !important;
+}
+
+.sidemenu-container-reversed, .page-content-wrapper, .page-content, .page-container, .page-content-wrapper {
+    min-height: 100vh !important;
+}
+
+.top-menu {
+    float: left !important;
+}
+
+.nav-link.nav-toggle, .sub-menu {
+    text-align: right;
+}
+
+a.btn-success {
+    float: left;
+    left: 10px;
+    top: 5px;
+}

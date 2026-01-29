@@ -1,0 +1,52 @@
+﻿@model TimeAttendance.Core.AnalyzedReport
+@{
+    Layout = null;
+}
+
+<br />
+<br />
+<br />
+
+<div class="container">
+
+    <table id="Grid" class="table  table-striped table-condensed table-bordered no-margin smallTable" style="width:100% !important;">
+        <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>تردد اول</th>
+                <th>تردد دوم</th>
+                <th>مدت</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.AnalyzedReportLogs == null || Model.AnalyzedReportLogs.Count() == 0)
+            {
+                <tr>
+                    <td colspan="4">
+                        ترددی ثبت نشده است !!!
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.AnalyzedReportLogs)
+                {
+                    <tr>
+                        <td>@(Model.AnalyzedReportLogs.FindIndex(x => x.Id == item.Id) + 1)</td>
+                        <td>@(item.FirstLogTime)</td>
+                        <td>@(item.SecondLogTime)</td>
+                        <td>@(item.Duration)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+
+    </table>
+
+</div>
+
+
+
+
+

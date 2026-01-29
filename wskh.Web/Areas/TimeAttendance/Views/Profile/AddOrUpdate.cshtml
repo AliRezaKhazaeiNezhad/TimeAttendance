@@ -1,0 +1,95 @@
+﻿@model wskh.Model.UserInformationModel
+
+@{
+    ViewBag.Title = "اطلاعات پایه | پروفایل";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>اطلاعات پروفایل</header>
+            </div>
+            <div class="card-body ">
+
+                <form method="post" resource="/TimeAttendance/Profile/AddOrUpdate">
+                    <div id="AddOrUpdate-Part">
+
+
+                        <div class="form-group col-12 pull-right">
+                            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+                            {
+                                <div class="alert alert-success col-12 pull-right">
+                                    @(Model.SuccessMessage) <a class="btn btn-sm btn-default pull-left" href="/TimeAttendance/Profile/Index">بازگشت</a>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                            {
+                                <div class="alert alert-danger col-12 pull-right">
+                                    @(Model.ErrorMessage) <a class="btn btn-sm btn-default pull-left" href="/TimeAttendance/Profile/Index">بازگشت</a>
+                                </div>
+                            }
+                        </div>
+
+
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(x => x.Id)
+
+
+                    <div class="form-group col-12">
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.SexId, new { @class = "pull-right" })
+                            @Html.DropDownListFor(x => x.SexId, Model.SexList, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.SexId, null, new { @class = "validation" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.FirstName, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", MaxLength = "50" })
+                            @Html.ValidationMessageFor(x => x.FirstName, null, new { @class = "validation" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.Lastname, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.Lastname, new { @class = "form-control", MaxLength = "75" })
+                            @Html.ValidationMessageFor(x => x.Lastname, null, new { @class = "validation" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.NationalCode, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.NationalCode, new { @class = "form-control", MaxLength = "10" })
+                            @Html.ValidationMessageFor(x => x.NationalCode, null, new { @class = "validation" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-12">
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.EducationLevel, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.EducationLevel, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.EmployeType, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.EmployeType, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.Branch, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.Branch, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(x => x.OrganizationLevel, new { @class = "pull-right" })
+                            @Html.TextBoxFor(x => x.OrganizationLevel, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+
+                    </div class="form-group col-12">
+                        <button type="submit" onclick="AddLoading()" class="btn btn-success btn-sm pull-left">ویرایش</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+

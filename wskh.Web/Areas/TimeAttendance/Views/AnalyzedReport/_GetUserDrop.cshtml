@@ -1,0 +1,14 @@
+﻿@model  List<TimeAttendance.Model.DropDownModel>
+@{
+    Layout = null;
+}
+<label class="pull-right">
+    کاربر
+</label>
+<select class="form-control" data-val="true" data-val-number="The field کارمند must be a number." data-val-required="The کارمند field is required." id="UserId" name="UserId">
+
+    @foreach (var item in Model)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+</select>

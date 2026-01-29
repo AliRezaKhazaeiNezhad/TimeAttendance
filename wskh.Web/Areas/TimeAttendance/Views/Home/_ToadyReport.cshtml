@@ -1,0 +1,224 @@
+﻿@{
+    var _requestService = DependencyResolver.Current.GetService<wskh.Service.IRequestService>();
+
+    var list = _requestService.List();
+
+    if (list != null && list.Count() > 0)
+    {
+        list = list.Where(x => x.StartDate.Date == DateTime.Now.Date).ToList();
+    }
+}
+
+
+<div class="col-12 col-lg-6 pull-right">
+
+    <div class="card card-topline-purple">
+        <div class="card-head">
+            <header> گزارش امروز  </header>
+        </div>
+        <div class="card-body ">
+            <div class="col-12">
+                <div class="table table-striped table-hover">
+                    <div class="table-scrollable">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">
+                                        وضعیت
+                                    </th>
+                                    <th style="width:20%">
+                                        مرخصی روزانه
+                                    </th>
+                                    <th style="width:20%">
+                                        مرخصی ساعتی
+                                    </th>
+                                    <th style="width:20%">
+                                        ماموریت روزانه
+                                    </th>
+                                    <th style="width:20%">
+                                        ماموریت ساعتی
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>در انتظار بررسی</td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.DailyRest && x.State == wskh.Core.Enumerator.RequestState.Pending).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.HourlyRest && x.State == wskh.Core.Enumerator.RequestState.Pending).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionDaily && x.State == wskh.Core.Enumerator.RequestState.Pending).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionHourly && x.State == wskh.Core.Enumerator.RequestState.Pending).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>تایید شده</td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.DailyRest && x.State == wskh.Core.Enumerator.RequestState.Approved).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.HourlyRest && x.State == wskh.Core.Enumerator.RequestState.Approved).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionDaily && x.State == wskh.Core.Enumerator.RequestState.Approved).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionHourly && x.State == wskh.Core.Enumerator.RequestState.Approved).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>لغو شده</td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.DailyRest && x.State == wskh.Core.Enumerator.RequestState.Rejected).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.HourlyRest && x.State == wskh.Core.Enumerator.RequestState.Rejected).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionDaily && x.State == wskh.Core.Enumerator.RequestState.Rejected).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionHourly && x.State == wskh.Core.Enumerator.RequestState.Rejected).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>کل</td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.DailyRest).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.HourlyRest).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionDaily).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                    <td>
+                                        @try
+                                        {
+                                            @(list.Where(x => x.Type == wskh.Core.Enumerator.RequestType.MissionHourly).ToList().Count())
+                                        }
+                                        catch (Exception)
+                                        {
+                                            @Html.Raw("0")
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

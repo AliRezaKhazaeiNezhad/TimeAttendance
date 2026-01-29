@@ -1,0 +1,70 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-headingDanger" onclick="ShowPanel('enrolldetail')">
+        <h4 class="panel-title">
+            <a data-toggle="collapse">کاربران سخت افزار</a>
+        </h4>
+    </div>
+    <div id="enrolldetail" class="panel-collapse collapse panel-bodyDanger">
+        <div class="container">
+            <table id="GridGetEnrolls" class="table  table-striped table-condensed table-bordered no-margin" style="width:100% !important;">
+                <thead>
+                    <tr>
+                        <th>EnrollNo</th>
+                        <th>Name</th>
+                        <th>PassWord</th>
+                        <th>Privilage</th>
+                        <th>Enable</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var table = $("#GridGetEnrolls").DataTable({
+    "language": {
+        "sEmptyTable": "هیچ داده ای در جدول وجود ندارد",
+        "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+        "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+        "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+        "sInfoPostFix": "",
+        "sInfoThousands": ",",
+        "sLengthMenu": "نمایش _MENU_ رکورد",
+        "sLoadingRecords": "در حال بارگزاری...",
+        "sProcessing": "در حال پردازش...",
+        "sSearch": "جستجو:",
+        "sZeroRecords": "رکوردی با این مشخصات پیدا نشد",
+        "oPaginate": {
+            "sFirst": "ابتدا",
+            "sLast": "انتها",
+            "sNext": "بعدی",
+            "sPrevious": "قبلی"
+        },
+        "oAria": {
+            "sSortAscending": ": فعال سازی نمایش به صورت صعودی",
+            "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
+        }
+    },
+    "processing": true,
+    "serverSide": true,
+    "searching": false,
+    "info": true,
+    "scrollX": false,
+    "stateSave": true,
+    "lenghtMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+    "ajax": {
+        "url": "/DeviceCommand/GetEnrollsList?deviceId=@(ViewBag.DeviceIdGetLogs)",
+        "type": "get"
+    },
+    "columns": [
+        { "data": "EnrollNo", "orderable": false },
+        { "data": "Name", "orderable": false },
+        { "data": "Password", "orderable": false },
+        { "data": "Privileg", "orderable": false },
+        { "data": "Enabled", "orderable": false },
+    ],
+    "order": [[0, "asc"]]
+});
+</script>

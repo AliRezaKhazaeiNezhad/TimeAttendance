@@ -1,0 +1,63 @@
+﻿@model TimeAttendance.Model.SpecialDayModel
+@{
+    Layout = null;
+}
+<link href="~/wwwroot/componenets/persiancalendar/js-persian-cal.css" rel="stylesheet" />
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(x => x.Id)
+
+<div class="form-group col-12">
+    @Html.LabelFor(x => x.SpecialDayGroupingId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.SpecialDayGroupingId, Model.SpecialDayGroupings, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.SpecialDayGroupingId, null, new { @class = "validation" })
+</div>
+<div class="form-group col-12">
+    @Html.LabelFor(x => x.TypeId, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.DropDownListFor(x => x.TypeId, Model.TypeList, new { @class = "form-control", onchange = "ChangeHolidayType(this)" })
+    @Html.ValidationMessageFor(x => x.TypeId, null, new { @class = "validation" })
+</div>
+
+@*<div class="form-group col-12" id="divWorkProgramId" style="display:none">
+    @Html.LabelFor(x => x.WorkProgramId, new { @class = "pull-right" })
+    @Html.DropDownListFor(x => x.WorkProgramId, Model.WorkPrograms, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.WorkProgramId, null, new { @class = "validation" })
+</div>*@
+
+
+<div class="form-group col-12">
+    @Html.LabelFor(x => x.Title, new { @class = "pull-right" })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", MaxLength = "75" })
+    @Html.ValidationMessageFor(x => x.Title, null, new { @class = "validation" })
+</div>
+<div class="form-group col-12">
+    @Html.LabelFor(x => x.StartDate, new { @class = "pull-right " })<label class="required">*</label>
+    @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control", MaxLength = "10" })
+    @Html.ValidationMessageFor(x => x.StartDate, null, new { @class = "validation" })
+</div>
+<div class="form-group col-12" id="divEndDate" style="display:none">
+    @Html.LabelFor(x => x.EndDate, new { @class = "pull-right " })
+    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control", MaxLength = "10" })
+    @Html.ValidationMessageFor(x => x.EndDate, null, new { @class = "validation" })
+</div>
+
+
+<div class="form-group col-12 col-md-6 duration" style="display:none">
+    @Html.LabelFor(x => x.DelayEnterance, new { @class = "pull-right " })
+    @Html.TextBoxFor(x => x.DelayEnterance, new { @class = "form-control numeric", MaxLength = "3" })
+    @Html.ValidationMessageFor(x => x.DelayEnterance, null, new { @class = "validation" })
+</div>
+<div class="form-group col-12 col-md-6 duration" style="display:none">
+    @Html.LabelFor(x => x.DelayExit, new { @class = "pull-right " })
+    @Html.TextBoxFor(x => x.DelayExit, new { @class = "form-control numeric", MaxLength = "3" })
+    @Html.ValidationMessageFor(x => x.DelayExit, null, new { @class = "validation" })
+</div>
+
+
+<button type="submit" onclick="AddLoading()" class="btn btn-success btn-sm pull-left">ثبت / ویرایش</button>
+
+<script src="~/wwwroot/componenets/persiancalendar/js-persian-cal.min.js"></script>
+<script type="text/javascript">
+    var objCal1 = new AMIB.persianCalendar('StartDate');
+    var objCal2 = new AMIB.persianCalendar('EndDate');
+</script>

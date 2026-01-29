@@ -1,0 +1,15 @@
+﻿@using Stimulsoft.Report.Mvc
+@{
+    Layout = null;
+}
+
+@Html.Stimulsoft().StiMvcViewer(new StiMvcViewerOptions()
+    {
+        Theme = StiTheme.Office2003,
+        ActionGetReportSnapshot = "SoftwareUserNoLayoutReport",
+        ActionViewerEvent = "ViewerEvent",
+        ShowButtonSave = false,
+        ShowButtonPrint = false,
+        ShowButtonZoom = false,
+        ShowButtonBookmarks = false,
+    })

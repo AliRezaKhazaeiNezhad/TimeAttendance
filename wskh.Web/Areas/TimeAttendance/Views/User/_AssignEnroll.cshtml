@@ -1,0 +1,95 @@
+﻿@{
+    string userId = ViewBag.AssignUserId;
+    var _finderDeviceService = DependencyResolver.Current.GetService<wskh.Service.IFingerDeviceService>();
+    var _enrollService = DependencyResolver.Current.GetService<wskh.Service.IEnrollService>();
+
+    var deviceList = _finderDeviceService.GetList;
+    var enrollList = _enrollService.GetList;
+
+}
+
+<br />
+
+<input type="text" name="CurrentUserId" id="CurrentUserId" value="@(userId)" style="display:none"/>
+
+@foreach (var device in deviceList)
+{
+
+    <div class="panel-group">
+        <div class="col-12 pull-right">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-headingDanger" onclick="ShowPanel('@device.Id@device.DeviceInnerId')">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse">
+                         دستگاه : @device.Title
+                        </a>
+                    </h4>
+                </div>
+                <div id="@device.Id@device.DeviceInnerId" class="panel-collapse collapse panel-bodyDanger">
+                    <div class="container">
+                        <table class="table table-striped table-condensed table-bordered no-margin dataTable no-footer">
+                            <tr>
+                                <th>
+                                    کد سخت افزار
+                                </th>
+                                <th>
+                                    نام کاربر سخت افزار
+                                </th>
+                                <th>
+                                    کاربر نرم افزار
+                                </th>
+                                <th>
+                                    انتخاب
+                                </th>
+                            </tr>
+                            @foreach (var enroll in enrollList.Where(x => x.FingerDeviceId == device.Id))
+                            {
+                                if (enroll.UserId != null && enroll.UserId == userId)
+                                {
+                                    <tr class="btn-info">
+                                        <td>@(enroll.EnrollNo)</td>
+                                        <td>@(enroll.Name)</td>
+                                        <td>@(enroll.UserId != null ? $"{enroll.User.FirstName} {enroll.User.Lastname}" : "-")</td>
+                                        <td>
+                                            <input type="checkbox" name="enrollId" value="@(enroll.Id)" checked onclick="AssignEnrollToUser(@(enroll.Id))" />
+                                        </td>
+
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@(enroll.EnrollNo)</td>
+                                        <td>@(enroll.Name)</td>
+                                        <td>@(enroll.UserId != null ? $"{enroll.User.FirstName} {enroll.User.Lastname}" : "-")</td>
+                                        <td>
+                                            @if (enroll.UserId != null && enroll.UserId != userId)
+                                            {
+                                                <input type="checkbox" name="enrollId" value="" disabled />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="enrollId" value="@(enroll.Id)" onclick="AssignEnrollToUser(@(enroll.Id))" />
+                                            }
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+<script>
+    function ShowPanel($id) {
+        $("#" + $id).slideToggle();
+    }
+</script>

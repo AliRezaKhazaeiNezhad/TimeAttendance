@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C625200F-D801-4358-A14D-66A0C2DF3491}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TimeAttendance.Service</RootNamespace>
+    <AssemblyName>TimeAttendance.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalendarDayService.cs" />
+    <Compile Include="CommandService.cs" />
+    <Compile Include="AnalyzedReportService.cs" />
+    <Compile Include="IAnalyzedReportService.cs" />
+    <Compile Include="ICommandService.cs" />
+    <Compile Include="IEnrollService.cs" />
+    <Compile Include="ILogService.cs" />
+    <Compile Include="IReportDayService.cs" />
+    <Compile Include="ITicketService.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="TicketService.cs" />
+    <Compile Include="IRequestRuleDetailService.cs" />
+    <Compile Include="IRequestRuleService.cs" />
+    <Compile Include="RequestRuleDetailService.cs" />
+    <Compile Include="RequestRuleService.cs" />
+    <Compile Include="IOrganizationInformationService.cs" />
+    <Compile Include="LeaveTypeService.cs" />
+    <Compile Include="OrganizationInformationService.cs" />
+    <Compile Include="IAboutSoftwareService.cs" />
+    <Compile Include="ILeaveTypeService.cs" />
+    <Compile Include="IRequestService.cs" />
+    <Compile Include="AboutSoftwareService.cs" />
+    <Compile Include="RequestService.cs" />
+    <Compile Include="IUserGroupCalendareService.cs" />
+    <Compile Include="UserGroupCalendareService.cs" />
+    <Compile Include="DeviceWorkCodeService.cs" />
+    <Compile Include="IDeviceWorkCodeService.cs" />
+    <Compile Include="IFingerDeviceService.cs" />
+    <Compile Include="IPatchHistoryService.cs" />
+    <Compile Include="ReportDayService.cs" />
+    <Compile Include="PatchHistoryService.cs" />
+    <Compile Include="DeviceCardService.cs" />
+    <Compile Include="ICalendarDayDayService.cs" />
+    <Compile Include="ICalendarService.cs" />
+    <Compile Include="IDeviceCardService.cs" />
+    <Compile Include="ISpecialDayGroupingService.cs" />
+    <Compile Include="ISpecialDayService.cs" />
+    <Compile Include="CalendarService.cs" />
+    <Compile Include="EnrollService.cs" />
+    <Compile Include="LogService.cs" />
+    <Compile Include="SpecialDayGroupingService.cs" />
+    <Compile Include="SpecialDayService.cs" />
+    <Compile Include="IRawEnrollService.cs" />
+    <Compile Include="IRawLogService.cs" />
+    <Compile Include="IWorkProgramDayService.cs" />
+    <Compile Include="IWorkProgramService.cs" />
+    <Compile Include="IWorkProgramTimeService.cs" />
+    <Compile Include="FingerDeviceService.cs" />
+    <Compile Include="WorkProgramDayService.cs" />
+    <Compile Include="WorkProgramTimeService.cs" />
+    <Compile Include="WorkProgramService.cs" />
+    <Compile Include="RawLogService.cs" />
+    <Compile Include="RawEnrollService.cs" />
+    <Compile Include="IUserGroupService.cs" />
+    <Compile Include="UserGroupService.cs" />
+    <Compile Include="IOrganizationBranchService.cs" />
+    <Compile Include="IOrganizationLevelService.cs" />
+    <Compile Include="OrganizationLevelService.cs" />
+    <Compile Include="OrganizationBranchService.cs" />
+    <Compile Include="EmploymentTypeService.cs" />
+    <Compile Include="EducationLevelService.cs" />
+    <Compile Include="IEducationLevelService.cs" />
+    <Compile Include="IEmploymentTypeService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\wskh.Core\wskh.Core.csproj">
+      <Project>{34bebc71-46a7-47f2-9416-dbdd8f2ac266}</Project>
+      <Name>wskh.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\wskh.Data\wskh.Data.csproj">
+      <Project>{2278611a-c485-40da-af04-5c71c57874f1}</Project>
+      <Name>wskh.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Basic\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+</Project>

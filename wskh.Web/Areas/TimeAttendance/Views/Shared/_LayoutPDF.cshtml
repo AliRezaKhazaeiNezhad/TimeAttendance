@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>@(ViewBag.Title)</title>
+    <link rel="shortcut icon" href="~/wwwroot/dashboard/img/128.png" />
+
+
+    <link href="~/wwwroot/dashboard/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/wwwroot/dashboard/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/wwwroot/dashboard/FarsiFont/FarsiFonts.css" rel="stylesheet" />
+    <script src="~/wwwroot/dashboard/plugins/jquery/jquery.min.js"></script>
+    <script src="~/wwwroot/dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    @{
+        var _organizationInformationService = DependencyResolver.Current.GetService<wskh.Service.IOrganizationInformationService>();
+        var entity = _organizationInformationService.GetList.FirstOrDefault();
+    }
+
+    <style>
+        #software-name {
+            float: right !important;
+            font-weight: bold !important;
+            font-size: 18px !important;
+        }
+
+        #logo {
+            height: 40px !important;
+            left: 40px;
+            position: relative;
+        }
+
+        #company-name {
+            font-size: 14px !important;
+            padding-left: 15px !important;
+            top: 10px !important;
+            position: relative;
+            float: left !important;
+        }
+
+
+        .report-table thead tr:last-child th {
+            border-bottom: 10px solid #6378a0 !important;
+        }
+
+        .report-table th {
+            font-size: 10px !important;
+        }
+
+            .report-table th.gray {
+                background-color: #ebeedf;
+                padding-bottom: 5px;
+            }
+
+        .report-table {
+            margin-top: 10px !important;
+            border: 2px solid #acbee1;
+        }
+
+        .second-table thead tr th {
+            border: 0px solid transparent !important;
+        }
+
+        .hide-margin {
+            margin-bottom: 0px !important;
+        }
+
+        .second-table thead tr th {
+            vertical-align: middle !important;
+            padding-top: -10px !important;
+        }
+
+        .rtl {
+            direction: rtl !important;
+            float: right !important;
+        }
+
+        .custome-td {
+            text-align: center !important;
+            font-size: 11px !important;
+            font-weight: unset !important;
+            padding: 2px !important;
+        }
+
+        td, th, span, td span, thead {
+            font-family: Farsi !important;
+            font-size: 10px !important;
+            text-align: center;
+        }
+    </style>
+
+
+
+</head>
+
+<body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md sidemenu-container-reversed header-white white-sidebar-color logo-indigo" style="overflow-x:hidden">
+
+    <div id="header" class="breakhere">
+
+        <div class="row">
+            <div class="col-4 pull-right">
+                <span id="software-name">
+                    سامانه هوشمند حضور و غیاب برتر اندیشان
+                </span>
+            </div>
+            <div class="col-7 pull-right">
+                <span id="company-name" class="text text-info">
+                    @(entity.Title)
+                </span>
+            </div>
+            <div class="col-1 pull-right">
+                <img src="@(entity.LogoPath)" id="logo" alt="تصویر سازمان" />
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 pull-right">
+                <table class="table table-striped report-table">
+                    <thead>
+                        <tr>
+                            <th class="gray w30" style="text-align:right !important;">
+                                @(Html.Raw(ViewBag.ReportTitle))
+                            </th>
+                            <th class="gray w30" style="text-align:left !important;">
+                                تاریخ ارایه گزارش:
+                                <u>
+                                    @(wskh.WebEssentials.DateAndTime.DateTimeHelper.TopersianDate(DateTime.Now))
+                                </u>
+                            </th>
+                            <th class="gray w40" style="text-align:left !important;width:40% !important;">
+                                کاربر درخواست دهنده:
+                                <u>
+                                    @(TimeAttendance.Web.Helper.UserHelper.FullInformation(TimeAttendance.Web.Helper.UserHelper.CurrentUserId()))
+                                </u>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+
+
+
+    @RenderBody()
+
+
+
+</body>
+</html>

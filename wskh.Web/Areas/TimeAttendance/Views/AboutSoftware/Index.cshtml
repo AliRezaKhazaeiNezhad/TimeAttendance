@@ -1,0 +1,66 @@
+﻿@model TimeAttendance.Model.OrganizationInformationModel
+@{
+    ViewBag.Title = "تنظیمات | درباره نرم افزار";
+    Layout = "~/Areas/TimeAttendance/Views/Shared/_Layout.cshtml";
+
+    var service = DependencyResolver.Current.GetService<wskh.Service.IAboutSoftwareService>();
+    var entityList = service.GetList;
+}
+@Html.Partial("_AccessControll")
+
+<link href="~/wwwroot/componenets/datatableajax/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/wwwroot/componenets/global/global.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card card-topline-red">
+            <div class="card-head">
+                <header>درباره نرم افزار</header>
+            </div>
+            <div class="card-body " style="text-align: justify;direction: rtl;line-height: 42px;padding: 40px;font-size: 18px;">
+
+                <table class="table  table-striped table-condensed table-bordered no-margin">
+                    <thead>
+                        <tr>
+                            <th style="width:10%">تاریخ  ارایه</th>
+                            <th style="width:20%">ورژن</th>
+                            <th>امکانات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (entityList == null || entityList.Count() <= 0)
+                        {
+                            <tr>
+                                <td colspan="3">داده ای ثبت نشده است</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in entityList)
+                            {
+                                <tr>
+                                    <td>@(wskh.WebEssentials.DateAndTime.DateTimeHelper.TopersianDate(item.PublishDateTime.Date))</td>
+                                    <td>@(item.Version)</td>
+                                    <td>@(Html.Raw(item.Description.Replace("###", "<br />")))</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/wwwroot/componenets/global/global.js"></script>
+}

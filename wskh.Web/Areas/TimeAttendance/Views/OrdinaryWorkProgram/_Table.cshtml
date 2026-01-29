@@ -1,0 +1,227 @@
+﻿@{
+    Layout = null;
+    var model = (TimeAttendance.Model.OrdinaryWorkProgramModel)Session["OrdinaryWorkProgramModel"];
+}
+
+<br />
+
+
+<table class="table table-striped custable">
+    <thead>
+        <tr>
+            <th style="width:100px !important;">
+                @if (model.WorkProgramType == 3)
+                {
+                    <span>شماره روز</span>
+                }
+                else
+                {
+                    <span>نام روز</span>
+                }
+            </th>
+            <th style="max-width:150px">
+                نوع روز
+            </th>
+            @if (model.WorkProgramType == 2)
+            {
+                <th>
+                    ساعت موظفی روزانه
+                </th>
+            }
+            else
+            {
+                <th>
+                    ساعت کارکرد
+                </th>
+            }
+            @if (model.WorkProgramType == 2)
+            {
+                <th>
+                    تردد در دو تاریخ
+                </th>
+            }
+            @if (model.WorkProgramType != 2)
+            {
+                <th>
+                    مدت استراحت
+                </th>
+                <th>
+                    اضافه کار اول وقت
+                </th>
+                <th>
+                    اضافه کار آخر وقت
+                </th>
+            }
+            <th>
+                عملیات
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (model.OrdinaryWorkProgramDayModels.Count() == 0)
+        {
+            <tr>
+                @if (model.WorkProgramType != 2)
+                {
+                    <td colspan="7">
+                        داده ای موجود نیست
+                    </td>
+                }
+                else
+                {
+                    <td colspan="4">
+                        داده ای موجود نیست
+                    </td>
+                }
+            </tr>
+        }
+        else
+        {
+            foreach (var day in model.OrdinaryWorkProgramDayModels)
+            {
+                <tr class="@(TimeAttendance.Web.Helper.CSSHelper.GetDayTypeColor(day))">
+                    <td>
+                        <div class="IndexNumber" style="display:@(model.WorkProgramType == 3 ? Html.Raw("block") : Html.Raw("none"))">
+                            @(day.DayIndex)
+                        </div>
+                        <div class="DayNumber" value style="display:@(model.WorkProgramType == 1 ? Html.Raw("block") : Html.Raw("none"))">
+                            @(wskh.WebEssentials.DateAndTime.DateTimeHelper.GetDayName(day.DayIndex - 1))
+                        </div>
+                        <div class="DayNumber" value style="display:@(model.WorkProgramType == 2 ? Html.Raw("block") : Html.Raw("none"))">
+                            @(Html.Raw("-"))
+                        </div>
+                    </td>
+                    <td>
+                        @if (day.DayIndex == model.OrdinaryWorkProgramDayModels.Count())
+                        {
+                            <select class="form-control customeInTable" onchange="ChangeWorkTypeCol(@(day.DayIndex), this)">
+
+                                <option value="0" style="color:black" @(day.WorkTypeId == 0 ? Html.Raw("Selected") : Html.Raw(""))>
+                                    روزکاری
+                                </option>
+                                @if (model.WorkProgramType == 3 || model.WorkProgramType == 1)
+                                {
+                                    <option value="2" style="background-color:orange" @(day.WorkTypeId == 2 ? Html.Raw("Selected") : Html.Raw(""))>
+                                        استراحت
+                                    </option>
+                                }
+                                @if (model.WorkProgramType == 1)
+                                {
+                                    <option value="1" style="background-color:#e67474" @(day.WorkTypeId == 1 ? Html.Raw("Selected") : Html.Raw(""))>
+                                        تعطیلی آخر هفته
+                                    </option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            switch (day.WorkTypeId)
+                            {
+                                case 0:
+                                    <span class="">روزکاری</span>
+                                    break;
+                                case 2:
+                                    <span class="">استراحت</span>
+                                    break;
+                                case 1:
+                                    <span class="">تعطیلی آخر هفته</span>
+                                    break;
+                                default:
+                                    <span class="">-</span>
+                                    break;
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.Calculate(day.OrdinaryWorkProgramTimeModels, wskh.Core.Enumerator.TimeType.WorkTime))
+                    </td>
+                    @if (model.WorkProgramType == 2)
+                    {
+                        <td>
+                            @(model.MoreThan24Houres == true ? Html.Raw("بلی") : Html.Raw("خبر"))
+                        </td>
+                    }
+                    @if (model.WorkProgramType != 2)
+                    {
+                        <td>
+                            @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.Calculate(day.OrdinaryWorkProgramTimeModels, wskh.Core.Enumerator.TimeType.RestTime))
+                        </td>
+                        <td>
+                            @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.Calculate(day.OrdinaryWorkProgramTimeModels, wskh.Core.Enumerator.TimeType.OverTimeStart))
+                        </td>
+                        <td>
+                            @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.Calculate(day.OrdinaryWorkProgramTimeModels, wskh.Core.Enumerator.TimeType.OverTimeEnd))
+                        </td>
+                    }
+
+                    <td>
+                        @if (model.WorkProgramType != 2)
+                        {
+                            <i class="fa fa-plus-circle pointer CrudFamily" onclick="EditCol(@(day.DayIndex), this)" style="color:blue"></i>
+                            <i class="fa fa-refresh pointer CrudFamily" onclick="RefreshCol(@(day.DayIndex))"></i>
+                            if (day.DayIndex == model.OrdinaryWorkProgramDayModels.Count())
+                            {
+                                <i class="fa fa-copy pointer CrudFamily" onclick="CoppyCol(@(day.DayIndex))"></i>
+                                <i class="fa fa-trash pointer CrudFamily" onclick="DeleteCol(@(day.DayIndex))"></i>
+                            }
+                        }
+                        else
+                        {
+                            <i class="fa fa-plus-circle pointer CrudFamily" onclick="EditCol(@(day.DayIndex), this)" style="color:blue"></i>
+                            <i class="fa fa-refresh pointer CrudFamily" onclick="RefreshCol(@(day.DayIndex))"></i>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        @if (model.WorkProgramType != 2)
+        {
+            <tr>
+                <th>
+                    افزودن روز
+                </th>
+                <th>
+                    <button type="button" class="btn btn-success btn-sm" id="AddDay" onclick="AddingDay()" @(model.WorkProgramType == -1 ? Html.Raw("disabled") : Html.Raw(""))>
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </th>
+                @if (model.WorkProgramType != 2)
+                {
+                    <th>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.DuratinAllow(model, wskh.Core.Enumerator.TimeType.WorkTime))
+                    </th>
+                    <th>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.DuratinAllow(model, wskh.Core.Enumerator.TimeType.RestTime))
+                    </th>
+                    <th>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.DuratinAllow(model, wskh.Core.Enumerator.TimeType.OverTimeStart))
+                    </th>
+                    <th>
+                        @(TimeAttendance.WebEssentials.DateAndTime.TimeHelper.DuratinAllow(model, wskh.Core.Enumerator.TimeType.OverTimeEnd))
+                    </th>
+                    <th>
+                        -
+                    </th>
+                }
+                else
+                {
+                    <th colspan="2" disabled>
+                    </th>
+                }
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th colspan="7">
+                    -
+                </th>
+            </tr>
+        }
+
+    </tfoot>
+</table>
+

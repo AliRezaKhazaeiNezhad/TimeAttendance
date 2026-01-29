@@ -1,0 +1,47 @@
+﻿@{
+    var CurrentUserRoleType = TimeAttendance.Web.Helper.UserHelper.CurrentUser().UserRoleType;
+
+    var _deviceService = DependencyResolver.Current.GetService<wskh.Service.IFingerDeviceService>();
+    var deviceList = _deviceService.GetList;
+
+    int deviceId = Session["DeviceId"] == null ? 0 : int.Parse(Session["DeviceId"].ToString());
+}
+
+
+
+
+<div class="form-group w100 col-12 col-md-2">
+    <label class="pull-right">تاریخ شروع</label>
+    <input type="text" name="stDate" id="stDate" class="form-control" value="@(Session["STDate"])" />
+</div>
+<div class="form-group w100 col-12 col-md-2">
+    <label class="pull-right">تاریخ پایان</label>
+    <input type="text" name="edDate" id="edDate" class="form-control"  value="@(Session["EDDate"])" />
+</div>
+@if (CurrentUserRoleType.Contains("610064006D0069006E00n") || CurrentUserRoleType.Contains("640065006D006F00o"))
+{
+    <div class="form-group w100 col-12 col-md-2">
+        <label class="pull-right">دستگاه</label>
+        <select class="form-control w100" name="deviceId" id="deviceId" onchange="GetEnrollList(this)">
+            @if (deviceList != null && deviceList.Count() > 0)
+            {
+                <option value="0" @(deviceId == 0 ? Html.Raw("selected") : Html.Raw(""))>تمامی واحدها</option>
+                foreach (var device in deviceList)
+                {
+                    <option value="@(device.Id)" @(device.Id == ViewBag.DeviceId ? Html.Raw("selected") : Html.Raw(""))>@(device.Title)</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group w100 col-12 col-md-2" id="enrollDropHTML">
+        @Html.Action("EnrollDropDown", new { deviceId = deviceId })
+    </div>
+}
+
+<div class="form-group w100 col-12 col-md-1">
+    <br />
+    <label class="pull-right"></label>
+    <button class="btn btn-info w100" type="button" style="margin-top:5px !important;" onclick="SearchBTN()">
+        جستجو
+    </button>
+</div>
